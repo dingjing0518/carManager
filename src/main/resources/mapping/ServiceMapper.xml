@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jinshi.mapper.ServiceMapper">
+  <resultMap id="BaseResultMap" type="com.jinshi.entity.Service">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="service_name" jdbcType="VARCHAR" property="serviceName" />
+    <result column="use_term" jdbcType="VARCHAR" property="useTerm" />
+    <result column="use_times" jdbcType="VARCHAR" property="useTimes" />
+    <result column="describtion" jdbcType="VARCHAR" property="describtion" />
+    <result column="front_end_display" jdbcType="VARCHAR" property="frontEndDisplay" />
+    <result column="include_weekend" jdbcType="VARCHAR" property="includeWeekend" />
+    <result column="include_holiday" jdbcType="VARCHAR" property="includeHoliday" />
+    <result column="money" jdbcType="VARCHAR" property="money" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, service_name, use_term,use_times, describtion, front_end_display, include_weekend, include_holiday,
+    money
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from service
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from service
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jinshi.entity.Service">
+    insert into service (id, service_name, use_term, use_times,
+      describtion, front_end_display, include_weekend, 
+      include_holiday, money)
+    values (#{id,jdbcType=INTEGER}, #{serviceName,jdbcType=VARCHAR}, #{useTerm,jdbcType=VARCHAR}, #{useTimes,jdbcType=VARCHAR},
+      #{describtion,jdbcType=VARCHAR}, #{frontEndDisplay,jdbcType=VARCHAR}, #{includeWeekend,jdbcType=VARCHAR},
+      #{includeHoliday,jdbcType=VARCHAR}, #{money,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jinshi.entity.Service">
+    insert into service
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="serviceName != null">
+        service_name,
+      </if>
+      <if test="useTerm != null">
+        use_term,
+      </if>
+      <if test="describtion != null">
+        describtion,
+      </if>
+      <if test="frontEndDisplay != null">
+        front_end_display,
+      </if>
+      <if test="includeWeekend != null">
+        include_weekend,
+      </if>
+      <if test="includeHoliday != null">
+        include_holiday,
+      </if>
+      <if test="money != null">
+        money,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="serviceName != null">
+        #{serviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="useTerm != null">
+        #{useTerm,jdbcType=VARCHAR},
+      </if>
+      <if test="describtion != null">
+        #{describtion,jdbcType=VARCHAR},
+      </if>
+      <if test="frontEndDisplay != null">
+        #{frontEndDisplay,jdbcType=VARCHAR},
+      </if>
+      <if test="includeWeekend != null">
+        #{includeWeekend,jdbcType=VARCHAR},
+      </if>
+      <if test="includeHoliday != null">
+        #{includeHoliday,jdbcType=VARCHAR},
+      </if>
+      <if test="money != null">
+        #{money,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jinshi.entity.Service">
+    update service
+    <set>
+      <if test="serviceName != null">
+        service_name = #{serviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="useTerm != null">
+        use_term = #{useTerm,jdbcType=VARCHAR},
+      </if>
+      <if test="describtion != null">
+        describtion = #{describtion,jdbcType=VARCHAR},
+      </if>
+      <if test="frontEndDisplay != null">
+        front_end_display = #{frontEndDisplay,jdbcType=VARCHAR},
+      </if>
+      <if test="includeWeekend != null">
+        include_weekend = #{includeWeekend,jdbcType=VARCHAR},
+      </if>
+      <if test="includeHoliday != null">
+        include_holiday = #{includeHoliday,jdbcType=VARCHAR},
+      </if>
+      <if test="money != null">
+        money = #{money,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jinshi.entity.Service">
+    update service
+    set service_name = #{serviceName,jdbcType=VARCHAR},
+      use_term = #{useTerm,jdbcType=VARCHAR},
+      use_times = #{useTimes,jdbcType=VARCHAR},
+      describtion = #{describtion,jdbcType=VARCHAR},
+      front_end_display = #{frontEndDisplay,jdbcType=VARCHAR},
+      include_weekend = #{includeWeekend,jdbcType=VARCHAR},
+      include_holiday = #{includeHoliday,jdbcType=VARCHAR},
+      money = #{money,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectServcieForPage" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select * from service LIMIT #{pageNum,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+  </select>
+  <select id="getServiceTotalRecords" resultType="java.lang.Integer">
+    select count(*) from service
+  </select>
+  <select id="searchService" resultMap="BaseResultMap">
+    SELECT * FROM service
+    WHERE CONCAT(IFNULL(`id`,''),IFNULL(`service_name`,''),IFNULL(`use_term`,''),IFNULL(`use_times`,''),IFNULL(`describtion`,''),
+    IFNULL(`front_end_display`,''),IFNULL(`include_weekend`,''),IFNULL(`include_holiday`,''),
+    IFNULL(`money`,''))
+     LIKE "%"#{keyWord}"%" LIMIT #{pageNum},#{pageSize}
+  </select>
+  <select id="getServiceTotalRecordsSearch" resultType="java.lang.Integer">
+    SELECT count(*) FROM service
+    WHERE CONCAT(IFNULL(`id`,''),IFNULL(`service_name`,''),IFNULL(`use_term`,''),IFNULL(`use_times`,''),IFNULL(`describtion`,''),
+    IFNULL(`front_end_display`,''),IFNULL(`include_weekend`,''),IFNULL(`include_holiday`,''),
+    IFNULL(`money`,''))
+     LIKE "%"#{keyWord}"%"
+  </select>
+  <select id="selectServiceAll" resultMap="BaseResultMap">
+    select * from service
+  </select>
+</mapper>

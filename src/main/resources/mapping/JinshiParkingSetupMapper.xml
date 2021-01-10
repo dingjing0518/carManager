@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jinshi.mapper.JinshiParkingSetupMapper">
+  <resultMap id="BaseResultMap" type="com.jinshi.entity.JinshiParkingSetup">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="jps_park_id" jdbcType="INTEGER" property="jpsParkId" />
+    <result column="jps_agent_id" jdbcType="INTEGER" property="jpsAgentId" />
+    <result column="jps_open_local_interface" jdbcType="INTEGER" property="jpsOpenLocalInterface" />
+    <result column="jps_free_mode" jdbcType="INTEGER" property="jpsFreeMode" />
+    <result column="jps_open_mode" jdbcType="INTEGER" property="jpsOpenMode" />
+    <result column="jps_member_car" jdbcType="INTEGER" property="jpsMemberCar" />
+    <result column="jps_invalid_release" jdbcType="INTEGER" property="jpsInvalidRelease" />
+    <result column="jps_yellow_lincense_allow" jdbcType="INTEGER" property="jpsYellowLincenseAllow" />
+    <result column="jps_allow_negative_car" jdbcType="INTEGER" property="jpsAllowNegativeCar" />
+    <result column="jps_url_new_pc" jdbcType="VARCHAR" property="jpsUrlNewPc" />
+    <result column="jps_url_new_shop_pc" jdbcType="VARCHAR" property="jpsUrlNewShopPc" />
+    <result column="jps_holiday_free" jdbcType="INTEGER" property="jpsHolidayFree" />
+    <result column="jps_holiday" jdbcType="INTEGER" property="jpsHoliday" />
+    <result column="jps_start_time" jdbcType="TIMESTAMP" property="jpsStartTime" />
+    <result column="jps_end_time" jdbcType="TIMESTAMP" property="jpsEndTime" />
+    <result column="jps_tHandle" jdbcType="INTEGER" property="jpsTHandle" />
+    <result column="jps_interval" jdbcType="INTEGER" property="jpsInterval" />
+    <result column="jps_export_confirm" jdbcType="INTEGER" property="jpsExportConfirm" />
+    <result column="jps_import_confirm" jdbcType="INTEGER" property="jpsImportConfirm" />
+    <result column="jps_pay_type" jdbcType="INTEGER" property="jpsPayType" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, jps_park_id, jps_agent_id, jps_open_local_interface, jps_free_mode, jps_open_mode, 
+    jps_member_car, jps_invalid_release, jps_yellow_lincense_allow, jps_allow_negative_car, 
+    jps_url_new_pc, jps_url_new_shop_pc,jps_holiday_free,jps_holiday,jps_start_time,jps_end_time,
+    jps_tHandle,jps_interval,jps_export_confirm,jps_import_confirm,jps_pay_type
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from jinshi_parking_setup
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from jinshi_parking_setup
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jinshi.entity.JinshiParkingSetup">
+    insert into jinshi_parking_setup (id, jps_park_id, jps_agent_id, 
+      jps_open_local_interface, jps_free_mode, jps_open_mode, 
+      jps_member_car, jps_invalid_release, jps_yellow_lincense_allow, 
+      jps_allow_negative_car, jps_url_new_pc, jps_url_new_shop_pc,jps_holiday_free,jps_holiday,
+      jps_start_time,jps_end_time,jps_tHandle,jps_interval,jps_export_confirm,jps_import_confirm,jps_pay_type
+      )
+    values (#{id,jdbcType=INTEGER}, #{jpsParkId,jdbcType=INTEGER}, #{jpsAgentId,jdbcType=INTEGER}, 
+      #{jpsOpenLocalInterface,jdbcType=INTEGER}, #{jpsFreeMode,jdbcType=INTEGER}, #{jpsOpenMode,jdbcType=INTEGER}, 
+      #{jpsMemberCar,jdbcType=INTEGER}, #{jpsInvalidRelease,jdbcType=INTEGER}, #{jpsYellowLincenseAllow,jdbcType=INTEGER}, 
+      #{jpsAllowNegativeCar,jdbcType=INTEGER}, #{jpsUrlNewPc,jdbcType=VARCHAR}, #{jpsUrlNewShopPc,jdbcType=VARCHAR},
+      #{jpsHolidayFree,jdbcType=INTEGER}, #{jpsHoliday,jdbcType=INTEGER},
+      #{jpsStartTime,jdbcType=TIMESTAMP}, #{jpsEndTime,jdbcType=TIMESTAMP}, #{jpsTHandle,jdbcType=INTEGER},
+      #{jpsInterval,jdbcType=INTEGER},#{jpsExportConfirm,jdbcType=INTEGER},#{jpsImportConfirm,jdbcType=INTEGER},#{jpsPayType,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.jinshi.entity.JinshiParkingSetup">
+    insert into jinshi_parking_setup
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="jpsParkId != null">
+        jps_park_id,
+      </if>
+      <if test="jpsAgentId != null">
+        jps_agent_id,
+      </if>
+      <if test="jpsOpenLocalInterface != null">
+        jps_open_local_interface,
+      </if>
+      <if test="jpsFreeMode != null">
+        jps_free_mode,
+      </if>
+      <if test="jpsOpenMode != null">
+        jps_open_mode,
+      </if>
+      <if test="jpsMemberCar != null">
+        jps_member_car,
+      </if>
+      <if test="jpsInvalidRelease != null">
+        jps_invalid_release,
+      </if>
+      <if test="jpsYellowLincenseAllow != null">
+        jps_yellow_lincense_allow,
+      </if>
+      <if test="jpsAllowNegativeCar != null">
+        jps_allow_negative_car,
+      </if>
+      <if test="jpsUrlNewPc != null">
+        jps_url_new_pc,
+      </if>
+      <if test="jpsUrlNewShopPc != null">
+        jps_url_new_shop_pc,
+      </if>
+      <if test="jpsHolidayFree != null">
+        jps_holiday_free,
+      </if>
+      <if test="jpsHoliday != null">
+        jps_holiday,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="jpsParkId != null">
+        #{jpsParkId,jdbcType=INTEGER},
+      </if>
+      <if test="jpsAgentId != null">
+        #{jpsAgentId,jdbcType=INTEGER},
+      </if>
+      <if test="jpsOpenLocalInterface != null">
+        #{jpsOpenLocalInterface,jdbcType=INTEGER},
+      </if>
+      <if test="jpsFreeMode != null">
+        #{jpsFreeMode,jdbcType=INTEGER},
+      </if>
+      <if test="jpsOpenMode != null">
+        #{jpsOpenMode,jdbcType=INTEGER},
+      </if>
+      <if test="jpsMemberCar != null">
+        #{jpsMemberCar,jdbcType=INTEGER},
+      </if>
+      <if test="jpsInvalidRelease != null">
+        #{jpsInvalidRelease,jdbcType=INTEGER},
+      </if>
+      <if test="jpsYellowLincenseAllow != null">
+        #{jpsYellowLincenseAllow,jdbcType=INTEGER},
+      </if>
+      <if test="jpsAllowNegativeCar != null">
+        #{jpsAllowNegativeCar,jdbcType=INTEGER},
+      </if>
+      <if test="jpsUrlNewPc != null">
+        #{jpsUrlNewPc,jdbcType=VARCHAR},
+      </if>
+      <if test="jpsUrlNewShopPc != null">
+        #{jpsUrlNewShopPc,jdbcType=VARCHAR},
+      </if>
+      <if test="jpsHolidayFree != null">
+        #{jpsHolidayFree,jdbcType=INTEGER},
+      </if>
+      <if test="jpsHoliday != null">
+        #{jpsHoliday,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jinshi.entity.JinshiParkingSetup">
+    update jinshi_parking_setup
+    <set>
+      <if test="jpsParkId != null">
+        jps_park_id = #{jpsParkId,jdbcType=INTEGER},
+      </if>
+      <if test="jpsAgentId != null">
+        jps_agent_id = #{jpsAgentId,jdbcType=INTEGER},
+      </if>
+      <if test="jpsOpenLocalInterface != null">
+        jps_open_local_interface = #{jpsOpenLocalInterface,jdbcType=INTEGER},
+      </if>
+      <if test="jpsFreeMode != null">
+        jps_free_mode = #{jpsFreeMode,jdbcType=INTEGER},
+      </if>
+      <if test="jpsOpenMode != null">
+        jps_open_mode = #{jpsOpenMode,jdbcType=INTEGER},
+      </if>
+      <if test="jpsMemberCar != null">
+        jps_member_car = #{jpsMemberCar,jdbcType=INTEGER},
+      </if>
+      <if test="jpsInvalidRelease != null">
+        jps_invalid_release = #{jpsInvalidRelease,jdbcType=INTEGER},
+      </if>
+      <if test="jpsYellowLincenseAllow != null">
+        jps_yellow_lincense_allow = #{jpsYellowLincenseAllow,jdbcType=INTEGER},
+      </if>
+      <if test="jpsAllowNegativeCar != null">
+        jps_allow_negative_car = #{jpsAllowNegativeCar,jdbcType=INTEGER},
+      </if>
+      <if test="jpsUrlNewPc != null">
+        jps_url_new_pc = #{jpsUrlNewPc,jdbcType=VARCHAR},
+      </if>
+      <if test="jpsUrlNewShopPc != null">
+        jps_url_new_shop_pc = #{jpsUrlNewShopPc,jdbcType=VARCHAR},
+      </if>
+      <if test="jpsHolidayFree != null">
+        jps_holiday_free = #{jpsHolidayFree,jdbcType=INTEGER},
+      </if>
+      <if test="jpsHoliday != null">
+        jps_holiday = #{jpsHoliday,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jinshi.entity.JinshiParkingSetup">
+    update jinshi_parking_setup
+    set jps_park_id = #{jpsParkId,jdbcType=INTEGER},
+      jps_agent_id = #{jpsAgentId,jdbcType=INTEGER},
+      jps_open_local_interface = #{jpsOpenLocalInterface,jdbcType=INTEGER},
+      jps_free_mode = #{jpsFreeMode,jdbcType=INTEGER},
+      jps_open_mode = #{jpsOpenMode,jdbcType=INTEGER},
+      jps_member_car = #{jpsMemberCar,jdbcType=INTEGER},
+      jps_invalid_release = #{jpsInvalidRelease,jdbcType=INTEGER},
+      jps_yellow_lincense_allow = #{jpsYellowLincenseAllow,jdbcType=INTEGER},
+      jps_allow_negative_car = #{jpsAllowNegativeCar,jdbcType=INTEGER},
+      jps_url_new_pc = #{jpsUrlNewPc,jdbcType=VARCHAR},
+      jps_url_new_shop_pc = #{jpsUrlNewShopPc,jdbcType=VARCHAR},
+      jps_holiday_free = #{jpsHolidayFree,jdbcType=INTEGER},
+      jps_holiday = #{jpsHoliday,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <update id="updateSetupByParkId" parameterType="com.jinshi.entity.JinshiParkingSetup">
+    update jinshi_parking_setup
+    <set>
+      <if test="jpsAgentId != null">
+        jps_agent_id = #{jpsAgentId,jdbcType=INTEGER},
+      </if>
+      <if test="jpsOpenLocalInterface != null">
+        jps_open_local_interface = #{jpsOpenLocalInterface,jdbcType=INTEGER},
+      </if>
+      <if test="jpsFreeMode != null">
+        jps_free_mode = #{jpsFreeMode,jdbcType=INTEGER},
+      </if>
+      <if test="jpsOpenMode != null">
+        jps_open_mode = #{jpsOpenMode,jdbcType=INTEGER},
+      </if>
+      <if test="jpsMemberCar != null">
+        jps_member_car = #{jpsMemberCar,jdbcType=INTEGER},
+      </if>
+      <if test="jpsInvalidRelease != null">
+        jps_invalid_release = #{jpsInvalidRelease,jdbcType=INTEGER},
+      </if>
+      <if test="jpsYellowLincenseAllow != null">
+        jps_yellow_lincense_allow = #{jpsYellowLincenseAllow,jdbcType=INTEGER},
+      </if>
+      <if test="jpsAllowNegativeCar != null">
+        jps_allow_negative_car = #{jpsAllowNegativeCar,jdbcType=INTEGER},
+      </if>
+      <if test="jpsUrlNewPc != null">
+        jps_url_new_pc = #{jpsUrlNewPc,jdbcType=VARCHAR},
+      </if>
+      <if test="jpsUrlNewShopPc != null">
+        jps_url_new_shop_pc = #{jpsUrlNewShopPc,jdbcType=VARCHAR},
+      </if>
+      <if test="jpsHolidayFree != null">
+        jps_holiday_free = #{jpsHolidayFree,jdbcType=INTEGER},
+      </if>
+      <if test="jpsStartTime != null">
+        jps_start_time = #{jpsStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jpsEndTime != null">
+        jps_end_time = #{jpsEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jpsTHandle != null">
+        jps_tHandle = #{jpsTHandle,jdbcType=INTEGER},
+      </if>
+      <if test="jpsInterval != null">
+        jps_interval = #{jpsInterval,jdbcType=INTEGER},
+      </if>
+      <if test="jpsExportConfirm != null">
+        jps_export_confirm = #{jpsExportConfirm,jdbcType=INTEGER},
+      </if>
+      <if test="jpsImportConfirm != null">
+        jps_import_confirm = #{jpsImportConfirm,jdbcType=INTEGER},
+      </if>
+      <if test="jpsPayType != null">
+        jps_pay_type = #{jpsPayType,jdbcType=INTEGER},
+      </if>
+    </set>
+    where jps_park_id = #{jpsParkId,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectParkSetup" resultMap="BaseResultMap">
+    select * from jinshi_parking_setup
+    where jps_park_id = #{parkId,jdbcType=INTEGER}
+  </select>
+  <select id="selectByAgentId" resultMap="BaseResultMap">
+    select * from jinshi_parking_setup
+    where jps_agent_id = #{id,jdbcType=INTEGER}
+  </select>
+  <update id="updateSetupHoliday" parameterType="com.jinshi.entity.JinshiParkingSetup">
+    update jinshi_parking_setup
+    set jps_holiday = #{type1,jdbcType=INTEGER}
+  </update>
+  <update id="updateOpenMode" parameterType="com.jinshi.entity.JinshiParkingSetup">
+    update jinshi_parking_setup
+    set jps_open_mode = #{jpsOpenMode,jdbcType=INTEGER}
+    where jps_park_id = #{jpsParkId,jdbcType=INTEGER}
+  </update>
+</mapper>

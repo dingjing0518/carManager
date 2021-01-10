@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jinshi.mapper.JinshiCamerasMapper">
+  <resultMap id="BaseResultMap" type="com.jinshi.entity.JinshiCameras">
+    <id column="jc_id" jdbcType="INTEGER" property="jcId" />
+    <result column="jc_name" jdbcType="VARCHAR" property="jcName" />
+    <result column="jc_code" jdbcType="VARCHAR" property="jcCode" />
+    <result column="jc_thandle" jdbcType="VARCHAR" property="jcThandle" />
+    <result column="jc_ip_address" jdbcType="VARCHAR" property="jcIpAddress" />
+    <result column="jc_access" jdbcType="VARCHAR" property="jcAccess" />
+    <result column="jc_license" jdbcType="VARCHAR" property="jcLicense" />
+    <result column="jc_mac" jdbcType="VARCHAR" property="jcMac" />
+    <result column="jc_sort" jdbcType="VARCHAR" property="jcSort" />
+    <result column="jc_createTime" jdbcType="TIMESTAMP" property="jcCreatetime" />
+    <result column="jc_remarks" jdbcType="VARCHAR" property="jcRemarks" />
+    <result column="jc_parking" jdbcType="VARCHAR" property="jcParking" />
+    <result column="jc_agent" jdbcType="VARCHAR" property="jcAgent" />
+    <result column="jc_subnet" jdbcType="VARCHAR" property="jcSubnet" />
+    <result column="jc_gateway" jdbcType="VARCHAR" property="jcGateway" />
+    <result column="jc_dns" jdbcType="VARCHAR" property="jcDns" />
+    <result column="jc_ledscreen_type" jdbcType="VARCHAR" property="jcLedscreenType" />
+    <result column="jc_baud_rate" jdbcType="VARCHAR" property="jcBaudRate" />
+    <result column="jc_data_bits" jdbcType="VARCHAR" property="jcDataBits" />
+    <result column="jc_stop_bits" jdbcType="VARCHAR" property="jcStopBits" />
+    <result column="jc_validation" jdbcType="VARCHAR" property="jcValidation" />
+    <result column="jc_volume" jdbcType="VARCHAR" property="jcVolume" />
+    <result column="jc_cameras_id" jdbcType="VARCHAR" property="jcCamerasId" />
+    <result column="jc_area" jdbcType="VARCHAR" property="jcArea" />
+    <result column="jc_start_time" jdbcType="TIMESTAMP" property="jcStartTime" />
+    <result column="jc_end_time" jdbcType="TIMESTAMP" property="jcEndTime" />
+    <result column="jc_is_car_team" jdbcType="INTEGER" property="jcIsCarTeam" />
+    <result column="jc_is_type" jdbcType="INTEGER" property="jcIsType" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    jc_id, jc_name, jc_code, jc_thandle, jc_ip_address, jc_access, jc_license, jc_mac, 
+    jc_sort, jc_createTime, jc_remarks , jc_parking , jc_agent,jc_subnet,jc_gateway,jc_dns,
+    jc_ledscreen_type,jc_baud_rate,jc_data_bits,jc_stop_bits,jc_validation,jc_volume,jc_cameras_id,jc_area,
+    jc_start_time,jc_end_time,jc_is_car_team,jc_is_type
+  </sql>
+  <select id="selectCameraByParkId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select * from jinshi_cameras where jc_parking = #{jcParking,jdbcType=INTEGER}
+  </select>
+  <select id="selectByIpAddress" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select * from jinshi_cameras where jc_ip_address = #{jcIpAddress,jdbcType=INTEGER}
+  </select>
+  <select id="selectByThandle" parameterType="com.jinshi.entity.JinshiCameras" resultMap="BaseResultMap">
+    select * from jinshi_cameras where jc_thandle = #{jcThandle,jdbcType=VARCHAR} and jc_parking = #{jcParking,jdbcType=VARCHAR}
+  </select>
+  <select id="searchCameras" resultMap="BaseResultMap">
+    SELECT * FROM jinshi_cameras
+    WHERE CONCAT(IFNULL(`jc_id`,''),IFNULL(`jc_name`,''),IFNULL(`jc_code`,''),IFNULL(`jc_thandle`,''),IFNULL(`jc_ip_address`,''),IFNULL(`jc_access`,''),
+    IFNULL(`jc_license`,''),IFNULL(`jc_mac`,''),IFNULL(`jc_sort`,''),IFNULL(`jc_createTime`,''),IFNULL(`jc_remarks`,''),IFNULL(`jc_parking`,''),
+    IFNULL(`jc_agent`,''),IFNULL(`jc_subnet`,''),IFNULL(`jc_gateway`,''),IFNULL(`jc_dns`,''),
+    IFNULL(`jc_ledscreen_type`,''),IFNULL(`jc_baud_rate`,''),IFNULL(`jc_data_bits`,''),IFNULL(`jc_stop_bits`,''),
+    IFNULL(`jc_validation`,''),IFNULL(`jc_volume`,''),IFNULL(`jc_cameras_id`,''),IFNULL(`jc_area`,''))
+    LIKE "%"#{keyWork}"%"
+    LIMIT #{pageNum},#{pageSize}
+  </select>
+  <select id="selectCamerasForPage" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select * from jinshi_cameras where jc_parking = #{jcParking,jdbcType=INTEGER} LIMIT #{pageNum,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+  </select>
+  <select id="getCameraTotalRecords" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    select count(*) from jinshi_cameras where jc_parking = #{parkId,jdbcType=INTEGER}
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select * from jinshi_cameras where jc_id = #{jcId,jdbcType=INTEGER}
+  </select>
+  <select id="selectByParkIdAndJcName" resultMap="BaseResultMap">
+    select * from jinshi_cameras where jc_parking = #{jcParking} and jc_name = #{jcName}
+  </select>
+  <select id="selectCamerasForKS" resultMap="BaseResultMap">
+    select * from jinshi_cameras where jc_parking = 1
+  </select>
+  <select id="selectCamerasForWJ" resultMap="BaseResultMap">
+    select * from jinshi_cameras where jc_parking = 3
+  </select>
+  <select id="selectCamerasForTY" resultMap="BaseResultMap">
+    select * from jinshi_cameras where jc_parking = 27
+  </select>
+
+  <select id="selectByThandleDesc" resultMap="BaseResultMap">
+    select * from jinshi_cameras where jc_parking = #{parkId,jdbcType=VARCHAR} ORDER BY jc_thandle * 1 desc
+  </select>
+
+  <select id="selectByParkIdDesc" resultMap="BaseResultMap">
+    select * from jinshi_cameras where jc_parking = #{parkId,jdbcType=VARCHAR} ORDER BY jc_access
+  </select>
+  <select id="selectCamerasByParkId" resultMap="BaseResultMap">
+    select * from jinshi_cameras where jc_parking = #{parkid,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByParkIdAndtHandle" resultMap="BaseResultMap">
+    select * from jinshi_cameras where jc_parking = #{jcParking} and jc_thandle = #{jcThandle}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from jinshi_cameras
+    where jc_id = #{jcId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jinshi.entity.JinshiCameras">
+    insert into jinshi_cameras (jc_id, jc_name, jc_code, 
+      jc_thandle, jc_ip_address, jc_access, 
+      jc_license, jc_mac, jc_sort, 
+      jc_createTime, jc_remarks , jc_parking , jc_agent,jc_subnet,jc_gateway,jc_dns,
+      jc_ledscreen_type,jc_baud_rate,jc_data_bits,jc_stop_bits,jc_validation,jc_volume,jc_cameras_id,jc_area)
+    values (#{jcId,jdbcType=INTEGER}, #{jcName,jdbcType=VARCHAR}, #{jcCode,jdbcType=VARCHAR}, 
+      #{jcThandle,jdbcType=VARCHAR}, #{jcIpAddress,jdbcType=VARCHAR}, #{jcAccess,jdbcType=VARCHAR}, 
+      #{jcLicense,jdbcType=VARCHAR}, #{jcMac,jdbcType=VARCHAR}, #{jcSort,jdbcType=VARCHAR}, 
+      #{jcCreatetime,jdbcType=TIMESTAMP}, #{jcRemarks,jdbcType=VARCHAR}, #{jcParking,jdbcType=VARCHAR}, #{jcAgent,jdbcType=VARCHAR},
+      #{jcSubnet,jdbcType=VARCHAR},#{jcGateway,jdbcType=VARCHAR},#{jcDns,jdbcType=VARCHAR},
+      #{jcLedscreenType,jdbcType=VARCHAR},#{jcBaudRate,jdbcType=VARCHAR},#{jcDataBits,jdbcType=VARCHAR},
+      #{jcStopBits,jdbcType=VARCHAR},#{jcValidation,jdbcType=VARCHAR},
+      #{jcVolume,jdbcType=VARCHAR},#{jcCamerasId,jdbcType=VARCHAR},#{jcArea,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jinshi.entity.JinshiCameras">
+    insert into jinshi_cameras
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="jcId != null">
+        jc_id,
+      </if>
+      <if test="jcName != null">
+        jc_name,
+      </if>
+      <if test="jcCode != null">
+        jc_code,
+      </if>
+      <if test="jcThandle != null">
+        jc_thandle,
+      </if>
+      <if test="jcIpAddress != null">
+        jc_ip_address,
+      </if>
+      <if test="jcAccess != null">
+        jc_access,
+      </if>
+      <if test="jcLicense != null">
+        jc_license,
+      </if>
+      <if test="jcMac != null">
+        jc_mac,
+      </if>
+      <if test="jcSort != null">
+        jc_sort,
+      </if>
+      <if test="jcCreatetime != null">
+        jc_createTime,
+      </if>
+      <if test="jcRemarks != null">
+        jc_remarks,
+      </if>
+      <if test="jcParking != null">
+        jc_parking,
+      </if>
+      <if test="jcAgent != null">
+        jc_agent,
+      </if>
+      <if test="jcSubnet != null">
+        jc_subnet,
+      </if>
+      <if test="jcGagteway != null">
+        jc_gateway,
+      </if>
+      <if test="jcDns != null">
+        jc_dns,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="jcId != null">
+        #{jcId,jdbcType=INTEGER},
+      </if>
+      <if test="jcName != null">
+        #{jcName,jdbcType=VARCHAR},
+      </if>
+      <if test="jcCode != null">
+        #{jcCode,jdbcType=VARCHAR},
+      </if>
+      <if test="jcThandle != null">
+        #{jcThandle,jdbcType=VARCHAR},
+      </if>
+      <if test="jcIpAddress != null">
+        #{jcIpAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="jcAccess != null">
+        #{jcAccess,jdbcType=VARCHAR},
+      </if>
+      <if test="jcLicense != null">
+        #{jcLicense,jdbcType=VARCHAR},
+      </if>
+      <if test="jcMac != null">
+        #{jcMac,jdbcType=VARCHAR},
+      </if>
+      <if test="jcSort != null">
+        #{jcSort,jdbcType=VARCHAR},
+      </if>
+      <if test="jcCreatetime != null">
+        #{jcCreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jcRemarks != null">
+        #{jcRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="jcParking != null">
+        #{jcParking,jdbcType=VARCHAR},
+      </if>
+      <if test="jcAgent != null">
+        #{jcAgent,jdbcType=VARCHAR},
+      </if>
+      <if test="jcSubnet != null">
+        #{jcSubnet,jdbcType=VARCHAR},
+      </if>
+      <if test="jcGateway != null">
+        #{jcGateway,jdbcType=VARCHAR},
+      </if>
+      <if test="jcDns != null">
+        #{jcDns,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jinshi.entity.JinshiCameras">
+    update jinshi_cameras
+    <set>
+      <if test="jcName != null">
+        jc_name = #{jcName,jdbcType=VARCHAR},
+      </if>
+      <if test="jcCode != null">
+        jc_code = #{jcCode,jdbcType=VARCHAR},
+      </if>
+      <if test="jcThandle != null">
+        jc_thandle = #{jcThandle,jdbcType=VARCHAR},
+      </if>
+      <if test="jcIpAddress != null">
+        jc_ip_address = #{jcIpAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="jcAccess != null">
+        jc_access = #{jcAccess,jdbcType=VARCHAR},
+      </if>
+      <if test="jcLicense != null">
+        jc_license = #{jcLicense,jdbcType=VARCHAR},
+      </if>
+      <if test="jcMac != null">
+        jc_mac = #{jcMac,jdbcType=VARCHAR},
+      </if>
+      <if test="jcSort != null">
+        jc_sort = #{jcSort,jdbcType=VARCHAR},
+      </if>
+      <if test="jcCreatetime != null">
+        jc_createTime = #{jcCreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jcRemarks != null">
+        jc_remarks = #{jcRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="jcParking != null">
+        jc_parking = #{jcParking,jdbcType=VARCHAR},
+      </if>
+      <if test="jcAgent != null">
+        jc_agent = #{jcAgent,jdbcType=VARCHAR},
+      </if>
+      <if test="jcSubnet != null">
+        jc_subnet = #{jcSubnet,jdbcType=VARCHAR},
+      </if>
+      <if test="jcGateway != null">
+        jc_gateway = #{jcGateway,jdbcType=VARCHAR},
+      </if>
+      <if test="jcDns != null">
+        jc_dns = #{jcDns,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where jc_id = #{jcId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jinshi.entity.JinshiCameras">
+    update jinshi_cameras
+    set jc_name = #{jcName,jdbcType=VARCHAR},
+      jc_code = #{jcCode,jdbcType=VARCHAR},
+      jc_thandle = #{jcThandle,jdbcType=VARCHAR},
+      jc_ip_address = #{jcIpAddress,jdbcType=VARCHAR},
+      jc_access = #{jcAccess,jdbcType=VARCHAR},
+      jc_license = #{jcLicense,jdbcType=VARCHAR},
+      jc_mac = #{jcMac,jdbcType=VARCHAR},
+      jc_sort = #{jcSort,jdbcType=VARCHAR},
+      jc_createTime = #{jcCreatetime,jdbcType=TIMESTAMP},
+      jc_remarks = #{jcRemarks,jdbcType=VARCHAR},
+      jc_parking = #{jcParking,jdbcType=VARCHAR},
+      jc_subnet = #{jcSubnet,jdbcType=VARCHAR},
+      jc_gateway = #{jcGateway,jdbcType=VARCHAR},
+      jc_dns = #{jcDns,jdbcType=VARCHAR},
+      jc_agent = #{jcAgent,jdbcType=VARCHAR},
+      jc_ledscreen_type = #{jcLedscreenType,jdbcType=VARCHAR},
+      jc_baud_rate = #{jcBaudRate,jdbcType=VARCHAR},
+      jc_data_bits = #{jcDataBits,jdbcType=VARCHAR},
+      jc_stop_bits = #{jcStopBits,jdbcType=VARCHAR},
+      jc_validation = #{jcValidation,jdbcType=VARCHAR},
+      jc_volume = #{jcVolume,jdbcType=VARCHAR},
+      jc_cameras_id = #{jcCamerasId,jdbcType=VARCHAR},
+      jc_area = #{jcArea,jdbcType=VARCHAR}
+    where jc_id = #{jcId,jdbcType=INTEGER}
+  </update>
+
+  <update id="updateLedScreenType" parameterType="com.jinshi.entity.JinshiCameras">
+    update jinshi_cameras
+    set
+      jc_ledscreen_type = #{jcLedscreenType,jdbcType=VARCHAR},
+      jc_baud_rate = #{jcBaudRate,jdbcType=VARCHAR},
+      jc_data_bits = #{jcDataBits,jdbcType=VARCHAR},
+      jc_stop_bits = #{jcStopBits,jdbcType=VARCHAR},
+      jc_validation = #{jcValidation,jdbcType=VARCHAR},
+      jc_volume = #{jcVolume,jdbcType=VARCHAR}
+    where jc_id = #{jcId,jdbcType=INTEGER}
+  </update>
+
+  <update id="updateCamerasCode" parameterType="com.jinshi.entity.JinshiCameras">
+    update jinshi_cameras
+    set jc_code = #{jcCode,jdbcType=VARCHAR}
+    where jc_thandle = #{jcThandle,jdbcType=VARCHAR} and jc_parking = #{jcParking,jdbcType=VARCHAR}
+  </update>
+
+  <update id="updateCamerasSort" parameterType="com.jinshi.entity.JinshiCameras">
+    update jinshi_cameras
+    set jc_sort = #{jcSort,jdbcType=VARCHAR}
+    where jc_thandle = #{jcThandle,jdbcType=VARCHAR} and jc_parking = #{jcParking,jdbcType=VARCHAR}
+  </update>
+
+  <update id="updateByCameras" parameterType="com.jinshi.entity.JinshiCameras">
+    update jinshi_cameras
+    set
+      jc_name = #{jcName,jdbcType=VARCHAR},
+      jc_ip_address = #{jcIpAddress,jdbcType=VARCHAR},
+      jc_mac = #{jcMac,jdbcType=VARCHAR},
+      jc_cameras_id = #{jcCamerasId,jdbcType=VARCHAR},
+      jc_access = #{jcAccess,jdbcType=VARCHAR},
+      jc_remarks = #{jcRemarks,jdbcType=VARCHAR},
+      jc_area = #{jcArea,jdbcType=VARCHAR}
+    where jc_id = #{jcId,jdbcType=INTEGER}
+  </update>
+
+  <update id="updateCarTeam" parameterType="com.jinshi.entity.JinshiCameras">
+    update jinshi_cameras
+    set jc_start_time = #{jcStartTime,jdbcType=TIMESTAMP},
+        jc_end_time = #{jcEndTime,jdbcType=TIMESTAMP},
+        jc_is_car_team = 1
+    where jc_id = #{jcId,jdbcType=INTEGER}
+  </update>
+
+  <update id="updateOpenMode" parameterType="com.jinshi.entity.JinshiCameras">
+    update jinshi_cameras
+    set jc_is_car_team = 0
+    where jc_id = #{jcId,jdbcType=INTEGER}
+  </update>
+
+  <update id="updateIsType" parameterType="com.jinshi.entity.JinshiCameras">
+    update jinshi_cameras
+    set jc_is_type = #{jcIsType,jdbcType=INTEGER}
+    where jc_id = #{jcId,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectCameraId" resultMap="BaseResultMap">
+    select * from jinshi_cameras
+    where jc_parking = #{jcParking,jdbcType=VARCHAR} and jc_cameras_id = #{jcCamerasId,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAllCameras" resultMap="BaseResultMap">
+    select * from jinshi_cameras
+  </select>
+</mapper>

@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jinshi.mapper.JinshiMemberOrderMapper">
+  <resultMap id="BaseResultMap" type="com.jinshi.entity.JinshiMemberOrder">
+    <id column="jmo_id" jdbcType="INTEGER" property="jmoId" />
+    <result column="jmo_member_table_id" jdbcType="INTEGER" property="jmoMemberTableId" />
+    <result column="jmo_member_id" jdbcType="VARCHAR" property="jmoMemberId" />
+    <result column="jmo_lincense_plate" jdbcType="VARCHAR" property="jmoLincensePlate" />
+    <result column="jmo_service_type" jdbcType="VARCHAR" property="jmoServiceType" />
+    <result column="jmo_service_number" jdbcType="VARCHAR" property="jmoServiceNumber" />
+    <result column="jmo_join_time" jdbcType="TIMESTAMP" property="jmoJoinTime" />
+    <result column="jmo_expiration_time" jdbcType="TIMESTAMP" property="jmoExpirationTime" />
+    <result column="jmo_creat_time" jdbcType="TIMESTAMP" property="jmoCreatTime" />
+    <result column="jmo_payable" jdbcType="DECIMAL" property="jmoPayable" />
+    <result column="jmo_actual_cost" jdbcType="DECIMAL" property="jmoActualCost" />
+    <result column="jmo_phone_number" jdbcType="VARCHAR" property="jmoPhoneNumber" />
+    <result column="jmo_area_name" jdbcType="VARCHAR" property="jmoAreaName" />
+    <result column="jmo_park_id" jdbcType="INTEGER" property="jmoParkId" />
+    <result column="jmo_agent_id" jdbcType="INTEGER" property="jmoAgentId" />
+    <result column="jmo_enter_user" jdbcType="VARCHAR" property="jmoEnterUser" />
+    <result column="jmo_order_id" jdbcType="VARCHAR" property="jmoOrderId" />
+    <result column="jmo_data_B" jdbcType="VARCHAR" property="jmoDataB" />
+    <result column="jmo_data_C" jdbcType="VARCHAR" property="jmoDataC" />
+    <result column="jmo_data_D" jdbcType="VARCHAR" property="jmoDataD" />
+    <result column="jmo_data_E" jdbcType="VARCHAR" property="jmoDataE" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    jmo_id, jmo_member_table_id, jmo_member_id,jmo_lincense_plate, jmo_service_type, jmo_service_number,
+    jmo_join_time, jmo_expiration_time, jmo_creat_time, jmo_payable, jmo_actual_cost, 
+    jmo_phone_number, jmo_area_name, jmo_park_id, jmo_agent_id, jmo_enter_user, jmo_order_id,
+    jmo_data_B, jmo_data_C, jmo_data_D, jmo_data_E
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from jinshi_member_order
+    where jmo_id = #{jmoId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from jinshi_member_order
+    where jmo_id = #{jmoId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jinshi.entity.JinshiMemberOrder">
+    insert into jinshi_member_order (jmo_id, jmo_member_table_id, jmo_member_id, jmo_lincense_plate,
+      jmo_service_type, jmo_service_number, jmo_join_time, 
+      jmo_expiration_time, jmo_creat_time, jmo_payable, 
+      jmo_actual_cost, jmo_phone_number, jmo_area_name, 
+      jmo_park_id, jmo_agent_id, jmo_enter_user, 
+      jmo_order_id, jmo_data_B, jmo_data_C,
+      jmo_data_D, jmo_data_E)
+    values (#{jmoId,jdbcType=INTEGER}, #{jmoMemberTableId,jdbcType=INTEGER}, #{jmoMemberId,jdbcType=VARCHAR},  #{jmoLincensePlate,jdbcType=VARCHAR},
+      #{jmoServiceType,jdbcType=VARCHAR}, #{jmoServiceNumber,jdbcType=VARCHAR}, #{jmoJoinTime,jdbcType=TIMESTAMP}, 
+      #{jmoExpirationTime,jdbcType=TIMESTAMP}, #{jmoCreatTime,jdbcType=TIMESTAMP}, #{jmoPayable,jdbcType=DECIMAL}, 
+      #{jmoActualCost,jdbcType=DECIMAL}, #{jmoPhoneNumber,jdbcType=VARCHAR}, #{jmoAreaName,jdbcType=VARCHAR}, 
+      #{jmoParkId,jdbcType=INTEGER}, #{jmoAgentId,jdbcType=INTEGER}, #{jmoEnterUser,jdbcType=VARCHAR}, 
+      #{jmoOrderId,jdbcType=VARCHAR}, #{jmoDataB,jdbcType=VARCHAR}, #{jmoDataC,jdbcType=VARCHAR},
+      #{jmoDataD,jdbcType=VARCHAR}, #{jmoDataE,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jinshi.entity.JinshiMemberOrder">
+    insert into jinshi_member_order
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="jmoId != null">
+        jmo_id,
+      </if>
+      <if test="jmoMemberTableId != null">
+        jmo_member_table_id,
+      </if>
+      <if test="jmoMemberId != null">
+        jmo_member_id,
+      </if>
+      <if test="jmoLincensePlate != null">
+        jmo_lincense_plate,
+      </if>
+      <if test="jmoServiceType != null">
+        jmo_service_type,
+      </if>
+      <if test="jmoServiceNumber != null">
+        jmo_service_number,
+      </if>
+      <if test="jmoJoinTime != null">
+        jmo_join_time,
+      </if>
+      <if test="jmoExpirationTime != null">
+        jmo_expiration_time,
+      </if>
+      <if test="jmoCreatTime != null">
+        jmo_creat_time,
+      </if>
+      <if test="jmoPayable != null">
+        jmo_payable,
+      </if>
+      <if test="jmoActualCost != null">
+        jmo_actual_cost,
+      </if>
+      <if test="jmoPhoneNumber != null">
+        jmo_phone_number,
+      </if>
+      <if test="jmoAreaName != null">
+        jmo_area_name,
+      </if>
+      <if test="jmoParkId != null">
+        jmo_park_id,
+      </if>
+      <if test="jmoAgentId != null">
+        jmo_agent_id,
+      </if>
+      <if test="jmoEnterUser != null">
+        jmo_enter_user,
+      </if>
+      <if test="jmoOrderId != null">
+        jmo_order_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="jmoId != null">
+        #{jmoId,jdbcType=INTEGER},
+      </if>
+      <if test="jmoMemberTableId != null">
+        #{jmoMemberTableId,jdbcType=INTEGER},
+      </if>
+      <if test="jmoMemberId != null">
+        #{jmoMemberId,jdbcType=VARCHAR},
+      </if>
+      <if test="jmoLincensePlate != null">
+        #{jmoLincensePlate,jdbcType=VARCHAR},
+      </if>
+      <if test="jmoServiceType != null">
+        #{jmoServiceType,jdbcType=VARCHAR},
+      </if>
+      <if test="jmoServiceNumber != null">
+        #{jmoServiceNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="jmoJoinTime != null">
+        #{jmoJoinTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jmoExpirationTime != null">
+        #{jmoExpirationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jmoCreatTime != null">
+        #{jmoCreatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jmoPayable != null">
+        #{jmoPayable,jdbcType=DECIMAL},
+      </if>
+      <if test="jmoActualCost != null">
+        #{jmoActualCost,jdbcType=DECIMAL},
+      </if>
+      <if test="jmoPhoneNumber != null">
+        #{jmoPhoneNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="jmoAreaName != null">
+        #{jmoAreaName,jdbcType=VARCHAR},
+      </if>
+      <if test="jmoParkId != null">
+        #{jmoParkId,jdbcType=INTEGER},
+      </if>
+      <if test="jmoAgentId != null">
+        #{jmoAgentId,jdbcType=INTEGER},
+      </if>
+      <if test="jmoEnterUser != null">
+        #{jmoEnterUser,jdbcType=VARCHAR},
+      </if>
+      <if test="jmoOrderId != null">
+        #{jmoOrderId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jinshi.entity.JinshiMemberOrder">
+    update jinshi_member_order
+    <set>
+      <if test="jmoMemberTableId != null">
+        jmo_member_table_id = #{jmoMemberTableId,jdbcType=INTEGER},
+      </if>
+      <if test="jmoMemberId != null">
+        jmo_member_id = #{jmoMemberId,jdbcType=VARCHAR},
+      </if>
+      <if test="jmoLincensePlate != null">
+        jmo_lincense_plate = #{jmoLincensePlate,jdbcType=VARCHAR},
+      </if>
+      <if test="jmoServiceType != null">
+        jmo_service_type = #{jmoServiceType,jdbcType=VARCHAR},
+      </if>
+      <if test="jmoServiceNumber != null">
+        jmo_service_number = #{jmoServiceNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="jmoJoinTime != null">
+        jmo_join_time = #{jmoJoinTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jmoExpirationTime != null">
+        jmo_expiration_time = #{jmoExpirationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jmoCreatTime != null">
+        jmo_creat_time = #{jmoCreatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jmoPayable != null">
+        jmo_payable = #{jmoPayable,jdbcType=DECIMAL},
+      </if>
+      <if test="jmoActualCost != null">
+        jmo_actual_cost = #{jmoActualCost,jdbcType=DECIMAL},
+      </if>
+      <if test="jmoPhoneNumber != null">
+        jmo_phone_number = #{jmoPhoneNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="jmoAreaName != null">
+        jmo_area_name = #{jmoAreaName,jdbcType=VARCHAR},
+      </if>
+      <if test="jmoParkId != null">
+        jmo_park_id = #{jmoParkId,jdbcType=INTEGER},
+      </if>
+      <if test="jmoAgentId != null">
+        jmo_agent_id = #{jmoAgentId,jdbcType=INTEGER},
+      </if>
+      <if test="jmoEnterUser != null">
+        jmo_enter_user = #{jmoEnterUser,jdbcType=VARCHAR},
+      </if>
+      <if test="jmoOrderId != null">
+        jmo_order_id = #{jmoOrderId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where jmo_id = #{jmoId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jinshi.entity.JinshiMemberOrder">
+    update jinshi_member_order
+    set jmo_member_table_id = #{jmoMemberTableId,jdbcType=INTEGER},
+      jmo_member_id = #{jmoMemberId,jdbcType=VARCHAR},
+      jmo_lincense_plate = #{jmoLincensePlate,jdbcType=VARCHAR},
+      jmo_service_type = #{jmoServiceType,jdbcType=VARCHAR},
+      jmo_service_number = #{jmoServiceNumber,jdbcType=VARCHAR},
+      jmo_join_time = #{jmoJoinTime,jdbcType=TIMESTAMP},
+      jmo_expiration_time = #{jmoExpirationTime,jdbcType=TIMESTAMP},
+      jmo_creat_time = #{jmoCreatTime,jdbcType=TIMESTAMP},
+      jmo_payable = #{jmoPayable,jdbcType=DECIMAL},
+      jmo_actual_cost = #{jmoActualCost,jdbcType=DECIMAL},
+      jmo_phone_number = #{jmoPhoneNumber,jdbcType=VARCHAR},
+      jmo_area_name = #{jmoAreaName,jdbcType=VARCHAR},
+      jmo_park_id = #{jmoParkId,jdbcType=INTEGER},
+      jmo_agent_id = #{jmoAgentId,jdbcType=INTEGER},
+      jmo_enter_user = #{jmoEnterUser,jdbcType=VARCHAR},
+      jmo_order_id = #{jmoOrderId,jdbcType=VARCHAR},
+      jmo_data_B = #{jmoDataB,jdbcType=VARCHAR},
+      jmo_data_C = #{jmoDataC,jdbcType=VARCHAR},
+      jmo_data_D = #{jmoDataD,jdbcType=VARCHAR},
+      jmo_data_E = #{jmoDataE,jdbcType=VARCHAR}
+    where jmo_id = #{jmoId,jdbcType=INTEGER}
+  </update>
+
+  <update id="updateByOrderId" parameterType="com.jinshi.entity.JinshiMemberOrder">
+    update jinshi_member_order
+    set jmo_member_table_id = #{jmoMemberTableId,jdbcType=INTEGER},
+      jmo_expiration_time = #{jmoExpirationTime,jdbcType=TIMESTAMP},
+      jmo_payable = #{jmoPayable,jdbcType=DECIMAL},
+      jmo_actual_cost = #{jmoActualCost,jdbcType=DECIMAL},
+      jmo_enter_user = #{jmoEnterUser,jdbcType=VARCHAR}
+    where jmo_order_id = #{jmoOrderId,jdbcType=VARCHAR}
+  </update>
+
+  <select id="selectMemberOrderForPage" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select * from jinshi_member_order
+    where jmo_park_id = #{parkId,jdbcType=INTEGER} order by jmo_creat_time desc
+    LIMIT #{pageNum,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+  </select>
+
+  <select id="getMemberOrderRecords" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+    select count(*) from jinshi_member_order where jmo_park_id = #{parkId,jdbcType=INTEGER}
+  </select>
+  <select id="selectByMemberId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select * from jinshi_member_order where jmo_member_table_id = #{id,jdbcType=INTEGER} ORDER BY jmo_creat_time desc
+  </select>
+  <select id="selectByOrderId" resultMap="BaseResultMap">
+    select * from jinshi_member_order where jmo_order_id = #{orderId,jdbcType=VARCHAR}
+  </select>
+  <select id="searchMemberOrder" resultMap="BaseResultMap">
+    SELECT * FROM jinshi_member_order
+    WHERE CONCAT(IFNULL(`jmo_id`,''),IFNULL(`jmo_member_table_id`,''),IFNULL(`jmo_member_id`,''),IFNULL(`jmo_lincense_plate`,''),IFNULL(`jmo_service_type`,''),
+    IFNULL(`jmo_service_number`,''),IFNULL(`jmo_join_time`,''),IFNULL(`jmo_expiration_time`,''),
+    IFNULL(`jmo_creat_time`,''),IFNULL(`jmo_payable`,''),IFNULL(`jmo_actual_cost`,''),IFNULL(`jmo_phone_number`,''),
+    IFNULL(`jmo_area_name`,''),IFNULL(`jmo_park_id`,''),IFNULL(`jmo_agent_id`,''),IFNULL(`jmo_enter_user`,''),IFNULL(`jmo_order_id`,''))
+    LIKE "%"#{keyWord}"%" and jmo_park_id = #{parkId,jdbcType=INTEGER}
+    order by jmo_creat_time desc LIMIT #{pageNum},#{pageSize}
+  </select>
+
+  <select id="getMemberOrderRecordsSearch" resultType="java.lang.Integer">
+    SELECT count(*) FROM jinshi_member_order
+    WHERE CONCAT(IFNULL(`jmo_id`,''),IFNULL(`jmo_member_table_id`,''),IFNULL(`jmo_member_id`,''),IFNULL(`jmo_lincense_plate`,''),IFNULL(`jmo_service_type`,''),
+    IFNULL(`jmo_service_number`,''),IFNULL(`jmo_join_time`,''),IFNULL(`jmo_expiration_time`,''),
+    IFNULL(`jmo_creat_time`,''),IFNULL(`jmo_payable`,''),IFNULL(`jmo_actual_cost`,''),IFNULL(`jmo_phone_number`,''),
+    IFNULL(`jmo_area_name`,''),IFNULL(`jmo_park_id`,''),IFNULL(`jmo_agent_id`,''),IFNULL(`jmo_enter_user`,''),IFNULL(`jmo_order_id`,''))
+    LIKE "%"#{keyWord}"%" and jmo_park_id = #{parkId,jdbcType=INTEGER}
+  </select>
+</mapper>

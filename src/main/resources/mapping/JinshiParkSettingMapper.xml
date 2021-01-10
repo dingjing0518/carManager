@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jinshi.mapper.JinshiParkSettingMapper">
+  <resultMap id="BaseResultMap" type="com.jinshi.entity.JinshiParkSetting">
+    <id column="jps_id" jdbcType="INTEGER" property="jpsId" />
+    <result column="jps_park_id" jdbcType="INTEGER" property="jpsParkId" />
+    <result column="jps_agent_id" jdbcType="INTEGER" property="jpsAgentId" />
+    <result column="jps_free_time" jdbcType="INTEGER" property="jpsFreeTime" />
+    <result column="jps_first_time" jdbcType="INTEGER" property="jpsFirstTime" />
+    <result column="jps_first_charge" jdbcType="DOUBLE" property="jpsFirstCharge" />
+    <result column="jps_follow_time" jdbcType="INTEGER" property="jpsFollowTime" />
+    <result column="jps_follow_charge" jdbcType="DOUBLE" property="jpsFollowCharge" />
+    <result column="jps_allday_limit" jdbcType="DOUBLE" property="jpsAlldayLimit" />
+    <result column="jps_advance_charge_outtime" jdbcType="INTEGER" property="jpsAdvanceChargeOuttime" />
+    <result column="jps_remark" jdbcType="VARCHAR" property="jpsRemark" />
+    <result column="jps_createtime" jdbcType="TIMESTAMP" property="jpsCreatetime" />
+    <result column="jps_isdelete" jdbcType="INTEGER" property="jpsIsdelete" />
+    <result column="jps_car_type" jdbcType="INTEGER" property="jpsCarType" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    jps_id, jps_park_id, jps_agent_id, jps_free_time, jps_first_time, jps_first_charge, 
+    jps_follow_time, jps_follow_charge, jps_allday_limit, jps_advance_charge_outtime, 
+    jps_remark, jps_createtime, jps_isdelete,jps_car_type
+  </sql>
+  <select id="selectByParkKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from jinshi_park_setting
+    where jps_park_id = #{jpsParkId,jdbcType=INTEGER}
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from jinshi_park_setting
+    where jps_id = #{jpsId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from jinshi_park_setting
+    where jps_id = #{jpsId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jinshi.entity.JinshiParkSetting">
+    insert into jinshi_park_setting (jps_id, jps_park_id, jps_agent_id, 
+      jps_free_time, jps_first_time, jps_first_charge, 
+      jps_follow_time, jps_follow_charge, jps_allday_limit, 
+      jps_advance_charge_outtime, jps_remark, jps_createtime, 
+      jps_isdelete,jps_car_type)
+    values (#{jpsId,jdbcType=INTEGER}, #{jpsParkId,jdbcType=INTEGER}, #{jpsAgentId,jdbcType=INTEGER}, 
+      #{jpsFreeTime,jdbcType=INTEGER}, #{jpsFirstTime,jdbcType=INTEGER}, #{jpsFirstCharge,jdbcType=INTEGER}, 
+      #{jpsFollowTime,jdbcType=INTEGER}, #{jpsFollowCharge,jdbcType=INTEGER}, #{jpsAlldayLimit,jdbcType=INTEGER}, 
+      #{jpsAdvanceChargeOuttime,jdbcType=INTEGER}, #{jpsRemark,jdbcType=VARCHAR}, #{jpsCreatetime,jdbcType=TIMESTAMP}, 
+      #{jpsIsdelete,jdbcType=INTEGER},#{jpsCarType,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jinshi.entity.JinshiParkSetting">
+    insert into jinshi_park_setting
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="jpsId != null">
+        jps_id,
+      </if>
+      <if test="jpsParkId != null">
+        jps_park_id,
+      </if>
+      <if test="jpsAgentId != null">
+        jps_agent_id,
+      </if>
+      <if test="jpsFreeTime != null">
+        jps_free_time,
+      </if>
+      <if test="jpsFirstTime != null">
+        jps_first_time,
+      </if>
+      <if test="jpsFirstCharge != null">
+        jps_first_charge,
+      </if>
+      <if test="jpsFollowTime != null">
+        jps_follow_time,
+      </if>
+      <if test="jpsFollowCharge != null">
+        jps_follow_charge,
+      </if>
+      <if test="jpsAlldayLimit != null">
+        jps_allday_limit,
+      </if>
+      <if test="jpsAdvanceChargeOuttime != null">
+        jps_advance_charge_outtime,
+      </if>
+      <if test="jpsRemark != null">
+        jps_remark,
+      </if>
+      <if test="jpsCreatetime != null">
+        jps_createtime,
+      </if>
+      <if test="jpsIsdelete != null">
+        jps_isdelete,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="jpsId != null">
+        #{jpsId,jdbcType=INTEGER},
+      </if>
+      <if test="jpsParkId != null">
+        #{jpsParkId,jdbcType=INTEGER},
+      </if>
+      <if test="jpsAgentId != null">
+        #{jpsAgentId,jdbcType=INTEGER},
+      </if>
+      <if test="jpsFreeTime != null">
+        #{jpsFreeTime,jdbcType=INTEGER},
+      </if>
+      <if test="jpsFirstTime != null">
+        #{jpsFirstTime,jdbcType=INTEGER},
+      </if>
+      <if test="jpsFirstCharge != null">
+        #{jpsFirstCharge,jdbcType=INTEGER},
+      </if>
+      <if test="jpsFollowTime != null">
+        #{jpsFollowTime,jdbcType=INTEGER},
+      </if>
+      <if test="jpsFollowCharge != null">
+        #{jpsFollowCharge,jdbcType=INTEGER},
+      </if>
+      <if test="jpsAlldayLimit != null">
+        #{jpsAlldayLimit,jdbcType=INTEGER},
+      </if>
+      <if test="jpsAdvanceChargeOuttime != null">
+        #{jpsAdvanceChargeOuttime,jdbcType=INTEGER},
+      </if>
+      <if test="jpsRemark != null">
+        #{jpsRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="jpsCreatetime != null">
+        #{jpsCreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jpsIsdelete != null">
+        #{jpsIsdelete,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jinshi.entity.JinshiParkSetting">
+    update jinshi_park_setting
+    <set>
+      <if test="jpsParkId != null">
+        jps_park_id = #{jpsParkId,jdbcType=INTEGER},
+      </if>
+      <if test="jpsAgentId != null">
+        jps_agent_id = #{jpsAgentId,jdbcType=INTEGER},
+      </if>
+      <if test="jpsFreeTime != null">
+        jps_free_time = #{jpsFreeTime,jdbcType=INTEGER},
+      </if>
+      <if test="jpsFirstTime != null">
+        jps_first_time = #{jpsFirstTime,jdbcType=INTEGER},
+      </if>
+      <if test="jpsFirstCharge != null">
+        jps_first_charge = #{jpsFirstCharge,jdbcType=INTEGER},
+      </if>
+      <if test="jpsFollowTime != null">
+        jps_follow_time = #{jpsFollowTime,jdbcType=INTEGER},
+      </if>
+      <if test="jpsFollowCharge != null">
+        jps_follow_charge = #{jpsFollowCharge,jdbcType=INTEGER},
+      </if>
+      <if test="jpsAlldayLimit != null">
+        jps_allday_limit = #{jpsAlldayLimit,jdbcType=INTEGER},
+      </if>
+      <if test="jpsAdvanceChargeOuttime != null">
+        jps_advance_charge_outtime = #{jpsAdvanceChargeOuttime,jdbcType=INTEGER},
+      </if>
+      <if test="jpsRemark != null">
+        jps_remark = #{jpsRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="jpsCreatetime != null">
+        jps_createtime = #{jpsCreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jpsIsdelete != null">
+        jps_isdelete = #{jpsIsdelete,jdbcType=INTEGER},
+      </if>
+    </set>
+    where jps_id = #{jpsId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jinshi.entity.JinshiParkSetting">
+    update jinshi_park_setting
+    set jps_park_id = #{jpsParkId,jdbcType=INTEGER},
+      jps_agent_id = #{jpsAgentId,jdbcType=INTEGER},
+      jps_free_time = #{jpsFreeTime,jdbcType=INTEGER},
+      jps_first_time = #{jpsFirstTime,jdbcType=INTEGER},
+      jps_first_charge = #{jpsFirstCharge,jdbcType=INTEGER},
+      jps_follow_time = #{jpsFollowTime,jdbcType=INTEGER},
+      jps_follow_charge = #{jpsFollowCharge,jdbcType=INTEGER},
+      jps_allday_limit = #{jpsAlldayLimit,jdbcType=INTEGER},
+      jps_advance_charge_outtime = #{jpsAdvanceChargeOuttime,jdbcType=INTEGER},
+      jps_remark = #{jpsRemark,jdbcType=VARCHAR},
+      jps_createtime = #{jpsCreatetime,jdbcType=TIMESTAMP},
+      jps_isdelete = #{jpsIsdelete,jdbcType=INTEGER},
+      jps_car_type = #{jpsCarType,jdbcType=INTEGER}
+    where jps_id = #{jpsId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByParkidAndCarType" parameterType="com.jinshi.entity.JinshiParkSetting">
+    update jinshi_park_setting
+    set jps_park_id = #{jpsParkId,jdbcType=INTEGER},
+      jps_agent_id = #{jpsAgentId,jdbcType=INTEGER},
+      jps_free_time = #{jpsFreeTime,jdbcType=INTEGER},
+      jps_first_time = #{jpsFirstTime,jdbcType=INTEGER},
+      jps_first_charge = #{jpsFirstCharge,jdbcType=INTEGER},
+      jps_follow_time = #{jpsFollowTime,jdbcType=INTEGER},
+      jps_follow_charge = #{jpsFollowCharge,jdbcType=INTEGER},
+      jps_allday_limit = #{jpsAlldayLimit,jdbcType=INTEGER},
+      jps_advance_charge_outtime = #{jpsAdvanceChargeOuttime,jdbcType=INTEGER},
+      jps_remark = #{jpsRemark,jdbcType=VARCHAR},
+      jps_createtime = #{jpsCreatetime,jdbcType=TIMESTAMP},
+      jps_isdelete = #{jpsIsdelete,jdbcType=INTEGER}
+    where jps_park_id = #{jpsParkId,jdbcType=INTEGER} and jps_car_type = #{jpsCarType,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectByCarTypeAndParkId" parameterType="com.jinshi.entity.JinshiParkSetting" resultMap="BaseResultMap">
+    select * from jinshi_park_setting
+    where jps_park_id = #{parkId,jdbcType=INTEGER} and jps_car_type = #{carType,jdbcType=INTEGER}
+  </select>
+</mapper>

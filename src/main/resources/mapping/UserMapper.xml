@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jinshi.mapper.UserMapper">
+    <resultMap id="BaseResultMap" type="com.jinshi.entity.User">
+        <result column="id" jdbcType="INTEGER" property="id" />
+        <result column="userName" jdbcType="VARCHAR" property="userName" />
+        <result column="passWord" jdbcType="VARCHAR" property="passWord" />
+        <result column="realName" jdbcType="VARCHAR" property="realName" />
+        <result column="role_name" jdbcType="VARCHAR" property="roleName" />
+        <result column="parkid" jdbcType="INTEGER" property="parkid" />
+        <result column="agentid" jdbcType="INTEGER" property="agentid" />
+        <result column="province" jdbcType="VARCHAR" property="province" />
+        <result column="city" jdbcType="VARCHAR" property="city" />
+        <result column="district" jdbcType="VARCHAR" property="district" />
+        <result column="phone_number" jdbcType="VARCHAR" property="phoneNumber" />
+    </resultMap>
+    <select id="Sel" resultType="com.jinshi.entity.User">
+        select * from user where id = #{id}
+    </select>
+
+    <select id="findByUserName" parameterType="java.lang.String" resultType="com.jinshi.entity.User">
+        select * from user where userName = #{username,jdbcType=VARCHAR}
+    </select>
+<!--    <select id="selectRoles" parameterType="java.lang.String" resultType="com.jinshi.entity.User">-->
+<!--        select * from user where userName LIKE "%"#{username}"%"-->
+<!--    </select>-->
+
+    <select id="getRoleId" parameterType="java.lang.Integer" resultType="java.lang.String">
+        select role_name from user where id=#{id,jdbcType=INTEGER}
+    </select>
+
+    <insert id="insert" parameterType="com.jinshi.entity.User">
+        insert into user (userName, passWord, role_name ,realName,parkid,agentid,
+        province,city,district,phone_number)
+        values (#{userName,jdbcType=VARCHAR}, #{passWord,jdbcType=VARCHAR}, #{roleName,jdbcType=VARCHAR},
+               #{realName,jdbcType=VARCHAR}, #{parkid,jdbcType=INTEGER}, #{agentid,jdbcType=INTEGER},
+               #{province,jdbcType=VARCHAR},#{city,jdbcType=VARCHAR},#{district,jdbcType=VARCHAR},#{phoneNumber,jdbcType=VARCHAR})
+    </insert>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from user
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+
+    <select id="selectUserForPage" parameterType="java.lang.Integer" resultType="com.jinshi.entity.JinshiUserRole">
+    select u.id as id,
+			u.userName as userName,
+			u.`passWord` as `passWord`,
+			u.role_name as roleName,
+			jr.js_rolename as jsRolename,
+			jr.js_rolearray as jsRolearray
+    from user u
+    left join jinshi_role jr
+    on u.role_name	= jr.js_rolename
+    where u.parkid = #{parkid,jdbcType=INTEGER}
+    ORDER BY u.id
+     LIMIT #{pageNum,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+  </select>
+
+    <select id="getUserTotalRecords" resultType="java.lang.Integer">
+    select count(*) from user
+  </select>
+
+    <select id="searchUser" resultMap="BaseResultMap">
+    SELECT * FROM user
+    WHERE CONCAT(IFNULL(`id`,''),IFNULL(`userName`,''),IFNULL(`passWord`,''),IFNULL(`role_name`,''),
+                 IFNULL(`realName`,''), IFNULL(`parkid`,''),IFNULL(`agentid`,''),
+                 IFNULL(`province`,''),IFNULL(`city`,''),IFNULL(`district`,''),IFNULL(`phoneNumber`,''))
+     LIKE "%"#{keyWork}"%" LIMIT #{pageNum},#{pageSize}
+  </select>
+
+    <select id="selectByUsername" parameterType="java.lang.String" resultType="java.lang.String">
+    select role_name from user where userName = #{userName,jdbcType=VARCHAR}
+  </select>
+    <select id="selectUsername" parameterType="java.lang.String" resultType="java.lang.String">
+    select userName from user where userName = #{username,jdbcType=VARCHAR}
+  </select>
+    <select id="selectUserAll" parameterType="com.jinshi.entity.User" resultMap="BaseResultMap">
+    select * from user where parkid = #{parkId,jdbcType=INTEGER} LIMIT #{pageNum},#{pageSize}
+  </select>
+    <select id="selectUser" resultMap="BaseResultMap">
+    select * from user  LIMIT #{pageNum},#{pageSize}
+  </select>
+    <select id="selectByAgentId" resultMap="BaseResultMap">
+    select * from user where agentid = #{agentId,jdbcType=INTEGER} and role_name = '车场管理员'
+  </select>
+    <select id="getUserTotalByAgentId" resultType="java.lang.Integer">
+    select count(*) from user where agentid = #{agentId,jdbcType=INTEGER} and role_name = '车场管理员'
+  </select>
+
+    <select id="selectByParkId" resultMap="BaseResultMap">
+    select * from user where parkid = #{parkId,jdbcType=INTEGER} and role_name regexp '车场财务员|车场收费员|车场云操作员|车场云管理员'
+  </select>
+    <select id="getUserTotalByParkId" resultType="java.lang.Integer">
+    select count(*) from user where parkid = #{parkId,jdbcType=INTEGER} and role_name regexp '车场财务员|车场收费员|车场云操作员|车场云管理员'
+  </select>
+
+    <update id="updateUser" parameterType="com.jinshi.entity.User">
+        update user
+        set userName = #{userName,jdbcType=VARCHAR},
+            passWord = #{passWord,jdbcType=VARCHAR},
+            role_name = #{roleName,jdbcType=VARCHAR},
+            realName = #{realName,jdbcType=VARCHAR},
+            parkid = #{parkid,jdbcType=INTEGER},
+            agentid = #{agentid,jdbcType=INTEGER},
+            province = #{province,jdbcType=VARCHAR},
+            city = #{city,jdbcType=VARCHAR},
+            district = #{district,jdbcType=VARCHAR},
+            phone_number = #{phoneNumber,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <update id="updatePassword" parameterType="com.jinshi.entity.User">
+        update user
+        set passWord = #{passWord,jdbcType=VARCHAR},
+            realName = #{realName,jdbcType=VARCHAR}
+        where userName = #{userName,jdbcType=VARCHAR}
+    </update>
+
+    <select id="selectAllByUserName" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select * from user where userName = #{username,jdbcType=VARCHAR}
+  </select>
+
+</mapper>

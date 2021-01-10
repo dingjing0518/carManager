@@ -1,0 +1,179 @@
+a {
+    text-decoration: none !important;
+}
+
+a:hover {
+    color: red !important;
+}
+.setting3_layout {
+    height: 500px;
+}
+
+.s3_left {
+    width: 48%;
+    height: 500px;
+    /* margin: 20px 0; */
+    border: 1px solid #ccc;
+    /* border-radius: 5px; */
+    background-color: #fff;
+    padding: 0 !important;
+    margin-right: 10px;
+
+}
+
+.setting-title {
+    height: 70px;
+    line-height: 70px;
+    position: relative;
+}
+
+.setting-title img {
+    margin-bottom: 10px;
+    width: 30px;
+    height: 30px;
+}
+
+.setting-title h3 {
+    display: inline-block;
+    margin: auto 0;
+
+}
+.s3_tt {
+    background-color: #ccc;
+    height: 40px;
+    line-height: 40px;
+    padding-left: 20px;
+}
+
+.oio {
+    margin-top: 25px;
+}
+
+.oio-btn {
+    width: 150px;
+    height: 30px;
+}
+
+.mtop0 {
+    margin-top: 0 !important;
+}
+
+
+.boxb {
+    border: 1px solid #ccc;
+    text-align: center;
+    padding-bottom: 20px;
+}
+
+.boxb-text {
+    width: 200px;
+    height: 100px;
+}
+.ttac {
+    text-align: center;
+}
+.save {
+    border-radius: 5px !important;
+    width: 100px;
+}
+
+
+.router-link-active {
+    display: inline-block;
+    height: 49px;
+    color: red !important;
+    border-bottom: 2px solid red !important;
+    text-decoration: none;
+}
+
+
+
+.boxbTitle {
+    height: 45px;
+    line-height: 45px;
+    background-color: #ccc;
+    margin-bottom: 30px;
+    font-size: 18px;
+    color: #fff;
+}
+
+/* 下拉菜单 */
+.xiala {
+    /* background-color: pink; */
+    height: 50px;
+    line-height: 50px;
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    left: 100px;
+
+}
+nav {
+    height: 34px;
+
+}
+nav > ul > li {
+    float: left;
+    margin-right: 3px;
+    list-style: none;
+}
+nav > ul > li > a {
+    display: block;
+    height: 34px;
+    line-height: 34px;
+    padding: 0 20px;
+    color: #fff;
+    font-weight: bold;
+    text-shadow: 0 -1px rgba(0, 0, 0, 0.3);
+    border-radius: 3px;
+    background-color: #2F2E3C;
+
+}
+
+nav > ul > li.active > a, nav > ul > li > a:active, nav > ul > li.dropdown:hover > a {
+    background: #fff;
+    color: #404040;
+    text-shadow: none;
+    -webkit-box-shadow: 0 2px white, 0 0 2px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px white, 0 0 2px rgba(0, 0, 0, 0.2);
+}
+
+.dropdown {
+    position: relative;
+    border-bottom: 5px solid #fff;
+}
+.dropdown:hover ul {
+    display: block;
+}
+.dropdown ul {
+    display: none;
+    position: absolute;
+    top: 39px;
+    left: -1px;
+    min-width: 160px;
+    padding: 0 0 5px;
+    background: #fff;
+    border: 1px solid #dadada;
+    border-top: 0;
+    border-radius: 0 0 3px 3px;
+    -webkit-box-shadow: 0 0 1px rgba(0, 0, 0, 0.04);
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0.04);
+}
+
+.dropdown li {
+    display: block;
+    margin: 0 18px;
+    overflow: visible;
+}
+.dropdown li + li {
+    border-top: 1px solid #eee;
+}
+.dropdown li a {
+    display: block;
+    color: #555;
+    padding: 8px 18px;
+    margin: 0 -18px;
+}
+.dropdown li a:hover {
+    color: #222;
+}

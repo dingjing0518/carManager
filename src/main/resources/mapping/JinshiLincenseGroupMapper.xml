@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jinshi.mapper.JinshiLincenseGroupMapper">
+  <resultMap id="BaseResultMap" type="com.jinshi.entity.JinshiLincenseGroup">
+    <id column="js_lg_id" jdbcType="INTEGER" property="jsLgId" />
+    <result column="js_group_name" jdbcType="VARCHAR" property="jsGroupName" />
+    <result column="js_number" jdbcType="VARCHAR" property="jsNumber" />
+    <result column="js_car_count" jdbcType="VARCHAR" property="jsCarCount" />
+    <result column="js_phone" jdbcType="VARCHAR" property="jsPhone" />
+    <result column="js_address" jdbcType="VARCHAR" property="jsAddress" />
+    <result column="js_park_id" jdbcType="INTEGER" property="jsParkId" />
+    <result column="js_agent_id" jdbcType="INTEGER" property="jsAgentId" />
+    <result column="js_area_id" jdbcType="INTEGER" property="jsAreaId" />
+    <result column="js_data_D" jdbcType="VARCHAR" property="jsDataD" />
+    <result column="js_data_E" jdbcType="VARCHAR" property="jsDataE" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    js_lg_id, js_group_name, js_number, js_car_count, js_phone, js_address, js_park_id,
+    js_agent_id, js_area_id, js_data_D, js_data_E
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from jinshi_lincense_group
+    where js_lg_id = #{jsLgId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from jinshi_lincense_group
+    where js_lg_id = #{jsLgId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jinshi.entity.JinshiLincenseGroup">
+    insert into jinshi_lincense_group (js_lg_id, js_group_name, js_number, 
+      js_car_count, js_phone, js_address, 
+      js_park_id, js_agent_id, js_area_id,
+      js_data_D, js_data_E)
+    values (#{jsLgId,jdbcType=INTEGER}, #{jsGroupName,jdbcType=VARCHAR}, #{jsNumber,jdbcType=VARCHAR}, 
+      #{jsCarCount,jdbcType=VARCHAR}, #{jsPhone,jdbcType=VARCHAR}, #{jsAddress,jdbcType=VARCHAR}, 
+      #{jsParkId,jdbcType=INTEGER}, #{jsAgentId,jdbcType=INTEGER}, #{jsAreaId,jdbcType=INTEGER},
+      #{jsDataD,jdbcType=VARCHAR}, #{jsDataE,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jinshi.entity.JinshiLincenseGroup">
+    insert into jinshi_lincense_group
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="jsLgId != null">
+        js_lg_id,
+      </if>
+      <if test="jsGroupName != null">
+        js_group_name,
+      </if>
+      <if test="jsNumber != null">
+        js_number,
+      </if>
+      <if test="jsCarCount != null">
+        js_car_count,
+      </if>
+      <if test="jsPhone != null">
+        js_phone,
+      </if>
+      <if test="jsAddress != null">
+        js_address,
+      </if>
+      <if test="jsParkId != null">
+        js_park_id,
+      </if>
+      <if test="jsAgentId != null">
+        js_agent_id,
+      </if>
+      <if test="jsAreaId != null">
+        js_area_id,
+      </if>
+      <if test="jsDataD != null">
+        js_data_D,
+      </if>
+      <if test="jsDataE != null">
+        js_data_E,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="jsLgId != null">
+        #{jsLgId,jdbcType=INTEGER},
+      </if>
+      <if test="jsGroupName != null">
+        #{jsGroupName,jdbcType=VARCHAR},
+      </if>
+      <if test="jsNumber != null">
+        #{jsNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="jsCarCount != null">
+        #{jsCarCount,jdbcType=VARCHAR},
+      </if>
+      <if test="jsPhone != null">
+        #{jsPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="jsAddress != null">
+        #{jsAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="jsParkId != null">
+        #{jsParkId,jdbcType=INTEGER},
+      </if>
+      <if test="jsAgentId != null">
+        #{jsAgentId,jdbcType=INTEGER},
+      </if>
+      <if test="jsAreaId != null">
+        #{jsAreaId,jdbcType=INTEGER},
+      </if>
+      <if test="jsDataD != null">
+        #{jsDataD,jdbcType=VARCHAR},
+      </if>
+      <if test="jsDataE != null">
+        #{jsDataE,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jinshi.entity.JinshiLincenseGroup">
+    update jinshi_lincense_group
+    <set>
+      <if test="jsGroupName != null">
+        js_group_name = #{jsGroupName,jdbcType=VARCHAR},
+      </if>
+      <if test="jsNumber != null">
+        js_number = #{jsNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="jsCarCount != null">
+        js_car_count = #{jsCarCount,jdbcType=VARCHAR},
+      </if>
+      <if test="jsPhone != null">
+        js_phone = #{jsPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="jsAddress != null">
+        js_address = #{jsAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="jsParkId != null">
+        js_park_id = #{jsParkId,jdbcType=INTEGER},
+      </if>
+      <if test="jsAgentId != null">
+        js_agent_id = #{jsAgentId,jdbcType=INTEGER},
+      </if>
+      <if test="jsAreaId != null">
+        js_area_id = #{jsAreaId,jdbcType=INTEGER},
+      </if>
+      <if test="jsDataD != null">
+        js_data_D = #{jsDataD,jdbcType=VARCHAR},
+      </if>
+      <if test="jsDataE != null">
+        js_data_E = #{jsDataE,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where js_lg_id = #{jsLgId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jinshi.entity.JinshiLincenseGroup">
+    update jinshi_lincense_group
+    set js_group_name = #{jsGroupName,jdbcType=VARCHAR},
+      js_number = #{jsNumber,jdbcType=VARCHAR},
+      js_car_count = #{jsCarCount,jdbcType=VARCHAR},
+      js_phone = #{jsPhone,jdbcType=VARCHAR},
+      js_address = #{jsAddress,jdbcType=VARCHAR},
+      js_park_id = #{jsParkId,jdbcType=INTEGER},
+      js_agent_id = #{jsAgentId,jdbcType=INTEGER},
+      js_area_id = #{jsAreaId,jdbcType=INTEGER},
+      js_data_D = #{jsDataD,jdbcType=VARCHAR},
+      js_data_E = #{jsDataE,jdbcType=VARCHAR}
+    where js_lg_id = #{jsLgId,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectLincenseGroupPage" resultMap="BaseResultMap">
+    select * from jinshi_lincense_group
+    where js_park_id = #{parkId,jdbcType=INTEGER}
+    LIMIT #{pageNum,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+  </select>
+
+  <select id="findByparkId" resultType="com.jinshi.entity.bo.JinshiLincenseGroupBo">
+    SELECT
+	jlg.js_lg_id AS jsLgId,
+	jlg.js_group_name AS jsGroupName,
+	jlg.js_number AS jsNumber,
+	jlg.js_car_count AS jsCarCount,
+	jlg.js_phone AS jsPhone,
+	jlg.js_address AS jsAddress,
+	jlg.js_park_id AS jsParkId,
+	jlg.js_agent_id AS jsAgentId,
+	jlg.js_area_id AS jsAreaId,
+	ja.area_name AS areaName
+FROM
+	jinshi_lincense_group jlg
+	LEFT JOIN jinshi_area ja ON jlg.js_area_id = ja.id
+	 where jlg.js_park_id = #{parkId,jdbcType=INTEGER}
+    LIMIT #{pageNum,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+  </select>
+  <select id="getLincenseGroupRecords" resultType="java.lang.Integer">
+    select count(*) from jinshi_lincense_group where js_park_id = #{parkId,jdbcType=INTEGER}
+  </select>
+
+  <select id="searchLincenseGroup" resultMap="BaseResultMap">
+    SELECT * FROM jinshi_lincense_group
+    WHERE CONCAT(IFNULL(`js_lg_id`,''),IFNULL(`js_group_name`,''),IFNULL(`js_number`,''),IFNULL(`js_car_count`,''),
+    IFNULL(`js_phone`,''),IFNULL(`js_address`,''),IFNULL(`js_park_id`,''),
+    IFNULL(`js_agent_id`,''),IFNULL(`js_area_id`,''),IFNULL(`js_data_D`,''),IFNULL(`js_data_E`,''))
+    LIKE "%"#{keyWord}"%" and js_park_id = #{parkId,jdbcType=INTEGER}
+    LIMIT #{pageNum,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectALl" resultMap="BaseResultMap">
+    select * from jinshi_lincense_group
+  </select>
+  <select id="getLincenseGroupRecordsSearch" resultType="java.lang.Integer">
+    SELECT count(*) FROM jinshi_lincense_group
+    WHERE CONCAT(IFNULL(`js_lg_id`,''),IFNULL(`js_group_name`,''),IFNULL(`js_number`,''),IFNULL(`js_car_count`,''),
+    IFNULL(`js_phone`,''),IFNULL(`js_address`,''),IFNULL(`js_park_id`,''),
+    IFNULL(`js_agent_id`,''),IFNULL(`js_area_id`,''),IFNULL(`js_data_D`,''),IFNULL(`js_data_E`,''))
+    LIKE "%"#{keyWord}"%" and js_park_id = #{parkId,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectAllByJsNumber" resultMap="BaseResultMap">
+    select * from jinshi_lincense_group
+    where js_park_id = #{jsParkId,jdbcType=INTEGER}
+        and js_area_id = #{jsAreaId,jdbcType=INTEGER}
+
+  </select>
+
+
+  <select id="selectByParkIdAndAreaId" resultMap="BaseResultMap">
+    select * from jinshi_lincense_group
+    where js_park_id = #{jsParkId,jdbcType=INTEGER}
+        and js_area_id = #{jsAreaId,jdbcType=INTEGER}
+  </select>
+</mapper>

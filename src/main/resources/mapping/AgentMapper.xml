@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jinshi.mapper.AgentMapper">
+  <resultMap id="BaseResultMap" type="com.jinshi.entity.Agent">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="phone_number" jdbcType="VARCHAR" property="phoneNumber" />
+    <result column="site" jdbcType="VARCHAR" property="site" />
+    <result column="rental_term" jdbcType="VARCHAR" property="rentalTerm" />
+    <result column="remaining_time" jdbcType="VARCHAR" property="remainingTime" />
+    <result column="state" jdbcType="INTEGER" property="state" />
+    <result column="parking_numbers" jdbcType="VARCHAR" property="parkingNumbers" />
+    <result column="province" jdbcType="VARCHAR" property="province" />
+    <result column="city" jdbcType="VARCHAR" property="city" />
+    <result column="district" jdbcType="VARCHAR" property="district" />
+    <result column="login_name" jdbcType="VARCHAR" property="loginName" />
+    <result column="fixed_phone" jdbcType="VARCHAR" property="fixedPhone" />
+    <result column="weChat" jdbcType="VARCHAR" property="weChat" />
+    <result column="qq" jdbcType="VARCHAR" property="qq" />
+    <result column="divided_ratio" jdbcType="VARCHAR" property="dividedRatio" />
+    <result column="login_password" jdbcType="VARCHAR" property="loginPassword" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="role_name" jdbcType="VARCHAR" property="roleName" />
+    <result column="agent_number" jdbcType="VARCHAR" property="agentNumber" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, username, phone_number, site, rental_term, remaining_time, state, parking_numbers,province,city,
+    district, login_name,  fixed_phone, weChat, qq, divided_ratio,login_password,remark,role_name,agent_number
+  </sql>
+  <select id="searchAgent" resultMap="BaseResultMap">
+    SELECT * FROM agent
+    WHERE CONCAT(IFNULL(`id`,''),IFNULL(`username`,''),IFNULL(`phone_number`,''),IFNULL(`site`,''),
+    IFNULL(`rental_term`,''),IFNULL(`remaining_time`,''),IFNULL(`state`,''),
+    IFNULL(`parking_numbers`,''),IFNULL(`province`,''),IFNULL(`city`,''),IFNULL(`district`,''),IFNULL(`login_name`,''),
+    IFNULL(`fixed_phone`,''),IFNULL(`weChat`,''),IFNULL(`qq`,''),IFNULL(`divided_ratio`,''))
+     LIKE "%"#{keyWork}"%" LIMIT #{pageNum},#{pageSize}
+  </select>
+
+  <select id="getAgentRecordsSearch" resultType="java.lang.Integer">
+    SELECT count(*) FROM agent
+    WHERE CONCAT(IFNULL(`id`,''),IFNULL(`username`,''),IFNULL(`phone_number`,''),IFNULL(`site`,''),
+    IFNULL(`rental_term`,''),IFNULL(`remaining_time`,''),IFNULL(`state`,''),
+    IFNULL(`parking_numbers`,''),IFNULL(`province`,''),IFNULL(`city`,''),IFNULL(`district`,''),IFNULL(`login_name`,''),
+    IFNULL(`fixed_phone`,''),IFNULL(`weChat`,''),IFNULL(`qq`,''),IFNULL(`divided_ratio`,''))
+     LIKE "%"#{keyWord}"%"
+  </select>
+  <select id="getaGentRecords" resultType="java.lang.Integer">
+    select count(*) from agent where id = #{agentId,jdbcType=INTEGER}
+  </select>
+  <select id="selectByuserName" parameterType="com.jinshi.entity.Agent" resultMap="BaseResultMap">
+    select * from agent where username = #{username}
+  </select>
+  <select id="selectAgentPageForAdmin" resultMap="BaseResultMap">
+    select * from agent where 1=1 LIMIT #{pageNum,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+  </select>
+  <select id="getaGentRecordsForAdmin" resultType="java.lang.Integer">
+    select count(*) from agent
+  </select>
+  <select id="selectAgentPage" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select * from agent where id = #{agentId,jdbcType=INTEGER} LIMIT #{pageNum,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+  </select>
+  <select id="selectAllAgent" resultMap="BaseResultMap">
+    select username from agent
+  </select>
+  <select id="findAll" resultMap="BaseResultMap">
+    select * from agent
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select * from agent where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAgentAll"  resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from agent
+    /*where id = #{id,jdbcType=INTEGER}*/
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from agent
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jinshi.entity.Agent" keyProperty="id" useGeneratedKeys="true">
+    insert into agent (id, username, phone_number, 
+      site, rental_term, remaining_time, 
+      state, parking_numbers,province,city,district, login_name,  fixed_phone, weChat, qq, divided_ratio,login_password,remark,role_name,agent_number)
+    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{phoneNumber,jdbcType=VARCHAR}, 
+      #{site,jdbcType=VARCHAR}, #{rentalTerm,jdbcType=VARCHAR}, #{remainingTime,jdbcType=VARCHAR}, 
+      #{state,jdbcType=INTEGER}, #{parkingNumbers,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR},
+      #{district,jdbcType=VARCHAR},#{loginName,jdbcType=VARCHAR},#{fixedPhone,jdbcType=VARCHAR},
+      #{weChat,jdbcType=VARCHAR},#{qq,jdbcType=VARCHAR},#{dividedRatio,jdbcType=VARCHAR},#{loginPassword,jdbcType=VARCHAR},
+      #{remark,jdbcType=VARCHAR},#{roleName,jdbcType=VARCHAR},#{agentNumber,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jinshi.entity.Agent">
+    insert into agent
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="username != null">
+        username,
+      </if>
+      <if test="phoneNumber != null">
+        phone_number,
+      </if>
+      <if test="site != null">
+        site,
+      </if>
+      <if test="rentalTerm != null">
+        rental_term,
+      </if>
+      <if test="remainingTime != null">
+        remaining_time,
+      </if>
+      <if test="state != null">
+        state,
+      </if>
+      <if test="parkingNumbers != null">
+        parking_numbers,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneNumber != null">
+        #{phoneNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="site != null">
+        #{site,jdbcType=VARCHAR},
+      </if>
+      <if test="rentalTerm != null">
+        #{rentalTerm,jdbcType=VARCHAR},
+      </if>
+      <if test="remainingTime != null">
+        #{remainingTime,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="parkingNumbers != null">
+        #{parkingNumbers,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jinshi.entity.Agent">
+    update agent
+    <set>
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneNumber != null">
+        phone_number = #{phoneNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="site != null">
+        site = #{site,jdbcType=VARCHAR},
+      </if>
+      <if test="rentalTerm != null">
+        rental_term = #{rentalTerm,jdbcType=VARCHAR},
+      </if>
+      <if test="remainingTime != null">
+        remaining_time = #{remainingTime,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        state = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="parkingNumbers != null">
+        parking_numbers = #{parkingNumbers,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jinshi.entity.Agent">
+    update agent
+    set username = #{username,jdbcType=VARCHAR},
+      phone_number = #{phoneNumber,jdbcType=VARCHAR},
+      site = #{site,jdbcType=VARCHAR},
+      rental_term = #{rentalTerm,jdbcType=VARCHAR},
+      remaining_time = #{remainingTime,jdbcType=VARCHAR},
+      state = #{state,jdbcType=INTEGER},
+      parking_numbers = #{parkingNumbers,jdbcType=VARCHAR},
+      province = #{province,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      district = #{district,jdbcType=VARCHAR},
+      login_name = #{loginName,jdbcType=VARCHAR},
+      fixed_phone = #{fixedPhone,jdbcType=VARCHAR},
+      weChat = #{weChat,jdbcType=VARCHAR},
+      qq = #{qq,jdbcType=VARCHAR},
+      divided_ratio = #{dividedRatio,jdbcType=VARCHAR},
+      login_password = #{loginPassword,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      role_name = #{roleName,jdbcType=VARCHAR},
+      agent_number = #{agentNumber,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <update id="updateAgentNumber" parameterType="com.jinshi.entity.Agent">
+    update agent
+    set agent_number = #{agentNumber,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

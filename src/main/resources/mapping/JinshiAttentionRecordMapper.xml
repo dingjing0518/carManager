@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jinshi.mapper.JinshiAttentionRecordMapper">
+  <resultMap id="BaseResultMap" type="com.jinshi.entity.JinshiAttentionRecord">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="ja_plate" jdbcType="VARCHAR" property="jaPlate" />
+    <result column="ja_inbound_time" jdbcType="TIMESTAMP" property="jaInboundTime" />
+    <result column="ja_departure_time" jdbcType="TIMESTAMP" property="jaDepartureTime" />
+    <result column="ja_inbound_cname" jdbcType="VARCHAR" property="jaInboundCname" />
+    <result column="ja_departure_cname" jdbcType="VARCHAR" property="jaDepartureCname" />
+    <result column="ja_order_id" jdbcType="VARCHAR" property="jaOrderId" />
+    <result column="ja_real_cost" jdbcType="VARCHAR" property="jaRealCost" />
+    <result column="ja_remark" jdbcType="VARCHAR" property="jaRemark" />
+    <result column="ja_park_id" jdbcType="VARCHAR" property="jaParkId" />
+    <result column="ja_data_B" jdbcType="VARCHAR" property="jaDataB" />
+    <result column="ja_data_C" jdbcType="VARCHAR" property="jaDataC" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, ja_plate, ja_inbound_time, ja_departure_time, ja_inbound_cname, ja_departure_cname, 
+    ja_order_id, ja_real_cost, ja_remark, ja_park_id, ja_data_B, ja_data_C
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from jinshi_attention_record
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from jinshi_attention_record
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jinshi.entity.JinshiAttentionRecord">
+    insert into jinshi_attention_record (id, ja_plate, ja_inbound_time, 
+      ja_departure_time, ja_inbound_cname, ja_departure_cname, 
+      ja_order_id, ja_real_cost, ja_remark, 
+      ja_park_id, ja_data_B, ja_data_C
+      )
+    values (#{id,jdbcType=INTEGER}, #{jaPlate,jdbcType=VARCHAR}, #{jaInboundTime,jdbcType=TIMESTAMP}, 
+      #{jaDepartureTime,jdbcType=TIMESTAMP}, #{jaInboundCname,jdbcType=VARCHAR}, #{jaDepartureCname,jdbcType=VARCHAR}, 
+      #{jaOrderId,jdbcType=VARCHAR}, #{jaRealCost,jdbcType=VARCHAR}, #{jaRemark,jdbcType=VARCHAR}, 
+      #{jaParkId,jdbcType=INTEGER}, #{jaDataB,jdbcType=VARCHAR}, #{jaDataC,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.jinshi.entity.JinshiAttentionRecord">
+    insert into jinshi_attention_record
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="jaPlate != null">
+        ja_plate,
+      </if>
+      <if test="jaInboundTime != null">
+        ja_inbound_time,
+      </if>
+      <if test="jaDepartureTime != null">
+        ja_departure_time,
+      </if>
+      <if test="jaInboundCname != null">
+        ja_inbound_cname,
+      </if>
+      <if test="jaDepartureCname != null">
+        ja_departure_cname,
+      </if>
+      <if test="jaOrderId != null">
+        ja_order_id,
+      </if>
+      <if test="jaRealCost != null">
+        ja_real_cost,
+      </if>
+      <if test="jaRemark != null">
+        ja_remark,
+      </if>
+      <if test="jaParkId != null">
+        ja_park_id,
+      </if>
+      <if test="jaDataB != null">
+        ja_data_B,
+      </if>
+      <if test="jaDataC != null">
+        ja_data_C,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="jaPlate != null">
+        #{jaPlate,jdbcType=VARCHAR},
+      </if>
+      <if test="jaInboundTime != null">
+        #{jaInboundTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jaDepartureTime != null">
+        #{jaDepartureTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jaInboundCname != null">
+        #{jaInboundCname,jdbcType=VARCHAR},
+      </if>
+      <if test="jaDepartureCname != null">
+        #{jaDepartureCname,jdbcType=VARCHAR},
+      </if>
+      <if test="jaOrderId != null">
+        #{jaOrderId,jdbcType=VARCHAR},
+      </if>
+      <if test="jaRealCost != null">
+        #{jaRealCost,jdbcType=VARCHAR},
+      </if>
+      <if test="jaRemark != null">
+        #{jaRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="jaParkId != null">
+        #{jaParkId,jdbcType=INTEGER},
+      </if>
+      <if test="jaDataB != null">
+        #{jaDataB,jdbcType=VARCHAR},
+      </if>
+      <if test="jaDataC != null">
+        #{jaDataC,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jinshi.entity.JinshiAttentionRecord">
+    update jinshi_attention_record
+    <set>
+      <if test="jaPlate != null">
+        ja_plate = #{jaPlate,jdbcType=VARCHAR},
+      </if>
+      <if test="jaInboundTime != null">
+        ja_inbound_time = #{jaInboundTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jaDepartureTime != null">
+        ja_departure_time = #{jaDepartureTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jaInboundCname != null">
+        ja_inbound_cname = #{jaInboundCname,jdbcType=VARCHAR},
+      </if>
+      <if test="jaDepartureCname != null">
+        ja_departure_cname = #{jaDepartureCname,jdbcType=VARCHAR},
+      </if>
+      <if test="jaOrderId != null">
+        ja_order_id = #{jaOrderId,jdbcType=VARCHAR},
+      </if>
+      <if test="jaRealCost != null">
+        ja_real_cost = #{jaRealCost,jdbcType=VARCHAR},
+      </if>
+      <if test="jaRemark != null">
+        ja_remark = #{jaRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="jaParkId != null">
+        ja_park_id = #{jaParkId,jdbcType=INTEGER},
+      </if>
+      <if test="jaDataB != null">
+        ja_data_B = #{jaDataB,jdbcType=VARCHAR},
+      </if>
+      <if test="jaDataC != null">
+        ja_data_C = #{jaDataC,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jinshi.entity.JinshiAttentionRecord">
+    update jinshi_attention_record
+    set ja_plate = #{jaPlate,jdbcType=VARCHAR},
+      ja_inbound_time = #{jaInboundTime,jdbcType=TIMESTAMP},
+      ja_departure_time = #{jaDepartureTime,jdbcType=TIMESTAMP},
+      ja_inbound_cname = #{jaInboundCname,jdbcType=VARCHAR},
+      ja_departure_cname = #{jaDepartureCname,jdbcType=VARCHAR},
+      ja_order_id = #{jaOrderId,jdbcType=VARCHAR},
+      ja_real_cost = #{jaRealCost,jdbcType=VARCHAR},
+      ja_remark = #{jaRemark,jdbcType=VARCHAR},
+      ja_park_id = #{jaParkId,jdbcType=INTEGER},
+      ja_data_B = #{jaDataB,jdbcType=VARCHAR},
+      ja_data_C = #{jaDataC,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectAttentionRecord" parameterType="com.jinshi.entity.JinshiAttentionRecord" resultMap="BaseResultMap">
+    select * from jinshi_attention_record where ja_park_id = #{parkId,jdbcType=INTEGER}
+     order by ja_inbound_time desc LIMIT #{pageNum,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+  </select>
+  <select id="getAttentionRecord" resultType="java.lang.Integer">
+    select count(*) from jinshi_attention_record where ja_park_id = #{parkId,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectAttentionRecordByTime" parameterType="com.jinshi.entity.JinshiAttentionRecord" resultMap="BaseResultMap">
+    select * from jinshi_attention_record
+    where CONCAT(IFNULL(`ja_plate`,''),IFNULL(`ja_order_id`,'')) like "%"#{keyWord}"%"
+    <if test="startTime != null and endTime != null">
+      and ja_inbound_time BETWEEN #{startTime,jdbcType=TIMESTAMP} and #{endTime,jdbcType=TIMESTAMP}
+    </if>
+    and ja_park_id = #{parkId,jdbcType=INTEGER}
+    order by ja_inbound_time desc LIMIT #{pageNum,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+  </select>
+  <select id="getAttentionRecordByTime" parameterType="com.jinshi.entity.JinshiAttentionRecord" resultType="java.lang.Integer">
+    select count(*) from jinshi_attention_record
+    where CONCAT(IFNULL(`ja_plate`,''),IFNULL(`ja_order_id`,'')) like "%"#{keyWord}"%"
+    <if test="startTime != null and endTime != null">
+      and ja_inbound_time BETWEEN #{startTime,jdbcType=TIMESTAMP} and #{endTime,jdbcType=TIMESTAMP}
+    </if>
+    and ja_park_id = #{parkId,jdbcType=INTEGER}
+  </select>
+
+  <update id="updateByOrderId" parameterType="com.jinshi.entity.JinshiAttentionRecord">
+    update jinshi_attention_record
+    set ja_departure_time = #{jaDepartureTime,jdbcType=TIMESTAMP},
+      ja_departure_cname = #{jaDepartureCname,jdbcType=VARCHAR},
+      ja_real_cost = #{jaRealCost,jdbcType=VARCHAR}
+    where ja_order_id = #{jaOrderId,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,689 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jinshi.mapper.LincensePlateExceptionMapper">
+    <resultMap id="BaseResultMap" type="com.jinshi.entity.LincensePlateException">
+        <id column="lp_id" jdbcType="INTEGER" property="lpId"/>
+        <result column="lp_member_id_car" jdbcType="VARCHAR" property="lpMemberIdCar"/>
+        <result column="lp_lincense_plate_id_car" jdbcType="VARCHAR" property="lpLincensePlateIdCar"/>
+        <result column="lp_service_type_car" jdbcType="VARCHAR" property="lpServiceTypeCar"/>
+        <result column="lp_inbound_time" jdbcType="TIMESTAMP" property="lpInboundTime"/>
+        <result column="lp_departure_time" jdbcType="TIMESTAMP" property="lpDepartureTime"/>
+        <result column="lp_rent_time" jdbcType="VARCHAR" property="lpRentTime"/>
+        <result column="lp_create_time" jdbcType="TIMESTAMP" property="lpCreateTime"/>
+        <result column="lp_order_id" jdbcType="VARCHAR" property="lpOrderId"/>
+        <result column="lp_car_type" jdbcType="VARCHAR" property="lpCarType"/>
+        <result column="lp_car_color" jdbcType="VARCHAR" property="lpCarColor"/>
+        <result column="lp_lincense_type" jdbcType="VARCHAR" property="lpLincenseType"/>
+        <result column="lp_parking_often" jdbcType="VARCHAR" property="lpParkingOften"/>
+        <result column="lp_parking_cost" jdbcType="VARCHAR" property="lpParkingCost"/>
+        <result column="lp_inbound_cname" jdbcType="VARCHAR" property="lpInboundCname"/>
+        <result column="lp_departure_cname" jdbcType="VARCHAR" property="lpDepartureCname"/>
+        <result column="lp_parking_name" jdbcType="VARCHAR" property="lpParkingName"/>
+        <result column="lp_agent_name" jdbcType="VARCHAR" property="lpAgentName"/>
+        <result column="lp_order_state" jdbcType="VARCHAR" property="lpOrderState"/>
+        <result column="lp_payment_type" jdbcType="VARCHAR" property="lpPaymentType"/>
+    </resultMap>
+
+    <resultMap id="BaseResultMaps" type="com.jinshi.entity.LincensePlateException">
+        <result column="lp_lincense_plate_id_car" jdbcType="VARCHAR" property="lpLincensePlateIdCar"/>
+        <result column="lp_car_type" jdbcType="VARCHAR" property="lpCarType"/>
+        <result column="lp_parking_cost" jdbcType="VARCHAR" property="lpParkingCost"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    lp_id, lp_member_id_car, lp_lincense_plate_id_car, lp_service_type_car, lp_inbound_time,
+    lp_departure_time, lp_rent_time, lp_create_time, lp_order_id, lp_car_type, lp_car_color,
+    lp_lincense_type, lp_parking_often, lp_parking_cost, lp_inbound_cname, lp_departure_cname,
+    lp_parking_name, lp_agent_name, lp_order_state, lp_payment_type
+  </sql>
+    <select id="searchLincense" resultMap="BaseResultMap">
+    SELECT * FROM lincense_plate_exception
+    WHERE CONCAT(IFNULL(`lp_id`,''),IFNULL(`lp_member_id_car`,''),IFNULL(`lp_lincense_plate_id_car`,''),IFNULL(`lp_service_type_car`,''),
+    IFNULL(`lp_inbound_time`,''),IFNULL(`lp_departure_time`,''),IFNULL(`lp_rent_time`,''),
+    IFNULL(`lp_create_time`,''),IFNULL(`lp_order_id`,''),IFNULL(`lp_car_type`,''),IFNULL(`lp_car_color`,''),IFNULL(`lp_lincense_type`,''),
+    IFNULL(`lp_parking_often`,''),IFNULL(`lp_parking_cost`,''),
+    IFNULL(`lp_inbound_cname`,''),IFNULL(`lp_departure_cname`,''),IFNULL(`lp_parking_name`,''),IFNULL(`lp_agent_name`,''),
+    IFNULL(`lp_order_state`,''),IFNULL(`lp_payment_type`,''))
+     LIKE "%"#{keyWork}"%" LIMIT #{pageNum},#{pageSize}
+  </select>
+    <select id="selectLincenseForPage" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select * from lincense_plate_exception LIMIT #{pageNum,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+  </select>
+    <select id="getLincenseTotalRecords" resultType="java.lang.Integer">
+    select count(*) from lincense_plate_exception
+  </select>
+
+    <select id="selectLincenseInRocord" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select * from lincense_plate_exception where IFNULL(`lp_inbound_cname`,'') order by lp_inbound_time desc LIMIT #{pageNum,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+  </select>
+    <select id="getLincenseInRecords" resultType="java.lang.Integer">
+    select count(*) from lincense_plate_exception where IFNULL(`lp_inbound_cname`,'')
+  </select>
+
+    <select id="selectLincenseOutRocord" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select * from lincense_plate_exception where IFNULL(`lp_departure_cname`,'') order by lp_departure_time desc LIMIT #{pageNum,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+  </select>
+    <select id="getLincenseOutRecords" resultType="java.lang.Integer">
+    select count(*) from lincense_plate_exception where IFNULL(`lp_departure_cname`,'')
+  </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from lincense_plate_exception
+        where lp_id = #{lpId,jdbcType=INTEGER}
+    </select>
+    <select id="selectLincensePlateAll" resultMap="BaseResultMap">
+    select * from lincense_plate_exception
+  </select>
+
+    <select id="selectByLincense" parameterType="com.jinshi.entity.LincensePlateException" resultMap="BaseResultMap">
+    select * from lincense_plate_exception where lp_inbound_time in (
+    select MAX(lp_inbound_time) from lincense_plate where lp_lincense_plate_id_car=#{lpLincensePlateIdCar,jdbcType=VARCHAR}  )
+  </select>
+
+    <select id="selectByLincensePlate" parameterType="com.jinshi.entity.LincensePlateException" resultMap="BaseResultMap">
+    select * from lincense_plate_exception where lp_lincense_plate_id_car = #{lincensePlateNumber,jdbcType=VARCHAR}
+  </select>
+
+    <select id="selectByOrderStatAndCname" parameterType="com.jinshi.entity.LincensePlateException" resultMap="BaseResultMap">
+select * from lincense_plate_exception where lp_departure_time in (
+    select MAX(lp_departure_time) from lincense_plate where lp_order_state=#{lpOrderState,jdbcType=VARCHAR} and lp_departure_cname=#{lpDepartureCname,jdbcType=VARCHAR})
+  </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from lincense_plate_exception
+    where lp_id = #{lpId,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.jinshi.entity.LincensePlateException">
+    insert into lincense_plate_exception (lp_id, lp_member_id_car, lp_lincense_plate_id_car,
+      lp_service_type_car, lp_inbound_time, lp_departure_time,
+      lp_rent_time, lp_create_time, lp_order_id,
+      lp_car_type, lp_car_color, lp_lincense_type,
+      lp_parking_often, lp_parking_cost, lp_inbound_cname,
+      lp_departure_cname, lp_parking_name, lp_agent_name,
+      lp_order_state, lp_payment_type)
+    values (#{lpId,jdbcType=INTEGER}, #{lpMemberIdCar,jdbcType=VARCHAR}, #{lpLincensePlateIdCar,jdbcType=VARCHAR},
+      #{lpServiceTypeCar,jdbcType=VARCHAR}, #{lpInboundTime,jdbcType=TIMESTAMP}, #{lpDepartureTime,jdbcType=TIMESTAMP},
+      #{lpRentTime,jdbcType=VARCHAR}, #{lpCreateTime,jdbcType=TIMESTAMP}, #{lpOrderId,jdbcType=VARCHAR},
+      #{lpCarType,jdbcType=VARCHAR}, #{lpCarColor,jdbcType=VARCHAR}, #{lpLincenseType,jdbcType=VARCHAR},
+      #{lpParkingOften,jdbcType=VARCHAR}, #{lpParkingCost,jdbcType=VARCHAR}, #{lpInboundCname,jdbcType=VARCHAR},
+      #{lpDepartureCname,jdbcType=VARCHAR}, #{lpParkingName,jdbcType=VARCHAR}, #{lpAgentName,jdbcType=VARCHAR},
+      #{lpOrderState,jdbcType=VARCHAR}, #{lpPaymentType,jdbcType=VARCHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="com.jinshi.entity.LincensePlateException">
+        insert into lincense_plate_exception
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="lpId != null">
+                lp_id,
+            </if>
+            <if test="lpMemberIdCar != null">
+                lp_member_id_car,
+            </if>
+            <if test="lpLincensePlateIdCar != null">
+                lp_lincense_plate_id_car,
+            </if>
+            <if test="lpServiceTypeCar != null">
+                lp_service_type_car,
+            </if>
+            <if test="lpInboundTime != null">
+                lp_inbound_time,
+            </if>
+            <if test="lpDepartureTime != null">
+                lp_departure_time,
+            </if>
+            <if test="lpRentTime != null">
+                lp_rent_time,
+            </if>
+            <if test="lpCreateTime != null">
+                lp_create_time,
+            </if>
+            <if test="lpOrderId != null">
+                lp_order_id,
+            </if>
+            <if test="lpCarType != null">
+                lp_car_type,
+            </if>
+            <if test="lpCarColor != null">
+                lp_car_color,
+            </if>
+            <if test="lpLincenseType != null">
+                lp_lincense_type,
+            </if>
+            <if test="lpParkingOften != null">
+                lp_parking_often,
+            </if>
+            <if test="lpParkingCost != null">
+                lp_parking_cost,
+            </if>
+            <if test="lpInboundCname != null">
+                lp_inbound_cname,
+            </if>
+            <if test="lpDepartureCname != null">
+                lp_departure_cname,
+            </if>
+            <if test="lpParkingName != null">
+                lp_parking_name,
+            </if>
+            <if test="lpAgentName != null">
+                lp_agent_name,
+            </if>
+            <if test="lpOrderState != null">
+                lp_order_state,
+            </if>
+            <if test="lpPaymentType != null">
+                lp_payment_type,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="lpId != null">
+                #{lpId,jdbcType=INTEGER},
+            </if>
+            <if test="lpMemberIdCar != null">
+                #{lpMemberIdCar,jdbcType=VARCHAR},
+            </if>
+            <if test="lpLincensePlateIdCar != null">
+                #{lpLincensePlateIdCar,jdbcType=VARCHAR},
+            </if>
+            <if test="lpServiceTypeCar != null">
+                #{lpServiceTypeCar,jdbcType=VARCHAR},
+            </if>
+            <if test="lpInboundTime != null">
+                #{lpInboundTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lpDepartureTime != null">
+                #{lpDepartureTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lpRentTime != null">
+                #{lpRentTime,jdbcType=VARCHAR},
+            </if>
+            <if test="lpCreateTime != null">
+                #{lpCreateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lpOrderId != null">
+                #{lpOrderId,jdbcType=VARCHAR},
+            </if>
+            <if test="lpCarType != null">
+                #{lpCarType,jdbcType=VARCHAR},
+            </if>
+            <if test="lpCarColor != null">
+                #{lpCarColor,jdbcType=VARCHAR},
+            </if>
+            <if test="lpLincenseType != null">
+                #{lpLincenseType,jdbcType=VARCHAR},
+            </if>
+            <if test="lpParkingOften != null">
+                #{lpParkingOften,jdbcType=VARCHAR},
+            </if>
+            <if test="lpParkingCost != null">
+                #{lpParkingCost,jdbcType=VARCHAR},
+            </if>
+            <if test="lpInboundCname != null">
+                #{lpInboundCname,jdbcType=VARCHAR},
+            </if>
+            <if test="lpDepartureCname != null">
+                #{lpDepartureCname,jdbcType=VARCHAR},
+            </if>
+            <if test="lpParkingName != null">
+                #{lpParkingName,jdbcType=VARCHAR},
+            </if>
+            <if test="lpAgentName != null">
+                #{lpAgentName,jdbcType=VARCHAR},
+            </if>
+            <if test="lpOrderState != null">
+                #{lpOrderState,jdbcType=VARCHAR},
+            </if>
+            <if test="lpPaymentType != null">
+                #{lpPaymentType,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updatePlateCleanUp" parameterType="com.jinshi.entity.LincensePlateException">
+        update lincense_plate_exception
+        <set>
+            <if test="lpMemberIdCar != null">
+                lp_member_id_car = #{lpMemberIdCar,jdbcType=VARCHAR},
+            </if>
+            <if test="lpServiceTypeCar != null">
+                lp_service_type_car = #{lpServiceTypeCar,jdbcType=VARCHAR},
+            </if>
+            <if test="lpInboundTime != null">
+                lp_inbound_time = #{lpInboundTime,jdbcType=TIMESTAMP},
+            </if>
+
+            lp_departure_time = #{lpDepartureTime,jdbcType=TIMESTAMP},
+
+            <if test="lpRentTime != null">
+                lp_rent_time = #{lpRentTime,jdbcType=VARCHAR},
+            </if>
+            <if test="lpCreateTime != null">
+                lp_create_time = #{lpCreateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lpOrderId != null">
+                lp_order_id = #{lpOrderId,jdbcType=VARCHAR},
+            </if>
+            <if test="lpCarType != null">
+                lp_car_type = #{lpCarType,jdbcType=VARCHAR},
+            </if>
+            <if test="lpCarColor != null">
+                lp_car_color = #{lpCarColor,jdbcType=VARCHAR},
+            </if>
+            <if test="lpLincenseType != null">
+                lp_lincense_type = #{lpLincenseType,jdbcType=VARCHAR},
+            </if>
+            <if test="lpParkingOften != null">
+                lp_parking_often = #{lpParkingOften,jdbcType=VARCHAR},
+            </if>
+
+            lp_parking_cost = #{lpParkingCost,jdbcType=VARCHAR},
+
+            <if test="lpInboundCname != null">
+                lp_inbound_cname = #{lpInboundCname,jdbcType=VARCHAR},
+            </if>
+            <if test="lpDepartureCname != null">
+                lp_departure_cname = #{lpDepartureCname,jdbcType=VARCHAR},
+            </if>
+            <if test="lpParkingName != null">
+                lp_parking_name = #{lpParkingName,jdbcType=VARCHAR},
+            </if>
+            <if test="lpAgentName != null">
+                lp_agent_name = #{lpAgentName,jdbcType=VARCHAR},
+            </if>
+            lp_order_state = '未付款',
+            <if test="lpPaymentType != null">
+                lp_payment_type = #{lpPaymentType,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where lp_departure_cname=#{lpDepartureCname,jdbcType=VARCHAR} and lp_order_state
+        =#{lpOrderState,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPlate" parameterType="com.jinshi.entity.LincensePlateException">
+        update lincense_plate_exception
+        <set>
+            <if test="lpMemberIdCar != null">
+                lp_member_id_car = #{lpMemberIdCar,jdbcType=VARCHAR},
+            </if>
+            <if test="lpServiceTypeCar != null">
+                lp_service_type_car = #{lpServiceTypeCar,jdbcType=VARCHAR},
+            </if>
+            <if test="lpInboundTime != null">
+                lp_inbound_time = #{lpInboundTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lpDepartureTime != null">
+                lp_departure_time = #{lpDepartureTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lpRentTime != null">
+                lp_rent_time = #{lpRentTime,jdbcType=VARCHAR},
+            </if>
+            <if test="lpCreateTime != null">
+                lp_create_time = #{lpCreateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lpOrderId != null">
+                lp_order_id = #{lpOrderId,jdbcType=VARCHAR},
+            </if>
+            <if test="lpCarType != null">
+                lp_car_type = #{lpCarType,jdbcType=VARCHAR},
+            </if>
+            <if test="lpCarColor != null">
+                lp_car_color = #{lpCarColor,jdbcType=VARCHAR},
+            </if>
+            <if test="lpLincenseType != null">
+                lp_lincense_type = #{lpLincenseType,jdbcType=VARCHAR},
+            </if>
+            <if test="lpParkingOften != null">
+                lp_parking_often = #{lpParkingOften,jdbcType=VARCHAR},
+            </if>
+            <if test="lpParkingCost != null">
+                lp_parking_cost = #{lpParkingCost,jdbcType=VARCHAR},
+            </if>
+            <if test="lpInboundCname != null">
+                lp_inbound_cname = #{lpInboundCname,jdbcType=VARCHAR},
+            </if>
+            <if test="lpDepartureCname != null">
+                lp_departure_cname = #{lpDepartureCname,jdbcType=VARCHAR},
+            </if>
+            <if test="lpParkingName != null">
+                lp_parking_name = #{lpParkingName,jdbcType=VARCHAR},
+            </if>
+            <if test="lpAgentName != null">
+                lp_agent_name = #{lpAgentName,jdbcType=VARCHAR},
+            </if>
+            <if test="lpOrderState != null">
+                lp_order_state = #{lpOrderState,jdbcType=VARCHAR},
+            </if>
+            <if test="lpPaymentType != null">
+                lp_payment_type = #{lpPaymentType,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where lp_inbound_time in (
+        select t.lit from (
+        select MAX(lp_inbound_time) as lit from lincense_plate where
+        lp_lincense_plate_id_car=#{lpLincensePlateIdCar,jdbcType=VARCHAR}) t
+        )
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.jinshi.entity.LincensePlateException">
+        update lincense_plate_exception
+        <set>
+            <if test="lpMemberIdCar != null">
+                lp_member_id_car = #{lpMemberIdCar,jdbcType=VARCHAR},
+            </if>
+            <if test="lpLincensePlateIdCar != null">
+                lp_lincense_plate_id_car = #{lpLincensePlateIdCar,jdbcType=VARCHAR},
+            </if>
+            <if test="lpServiceTypeCar != null">
+                lp_service_type_car = #{lpServiceTypeCar,jdbcType=INTEGER},
+            </if>
+            <if test="lpInboundTime != null">
+                lp_inbound_time = #{lpInboundTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lpDepartureTime != null">
+                lp_departure_time = #{lpDepartureTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lpRentTime != null">
+                lp_rent_time = #{lpRentTime,jdbcType=VARCHAR},
+            </if>
+            <if test="lpCreateTime != null">
+                lp_create_time = #{lpCreateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lpOrderId != null">
+                lp_order_id = #{lpOrderId,jdbcType=VARCHAR},
+            </if>
+            <if test="lpCarType != null">
+                lp_car_type = #{lpCarType,jdbcType=VARCHAR},
+            </if>
+            <if test="lpCarColor != null">
+                lp_car_color = #{lpCarColor,jdbcType=VARCHAR},
+            </if>
+            <if test="lpLincenseType != null">
+                lp_lincense_type = #{lpLincenseType,jdbcType=VARCHAR},
+            </if>
+            <if test="lpParkingOften != null">
+                lp_parking_often = #{lpParkingOften,jdbcType=VARCHAR},
+            </if>
+            <if test="lpParkingCost != null">
+                lp_parking_cost = #{lpParkingCost,jdbcType=VARCHAR},
+            </if>
+            <if test="lpInboundCname != null">
+                lp_inbound_cname = #{lpInboundCname,jdbcType=VARCHAR},
+            </if>
+            <if test="lpDepartureCname != null">
+                lp_departure_cname = #{lpDepartureCname,jdbcType=VARCHAR},
+            </if>
+            <if test="lpParkingName != null">
+                lp_parking_name = #{lpParkingName,jdbcType=VARCHAR},
+            </if>
+            <if test="lpAgentName != null">
+                lp_agent_name = #{lpAgentName,jdbcType=VARCHAR},
+            </if>
+            <if test="lpOrderState != null">
+                lp_order_state = #{lpOrderState,jdbcType=VARCHAR},
+            </if>
+            <if test="lpPaymentType != null">
+                lp_payment_type = #{lpPaymentType,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where lp_id = #{lpId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.jinshi.entity.LincensePlateException">
+    update lincense_plate_exception
+    set lp_member_id_car = #{lpMemberIdCar,jdbcType=VARCHAR},
+      lp_lincense_plate_id_car = #{lpLincensePlateIdCar,jdbcType=VARCHAR},
+      lp_service_type_car = #{lpServiceTypeCar,jdbcType=VARCHAR},
+      lp_inbound_time = #{lpInboundTime,jdbcType=TIMESTAMP},
+      lp_departure_time = #{lpDepartureTime,jdbcType=TIMESTAMP},
+      lp_rent_time = #{lpRentTime,jdbcType=VARCHAR},
+      lp_create_time = #{lpCreateTime,jdbcType=TIMESTAMP},
+      lp_order_id = #{lpOrderId,jdbcType=VARCHAR},
+      lp_car_type = #{lpCarType,jdbcType=VARCHAR},
+      lp_car_color = #{lpCarColor,jdbcType=VARCHAR},
+      lp_lincense_type = #{lpLincenseType,jdbcType=VARCHAR},
+      lp_parking_often = #{lpParkingOften,jdbcType=VARCHAR},
+      lp_parking_cost = #{lpParkingCost,jdbcType=VARCHAR},
+      lp_inbound_cname = #{lpInboundCname,jdbcType=VARCHAR},
+      lp_departure_cname = #{lpDepartureCname,jdbcType=VARCHAR},
+      lp_parking_name = #{lpParkingName,jdbcType=VARCHAR},
+      lp_agent_name = #{lpAgentName,jdbcType=VARCHAR},
+      lp_order_state = #{lpOrderState,jdbcType=VARCHAR},
+      lp_payment_type = #{lpPaymentType,jdbcType=VARCHAR}
+    where lp_id = #{lpId,jdbcType=INTEGER}
+  </update>
+
+    <select id="selectss" parameterType="com.jinshi.entity.LincensePlatess" resultMap="BaseResultMaps">
+    select lp_lincense_plate_id_car, lp_car_type,lp_parking_cost from lincense_plate_exception where lp_parking_cost &lt;&gt; 0 AND lp_parking_cost is not null;
+  </select>
+
+    <select id="selectByWbPlate" parameterType="com.jinshi.entity.LincensePlateException" resultMap="BaseResultMap">
+    select lp_id, lp_lincense_plate_id_car,lp_inbound_time ,lp_departure_time,lp_parking_cost
+    from lincense_plate_exception
+    where lp_lincense_plate_id_car in (select lincense_plate_number from black_list where is_flag = '已关注')
+       or lp_lincense_plate_id_car in (select lincense_plate_number from white_list where is_flag = '已关注')
+    LIMIT #{pageNum,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+  </select>
+
+    <insert id="insertWxUser" parameterType="com.jinshi.entity.LincensePlateException">
+    insert into lincense_plate_exception (lp_id, lp_member_id_car, lp_lincense_plate_id_car,
+      lp_service_type_car, lp_inbound_time, lp_car_type, lp_parking_name)
+    values (#{lpId,jdbcType=INTEGER}, #{lpMemberIdCar,jdbcType=VARCHAR}, #{lpLincensePlateIdCar,jdbcType=VARCHAR},
+      #{lpServiceTypeCar,jdbcType=VARCHAR}, #{lpInboundTime,jdbcType=TIMESTAMP}, #{lpCarType,jdbcType=VARCHAR},
+      #{lpParkingName,jdbcType=VARCHAR})
+  </insert>
+
+    <insert id="insertException" parameterType="java.lang.String">
+        insert into lincense_plate_exception
+        select * from lincense_plate
+        where lp_departure_time is null
+        and lp_inbound_time &lt; #{lpInboundTime,jdbcType=VARCHAR}
+    </insert>
+
+    <select id="selectByPlate" parameterType="com.jinshi.entity.LincensePlateException" resultType="java.lang.String">
+    select  lp_lincense_plate_id_car
+    from lincense_plate_exception
+    where lp_lincense_plate_id_car = #{carNumber,jdbcType=VARCHAR}
+  </select>
+
+    <select id="selectByOpenid" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select * from lincense_plate_exception
+    where lp_lincense_plate_id_car in
+    (select jw_car_number from jinshi_wxcar where jw_openid = #{openid,jdbcType=VARCHAR})
+    order by lp_inbound_time desc
+  </select>
+
+
+    <select id="selectLincenseByDay" parameterType="com.jinshi.entity.LincensePlateException" resultMap="BaseResultMap">
+    select * from lincense_plate_exception
+    where lp_inbound_time BETWEEN #{dayBegin,jdbcType=TIMESTAMP} and #{dayEnd,jdbcType=TIMESTAMP}
+    LIMIT #{pageNum,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+  </select>
+    <select id="selectLincenseByWeek" parameterType="com.jinshi.entity.LincensePlateException" resultMap="BaseResultMap">
+    select * from lincense_plate_exception
+    where lp_inbound_time BETWEEN #{beginDayOfWeek,jdbcType=TIMESTAMP} and #{endDayOfWeek,jdbcType=TIMESTAMP}
+    LIMIT #{pageNum,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+  </select>
+    <select id="selectLincenseByMonth" parameterType="com.jinshi.entity.LincensePlateException" resultMap="BaseResultMap">
+    select * from lincense_plate_exception
+    where lp_inbound_time BETWEEN #{beginDayOfMonth,jdbcType=TIMESTAMP} and #{endDayOfMonth,jdbcType=TIMESTAMP}
+    LIMIT #{pageNum,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+  </select>
+    <select id="selectLincenseByYear" parameterType="com.jinshi.entity.LincensePlateException" resultMap="BaseResultMap">
+    select * from lincense_plate_exception
+    where lp_inbound_time BETWEEN #{beginDayOfYear,jdbcType=TIMESTAMP} and #{endDayOfYear,jdbcType=TIMESTAMP}
+    LIMIT #{pageNum,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+  </select>
+
+    <select id="selectLincenseInRocordByDay" parameterType="com.jinshi.entity.LincensePlateException" resultMap="BaseResultMap">
+    select * from lincense_plate_exception
+    where IFNULL(`lp_inbound_cname`,'') and lp_inbound_time BETWEEN #{dayBegin,jdbcType=TIMESTAMP} and #{dayEnd,jdbcType=TIMESTAMP}
+    order by lp_departure_time desc
+    LIMIT #{pageNum,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+  </select>
+    <select id="selectLincenseInRocordByWeek" parameterType="com.jinshi.entity.LincensePlateException" resultMap="BaseResultMap">
+    select * from lincense_plate_exception
+    where IFNULL(`lp_inbound_cname`,'') and lp_inbound_time BETWEEN #{beginDayOfWeek,jdbcType=TIMESTAMP} and #{endDayOfWeek,jdbcType=TIMESTAMP}
+    order by lp_departure_time desc
+    LIMIT #{pageNum,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+  </select>
+    <select id="selectLincenseInRocordByMonth" parameterType="com.jinshi.entity.LincensePlateException" resultMap="BaseResultMap">
+    select * from lincense_plate_exception
+    where IFNULL(`lp_inbound_cname`,'') and lp_inbound_time BETWEEN #{beginDayOfMonth,jdbcType=TIMESTAMP} and #{endDayOfMonth,jdbcType=TIMESTAMP}
+    order by lp_departure_time desc
+    LIMIT #{pageNum,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+  </select>
+    <select id="selectLincenseInRocordByYear" parameterType="com.jinshi.entity.LincensePlateException" resultMap="BaseResultMap">
+    select * from lincense_plate_exception
+    where IFNULL(`lp_inbound_cname`,'') and lp_inbound_time BETWEEN #{beginDayOfYear,jdbcType=TIMESTAMP} and #{endDayOfYear,jdbcType=TIMESTAMP}
+    order by lp_departure_time desc
+    LIMIT #{pageNum,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+  </select>
+
+    <select id="selectLincenseOutRocordByDay" parameterType="com.jinshi.entity.LincensePlateException" resultMap="BaseResultMap">
+    select * from lincense_plate_exception
+    where IFNULL(`lp_departure_cname`,'') and lp_inbound_time BETWEEN #{dayBegin,jdbcType=TIMESTAMP} and #{dayEnd,jdbcType=TIMESTAMP}
+    order by lp_departure_time desc
+    LIMIT #{pageNum,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+  </select>
+    <select id="selectLincenseOutRocordByWeek" parameterType="com.jinshi.entity.LincensePlateException" resultMap="BaseResultMap">
+    select * from lincense_plate_exception
+    where IFNULL(`lp_departure_cname`,'') and lp_inbound_time BETWEEN #{beginDayOfWeek,jdbcType=TIMESTAMP} and #{endDayOfWeek,jdbcType=TIMESTAMP}
+    order by lp_departure_time desc
+    LIMIT #{pageNum,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+  </select>
+    <select id="selectLincenseOutRocordByMonth" parameterType="com.jinshi.entity.LincensePlateException" resultMap="BaseResultMap">
+    select * from lincense_plate_exception
+    where IFNULL(`lp_departure_cname`,'') and lp_inbound_time BETWEEN #{beginDayOfMonth,jdbcType=TIMESTAMP} and #{endDayOfMonth,jdbcType=TIMESTAMP}
+    order by lp_departure_time desc
+    LIMIT #{pageNum,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+  </select>
+    <select id="selectLincenseOutRocordByYear" parameterType="com.jinshi.entity.LincensePlateException" resultMap="BaseResultMap">
+    select * from lincense_plate_exception
+    where IFNULL(`lp_departure_cname`,'') and lp_inbound_time BETWEEN #{beginDayOfYear,jdbcType=TIMESTAMP} and #{endDayOfYear,jdbcType=TIMESTAMP}
+    order by lp_departure_time desc
+    LIMIT #{pageNum,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+  </select>
+
+    <select id="selectCountLincensePlateByDay" parameterType="com.jinshi.entity.LincensePlateException" resultType="com.jinshi.entity.CountList">
+     select sum(lp_parking_cost) as price ,count(lp_lincense_plate_id_car) as plate
+    from lincense_plate_exception where lp_inbound_time BETWEEN #{dayBegin,jdbcType=TIMESTAMP} and #{dayEnd,jdbcType=TIMESTAMP}
+  </select>
+    <select id="selectCountLincensePlateByWeek" parameterType="com.jinshi.entity.LincensePlateException" resultType="com.jinshi.entity.CountList">
+     select sum(lp_parking_cost) as price ,count(lp_lincense_plate_id_car) as plate
+    from lincense_plate_exception where lp_inbound_time BETWEEN #{beginDayOfWeek,jdbcType=TIMESTAMP} and #{endDayOfWeek,jdbcType=TIMESTAMP}
+  </select>
+    <select id="selectCountLincensePlateByMonth" parameterType="com.jinshi.entity.LincensePlateException" resultType="com.jinshi.entity.CountList">
+     select sum(lp_parking_cost) as price ,count(lp_lincense_plate_id_car) as plate
+    from lincense_plate_exception where lp_inbound_time BETWEEN #{beginDayOfMonth,jdbcType=TIMESTAMP} and #{endDayOfMonth,jdbcType=TIMESTAMP}
+  </select>
+    <select id="selectCountLincensePlateByYear" parameterType="com.jinshi.entity.LincensePlateException" resultType="com.jinshi.entity.CountList">
+     select sum(lp_parking_cost) as price ,count(lp_lincense_plate_id_car) as plate
+    from lincense_plate_exception where lp_inbound_time BETWEEN #{beginDayOfYear,jdbcType=TIMESTAMP} and #{endDayOfYear,jdbcType=TIMESTAMP}
+  </select>
+
+    <select id="selectCountLincenseInRocordByDay" parameterType="com.jinshi.entity.LincensePlateException" resultType="java.lang.Integer">
+     select count(lp_lincense_plate_id_car) as plate
+    from lincense_plate_exception
+    where IFNULL(`lp_inbound_cname`,'') and lp_inbound_time BETWEEN #{dayBegin,jdbcType=TIMESTAMP} and #{dayEnd,jdbcType=TIMESTAMP}
+    order by lp_inbound_time desc
+  </select>
+    <select id="selectCountLincenseInRocordByWeek" parameterType="com.jinshi.entity.LincensePlateException" resultType="java.lang.Integer">
+     select count(lp_lincense_plate_id_car) as plate
+    from lincense_plate_exception
+    where IFNULL(`lp_inbound_cname`,'') and lp_inbound_time BETWEEN #{beginDayOfWeek,jdbcType=TIMESTAMP} and #{endDayOfWeek,jdbcType=TIMESTAMP}
+    order by lp_inbound_time desc
+  </select>
+    <select id="selectCountLincenseInRocordByMonth" parameterType="com.jinshi.entity.LincensePlateException" resultType="java.lang.Integer">
+     select count(lp_lincense_plate_id_car) as plate
+    from lincense_plate_exception
+    where IFNULL(`lp_inbound_cname`,'') and lp_inbound_time BETWEEN #{beginDayOfMonth,jdbcType=TIMESTAMP} and #{endDayOfMonth,jdbcType=TIMESTAMP}
+    order by lp_inbound_time desc
+  </select>
+    <select id="selectCountLincenseInRocordByYear" parameterType="com.jinshi.entity.LincensePlateException" resultType="java.lang.Integer">
+     select count(lp_lincense_plate_id_car) as plate
+    from lincense_plate_exception
+    where IFNULL(`lp_inbound_cname`,'') and lp_inbound_time BETWEEN #{beginDayOfYear,jdbcType=TIMESTAMP} and #{endDayOfYear,jdbcType=TIMESTAMP}
+    order by lp_inbound_time desc
+  </select>
+
+    <select id="selectCountLincenseOutRocordByDay" parameterType="com.jinshi.entity.LincensePlateException" resultType="java.lang.Integer">
+     select count(lp_lincense_plate_id_car) as plate
+    from lincense_plate_exception
+    where IFNULL(`lp_departure_cname`,'') and lp_inbound_time BETWEEN #{dayBegin,jdbcType=TIMESTAMP} and #{dayEnd,jdbcType=TIMESTAMP}
+    order by lp_departure_time desc
+  </select>
+    <select id="selectCountLincenseOutRocordByWeek" parameterType="com.jinshi.entity.LincensePlateException" resultType="java.lang.Integer">
+     select count(lp_lincense_plate_id_car) as plate
+    from lincense_plate_exception
+    where IFNULL(`lp_departure_cname`,'') and lp_inbound_time BETWEEN #{beginDayOfWeek,jdbcType=TIMESTAMP} and #{endDayOfWeek,jdbcType=TIMESTAMP}
+    order by lp_departure_time desc
+  </select>
+    <select id="selectCountLincenseOutRocordByMonth" parameterType="com.jinshi.entity.LincensePlateException" resultType="java.lang.Integer">
+     select count(lp_lincense_plate_id_car) as plate
+    from lincense_plate_exception
+    where IFNULL(`lp_departure_cname`,'') and lp_inbound_time BETWEEN #{beginDayOfMonth,jdbcType=TIMESTAMP} and #{endDayOfMonth,jdbcType=TIMESTAMP}
+    order by lp_departure_time desc
+  </select>
+    <select id="selectCountLincenseOutRocordByYear" parameterType="com.jinshi.entity.LincensePlateException" resultType="java.lang.Integer">
+     select count(lp_lincense_plate_id_car) as plate
+    from lincense_plate_exception
+    where IFNULL(`lp_departure_cname`,'') and lp_inbound_time BETWEEN #{beginDayOfYear,jdbcType=TIMESTAMP} and #{endDayOfYear,jdbcType=TIMESTAMP}
+    order by lp_departure_time desc
+  </select>
+    <select id="getLincenseTotalRecordsByDay" resultType="java.lang.Integer">
+    select count(*) from lincense_plate_exception
+    where lp_inbound_time BETWEEN #{dayBegin,jdbcType=TIMESTAMP} and #{dayEnd,jdbcType=TIMESTAMP}
+  </select>
+    <select id="getLincenseTotalRecordsByWeek" resultType="java.lang.Integer">
+    select count(*) from lincense_plate_exception
+    where lp_inbound_time BETWEEN #{beginDayOfWeek,jdbcType=TIMESTAMP} and #{endDayOfWeek,jdbcType=TIMESTAMP}
+  </select>
+    <select id="getLincenseTotalRecordsByMonth" resultType="java.lang.Integer">
+    select count(*) from lincense_plate_exception
+    where lp_inbound_time BETWEEN #{beginDayOfMonth,jdbcType=TIMESTAMP} and #{endDayOfMonth,jdbcType=TIMESTAMP}
+  </select>
+    <select id="getLincenseTotalRecordsByYear" resultType="java.lang.Integer">
+    select count(*) from lincense_plate_exception
+    where lp_inbound_time BETWEEN #{beginDayOfYear,jdbcType=TIMESTAMP} and #{endDayOfYear,jdbcType=TIMESTAMP}
+  </select>
+
+    <select id="selectInCountByDay" resultType="java.lang.Integer">
+    select count(*) from lincense_plate_exception
+    where lp_inbound_time BETWEEN #{dayBegin,jdbcType=TIMESTAMP} and #{dayEnd,jdbcType=TIMESTAMP}
+  </select>
+    <select id="selectOutCountByDay" resultType="java.lang.Integer">
+    select count(*) from lincense_plate_exception
+    where lp_departure_time BETWEEN #{dayBegin,jdbcType=TIMESTAMP} and #{dayEnd,jdbcType=TIMESTAMP}
+  </select>
+    <select id="selectPayCountByDay" resultType="java.lang.Integer">
+    select count(*) from lincense_plate_exception
+    where lp_departure_time BETWEEN #{dayBegin,jdbcType=TIMESTAMP} and #{dayEnd,jdbcType=TIMESTAMP}
+      and  IFNULL(`lp_parking_cost`,'')
+  </select>
+
+    <select id="selectInCountByWeek" resultType="java.lang.Integer">
+    select count(*) from lincense_plate_exception
+    where lp_inbound_time BETWEEN #{beginDayOfWeek,jdbcType=TIMESTAMP} and #{endDayOfWeek,jdbcType=TIMESTAMP}
+  </select>
+    <select id="selectOutCountByWeek" resultType="java.lang.Integer">
+    select count(*) from lincense_plate_exception
+    where lp_departure_time BETWEEN #{beginDayOfWeek,jdbcType=TIMESTAMP} and #{endDayOfWeek,jdbcType=TIMESTAMP}
+  </select>
+    <select id="selectPayCountByWeek" resultType="java.lang.Integer">
+    select count(*) from lincense_plate_exception
+    where lp_departure_time BETWEEN #{beginDayOfWeek,jdbcType=TIMESTAMP} and #{endDayOfWeek,jdbcType=TIMESTAMP}
+      and  IFNULL(`lp_parking_cost`,'')
+  </select>
+
+    <select id="selectInCountByMonth" resultType="java.lang.Integer">
+    select count(*) from lincense_plate_exception
+    where lp_inbound_time BETWEEN #{beginDayOfMonth,jdbcType=TIMESTAMP} and #{endDayOfMonth,jdbcType=TIMESTAMP}
+  </select>
+    <select id="selectOutCountByMonth" resultType="java.lang.Integer">
+    select count(*) from lincense_plate_exception
+    where lp_departure_time BETWEEN #{beginDayOfMonth,jdbcType=TIMESTAMP} and #{endDayOfMonth,jdbcType=TIMESTAMP}
+  </select>
+    <select id="selectPayCountByMonth" resultType="java.lang.Integer">
+    select count(*) from lincense_plate_exception
+    where lp_departure_time BETWEEN #{beginDayOfMonth,jdbcType=TIMESTAMP} and #{endDayOfMonth,jdbcType=TIMESTAMP}
+      and  IFNULL(`lp_parking_cost`,'')
+  </select>
+
+    <select id="selectInPlateByFrontWeek" resultType="java.util.Date">
+		select lp_inbound_time from lincense_plate_exception
+		where lp_inbound_time BETWEEN  current_date()-7 and sysdate() ORDER BY lp_inbound_time
+  </select>
+</mapper>

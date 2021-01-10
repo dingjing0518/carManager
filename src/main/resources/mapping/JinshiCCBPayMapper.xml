@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jinshi.mapper.JinshiCCBPayMapper">
+  <resultMap id="BaseResultMap" type="com.jinshi.entity.JinshiCCBPay">
+    <id column="ccb_id" jdbcType="INTEGER" property="ccbId" />
+    <result column="ccb_car_number" jdbcType="VARCHAR" property="ccbCarNumber" />
+    <result column="ccb_money" jdbcType="VARCHAR" property="ccbMoney" />
+    <result column="ccb_real_money" jdbcType="VARCHAR" property="ccbRealMoney" />
+    <result column="ccb_often" jdbcType="VARCHAR" property="ccbOften" />
+    <result column="ccb_creat_time" jdbcType="TIMESTAMP" property="ccbCreatTime" />
+    <result column="ccb_in_time" jdbcType="TIMESTAMP" property="ccbInTime" />
+    <result column="ccb_out_time" jdbcType="TIMESTAMP" property="ccbOutTime" />
+    <result column="ccb_park_id" jdbcType="INTEGER" property="ccbParkId" />
+    <result column="ccb_agent_id" jdbcType="INTEGER" property="ccbAgentId" />
+    <result column="ccb_order_id" jdbcType="VARCHAR" property="ccbOrderId" />
+    <result column="ccb_in_thandle" jdbcType="VARCHAR" property="ccbInThandle" />
+    <result column="ccb_out_thandle" jdbcType="VARCHAR" property="ccbOutThandle" />
+    <result column="ccb_pay_type" jdbcType="VARCHAR" property="ccbPayType" />
+    <result column="ccb_lg_type" jdbcType="VARCHAR" property="ccbLgType" />
+    <result column="ccb_data_A" jdbcType="VARCHAR" property="ccbDataA" />
+    <result column="ccb_data_B" jdbcType="VARCHAR" property="ccbDataB" />
+    <result column="ccb_data_C" jdbcType="VARCHAR" property="ccbDataC" />
+    <result column="ccb_data_D" jdbcType="VARCHAR" property="ccbDataD" />
+    <result column="ccb_data_E" jdbcType="VARCHAR" property="ccbDataE" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ccb_id, ccb_car_number, ccb_money, ccb_real_money, ccb_often, ccb_creat_time, ccb_in_time,
+    ccb_out_time, ccb_park_id, ccb_agent_id, ccb_order_id, ccb_in_thandle, ccb_out_thandle, 
+    ccb_pay_type, ccb_lg_type, ccb_data_A, ccb_data_B, ccb_data_C, ccb_data_D, ccb_data_E
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from jinshi_ccb_pay
+    where ccb_id = #{ccbId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from jinshi_ccb_pay
+    where ccb_id = #{ccbId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jinshi.entity.JinshiCCBPay">
+    insert into jinshi_ccb_pay (ccb_id, ccb_car_number, ccb_money, 
+      ccb_real_money, ccb_often, ccb_creat_time,
+      ccb_in_time, ccb_out_time, ccb_park_id, 
+      ccb_agent_id, ccb_order_id, ccb_in_thandle, 
+      ccb_out_thandle, ccb_pay_type, ccb_lg_type, 
+      ccb_data_A, ccb_data_B, ccb_data_C, 
+      ccb_data_D, ccb_data_E)
+    values (#{ccbId,jdbcType=INTEGER}, #{ccbCarNumber,jdbcType=VARCHAR}, #{ccbMoney,jdbcType=VARCHAR}, 
+      #{ccbRealMoney,jdbcType=VARCHAR}, #{ccbOften,jdbcType=VARCHAR}, #{ccbCreatTime,jdbcType=TIMESTAMP}, 
+      #{ccbInTime,jdbcType=TIMESTAMP}, #{ccbOutTime,jdbcType=TIMESTAMP}, #{ccbParkId,jdbcType=INTEGER}, 
+      #{ccbAgentId,jdbcType=INTEGER}, #{ccbOrderId,jdbcType=VARCHAR}, #{ccbInThandle,jdbcType=VARCHAR}, 
+      #{ccbOutThandle,jdbcType=VARCHAR}, #{ccbPayType,jdbcType=VARCHAR}, #{ccbLgType,jdbcType=VARCHAR}, 
+      #{ccbDataA,jdbcType=VARCHAR}, #{ccbDataB,jdbcType=VARCHAR}, #{ccbDataC,jdbcType=VARCHAR}, 
+      #{ccbDataD,jdbcType=VARCHAR}, #{ccbDataE,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jinshi.entity.JinshiCCBPay">
+    insert into jinshi_ccb_pay
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="ccbId != null">
+        ccb_id,
+      </if>
+      <if test="ccbCarNumber != null">
+        ccb_car_number,
+      </if>
+      <if test="ccbMoney != null">
+        ccb_money,
+      </if>
+      <if test="ccbRealMoney != null">
+        ccb_real_money,
+      </if>
+      <if test="ccbOften != null">
+        ccb_often,
+      </if>
+      <if test="ccbCreatTime != null">
+        ccb_creat_time,
+      </if>
+      <if test="ccbInTime != null">
+        ccb_in_time,
+      </if>
+      <if test="ccbOutTime != null">
+        ccb_out_time,
+      </if>
+      <if test="ccbParkId != null">
+        ccb_park_id,
+      </if>
+      <if test="ccbAgentId != null">
+        ccb_agent_id,
+      </if>
+      <if test="ccbOrderId != null">
+        ccb_order_id,
+      </if>
+      <if test="ccbInThandle != null">
+        ccb_in_thandle,
+      </if>
+      <if test="ccbOutThandle != null">
+        ccb_out_thandle,
+      </if>
+      <if test="ccbPayType != null">
+        ccb_pay_type,
+      </if>
+      <if test="ccbLgType != null">
+        ccb_lg_type,
+      </if>
+      <if test="ccbDataA != null">
+        ccb_data_A,
+      </if>
+      <if test="ccbDataB != null">
+        ccb_data_B,
+      </if>
+      <if test="ccbDataC != null">
+        ccb_data_C,
+      </if>
+      <if test="ccbDataD != null">
+        ccb_data_D,
+      </if>
+      <if test="ccbDataE != null">
+        ccb_data_E,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="ccbId != null">
+        #{ccbId,jdbcType=INTEGER},
+      </if>
+      <if test="ccbCarNumber != null">
+        #{ccbCarNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="ccbMoney != null">
+        #{ccbMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="ccbRealMoney != null">
+        #{ccbRealMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="ccbOften != null">
+        #{ccbOften,jdbcType=VARCHAR},
+      </if>
+      <if test="ccbCreatTime != null">
+        #{ccbCreatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ccbInTime != null">
+        #{ccbInTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ccbOutTime != null">
+        #{ccbOutTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ccbParkId != null">
+        #{ccbParkId,jdbcType=INTEGER},
+      </if>
+      <if test="ccbAgentId != null">
+        #{ccbAgentId,jdbcType=INTEGER},
+      </if>
+      <if test="ccbOrderId != null">
+        #{ccbOrderId,jdbcType=VARCHAR},
+      </if>
+      <if test="ccbInThandle != null">
+        #{ccbInThandle,jdbcType=VARCHAR},
+      </if>
+      <if test="ccbOutThandle != null">
+        #{ccbOutThandle,jdbcType=VARCHAR},
+      </if>
+      <if test="ccbPayType != null">
+        #{ccbPayType,jdbcType=VARCHAR},
+      </if>
+      <if test="ccbLgType != null">
+        #{ccbLgType,jdbcType=VARCHAR},
+      </if>
+      <if test="ccbDataA != null">
+        #{ccbDataA,jdbcType=VARCHAR},
+      </if>
+      <if test="ccbDataB != null">
+        #{ccbDataB,jdbcType=VARCHAR},
+      </if>
+      <if test="ccbDataC != null">
+        #{ccbDataC,jdbcType=VARCHAR},
+      </if>
+      <if test="ccbDataD != null">
+        #{ccbDataD,jdbcType=VARCHAR},
+      </if>
+      <if test="ccbDataE != null">
+        #{ccbDataE,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jinshi.entity.JinshiCCBPay">
+    update jinshi_ccb_pay
+    <set>
+      <if test="ccbCarNumber != null">
+        ccb_car_number = #{ccbCarNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="ccbMoney != null">
+        ccb_money = #{ccbMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="ccbRealMoney != null">
+        ccb_real_money = #{ccbRealMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="ccbOften != null">
+        ccb_often = #{ccbOften,jdbcType=VARCHAR},
+      </if>
+      <if test="ccbCreatTime != null">
+        ccb_creat_time = #{ccbCreatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ccbInTime != null">
+        ccb_in_time = #{ccbInTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ccbOutTime != null">
+        ccb_out_time = #{ccbOutTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ccbParkId != null">
+        ccb_park_id = #{ccbParkId,jdbcType=INTEGER},
+      </if>
+      <if test="ccbAgentId != null">
+        ccb_agent_id = #{ccbAgentId,jdbcType=INTEGER},
+      </if>
+      <if test="ccbOrderId != null">
+        ccb_order_id = #{ccbOrderId,jdbcType=VARCHAR},
+      </if>
+      <if test="ccbInThandle != null">
+        ccb_in_thandle = #{ccbInThandle,jdbcType=VARCHAR},
+      </if>
+      <if test="ccbOutThandle != null">
+        ccb_out_thandle = #{ccbOutThandle,jdbcType=VARCHAR},
+      </if>
+      <if test="ccbPayType != null">
+        ccb_pay_type = #{ccbPayType,jdbcType=VARCHAR},
+      </if>
+      <if test="ccbLgType != null">
+        ccb_lg_type = #{ccbLgType,jdbcType=VARCHAR},
+      </if>
+      <if test="ccbDataA != null">
+        ccb_data_A = #{ccbDataA,jdbcType=VARCHAR},
+      </if>
+      <if test="ccbDataB != null">
+        ccb_data_B = #{ccbDataB,jdbcType=VARCHAR},
+      </if>
+      <if test="ccbDataC != null">
+        ccb_data_C = #{ccbDataC,jdbcType=VARCHAR},
+      </if>
+      <if test="ccbDataD != null">
+        ccb_data_D = #{ccbDataD,jdbcType=VARCHAR},
+      </if>
+      <if test="ccbDataE != null">
+        ccb_data_E = #{ccbDataE,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ccb_id = #{ccbId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jinshi.entity.JinshiCCBPay">
+    update jinshi_ccb_pay
+    set ccb_car_number = #{ccbCarNumber,jdbcType=VARCHAR},
+      ccb_money = #{ccbMoney,jdbcType=VARCHAR},
+      ccb_real_money = #{ccbRealMoney,jdbcType=VARCHAR},
+      ccb_often = #{ccbOften,jdbcType=VARCHAR},
+      ccb_creat_time = #{ccbCreatTime,jdbcType=TIMESTAMP},
+      ccb_in_time = #{ccbInTime,jdbcType=TIMESTAMP},
+      ccb_out_time = #{ccbOutTime,jdbcType=TIMESTAMP},
+      ccb_park_id = #{ccbParkId,jdbcType=INTEGER},
+      ccb_agent_id = #{ccbAgentId,jdbcType=INTEGER},
+      ccb_order_id = #{ccbOrderId,jdbcType=VARCHAR},
+      ccb_in_thandle = #{ccbInThandle,jdbcType=VARCHAR},
+      ccb_out_thandle = #{ccbOutThandle,jdbcType=VARCHAR},
+      ccb_pay_type = #{ccbPayType,jdbcType=VARCHAR},
+      ccb_lg_type = #{ccbLgType,jdbcType=VARCHAR},
+      ccb_data_A = #{ccbDataA,jdbcType=VARCHAR},
+      ccb_data_B = #{ccbDataB,jdbcType=VARCHAR},
+      ccb_data_C = #{ccbDataC,jdbcType=VARCHAR},
+      ccb_data_D = #{ccbDataD,jdbcType=VARCHAR},
+      ccb_data_E = #{ccbDataE,jdbcType=VARCHAR}
+    where ccb_id = #{ccbId,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectCCBPayByPlateAndParkId" parameterType="com.jinshi.entity.JinshiCCBPay" resultMap="BaseResultMap">
+    select * from jinshi_ccb_pay
+    where ccb_car_number = #{carNumber,jdbcType=VARCHAR} and ccb_park_id = #{parkId,jdbcType=INTEGER}
+    order by ccb_in_time desc
+  </select>
+  <update id="updateCarOut" parameterType="com.jinshi.entity.JinshiCCBPay">
+    update jinshi_ccb_pay
+    <set>
+      <if test="ccbMoney != null">
+        ccb_money = #{ccbMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="ccbRealMoney != null">
+        ccb_real_money = #{ccbRealMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="ccbOften != null">
+        ccb_often = #{ccbOften,jdbcType=VARCHAR},
+      </if>
+      <if test="ccbOutTime != null">
+        ccb_out_time = #{ccbOutTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ccbOutThandle != null">
+        ccb_out_thandle = #{ccbOutThandle,jdbcType=VARCHAR},
+      </if>
+      <if test="ccbPayType != null">
+        ccb_pay_type = #{ccbPayType,jdbcType=VARCHAR},
+      </if>
+      <if test="ccbOrderId != null">
+        ccb_order_id = #{ccbOrderId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ccb_car_number = #{ccbCarNumber,jdbcType=VARCHAR} and ccb_park_id = #{ccbParkId,jdbcType=INTEGER}
+    and ccb_in_time in (
+      select t.cit from (
+      select MAX(ccb_in_time) as cit from jinshi_ccb_pay where ccb_car_number=#{ccbCarNumber,jdbcType=VARCHAR} ) t)
+  </update>
+
+  <select id="checkOrderRent" parameterType="com.jinshi.entity.JinshiCCBPay" resultMap="BaseResultMap">
+    select * from jinshi_ccb_pay
+    where ccb_car_number = #{carNumber,jdbcType=VARCHAR} and ccb_park_id = #{parkId,jdbcType=INTEGER}
+        and ccb_in_thandle = #{ccbThandle,jdbcType=VARCHAR}
+        and ccb_in_time in (
+          select t.cit from (
+          select MAX(ccb_in_time) as cit from jinshi_ccb_pay where ccb_car_number=#{carNumber,jdbcType=VARCHAR} ) t)
+  </select>
+
+  <select id="selectOrder" parameterType="com.jinshi.entity.JinshiCCBPay" resultMap="BaseResultMap">
+    select * from jinshi_ccb_pay
+    where ccb_order_id = #{orderId,jdbcType=VARCHAR}
+  </select>
+  <update id="updateOrderId" parameterType="com.jinshi.entity.JinshiCCBPay">
+    update jinshi_ccb_pay
+    <set>
+      <if test="ccbOrderId != null">
+        ccb_order_id = #{ccbOrderId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ccb_id = #{ccbId,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectPlate" parameterType="com.jinshi.entity.JinshiCCBPay" resultMap="BaseResultMap">
+    select * from jinshi_ccb_pay
+    where ccb_car_number = #{carNumber,jdbcType=VARCHAR} order by ccb_in_time desc
+  </select>
+</mapper>

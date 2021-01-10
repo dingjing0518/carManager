@@ -1,0 +1,171 @@
+body {
+    text-align: center;
+    height: 100%;
+    background: url(../images/bgi.jpg);
+    background-size: 100%;
+
+}
+
+.logo {
+    width: 800px;
+}
+
+.bidTitle {
+    color: #fff;
+    font-size: 34px;
+    font-weight: 600;
+}
+
+.logCon {
+    color: #FFFFFF;
+    margin-top: 40px;
+}
+
+
+
+body .content {
+    width: 42%;
+    position: fixed;
+    background: #141f19a6;
+    left: 29%;
+    padding: 5% 1%;
+    margin-top: 0%;
+    border-radius: 5px;
+}
+
+body .logingBut {
+	display: block;
+    background-color:firebrick;
+    border: none;
+    padding: 12px 0px;
+    color: #edefee;
+    border-radius: 2px;
+    width: 260px;
+    height: 25px;
+    margin-left: 30px;
+    margin-top: 5px;
+    font-size:18px;
+    color:#ccc;
+    margin: 10px auto;
+    text-decoration: none;
+}
+
+body .bt_input {
+    border-radius: 2px;
+    border: none;
+    padding: 11px 5px;
+    width: 330px;
+    margin-right: 20px;
+    color: #333;
+    margin-left: 5px;
+    margin-bottom: 10px;
+    background: #ffffffd9;
+}
+
+body .logCon span:nth-child(1) {
+    font-size: 18px;
+    height: 40px;
+    line-height: 40px;
+}
+
+
+#code_msg ,#pwd_msg {
+    font-size: 16px;
+}
+
+.login_wrap{
+    background-size: 100%;
+}
+.login_box{
+    width: 360px;
+    background: #FFFFFF;
+    margin: 0px auto;
+}
+.login_title{
+    font-size: 18px;
+    text-align: center;
+    color: #888888;
+    padding: 15px 0;
+    width: 300px;
+    margin: 0 auto;
+    border-bottom: solid 1px #CCCCCC;
+}
+.form_text_ipt{
+    width: 300px;
+    height: 40px;
+    border: solid 1px #CCCCCC;
+    margin: 20px auto 0 auto;
+    background: #FFFFFF;
+}
+.form_check_ipt{
+    width: 300px;
+    margin:  20px auto;
+    overflow: hidden;
+}
+.form_text_ipt input{
+    width: 290px;
+    height: 30px;
+    margin: 5px;
+    border: none;
+    font-family: "微软雅黑";
+    font-size: 15px;
+    color: #666;
+}
+.check_left label{
+    cursor: pointer;
+}
+.check_left label input{
+    position: relative;
+    top: 2px;
+}
+.form_btn{
+    width: 300px;
+    height: 40px;
+    margin:  10px auto;
+}
+.form_btn button{
+    width: 100%;
+    height: 100%;
+    border: none;
+    color: #FFFFFF;
+    font-size: 14px;
+    background: red;
+    cursor: pointer;
+}
+.form_reg_btn{
+    width: 300px;
+    margin: 0 auto;
+    font-size: 14px;
+    color: #666;
+}
+.other_login{
+    overflow: hidden;
+    width: 300px;
+    height: 80px;
+    line-height: 80px;
+    margin: 0px auto;
+}
+.other_left{
+    font-size: 14px;
+    color: #999;
+}
+.ok {
+    display:none;
+}
+.error {
+    display:block;
+    color: firebrick;
+}
+.exp{
+    display:inline-block;
+    margin-top:10px;
+    margin-bottom: 10px;
+    margin-left:40px;
+    font-size:14px;
+    color:#ccc;
+}
+.zhaohui {
+	text-decoration: none;
+	color: firebrick;
+	font-weight: 700;
+}

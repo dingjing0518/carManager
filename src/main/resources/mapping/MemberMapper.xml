@@ -1,0 +1,446 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jinshi.mapper.MemberMapper">
+  <resultMap id="BaseResultMap" type="com.jinshi.entity.Member">
+  <id column="id" jdbcType="INTEGER" property="id" />
+  <result column="member_id" jdbcType="VARCHAR" property="memberId" />
+  <result column="service_type" jdbcType="VARCHAR" property="serviceType" />
+  <result column="join_time" jdbcType="TIMESTAMP" property="joinTime" />
+  <result column="state" jdbcType="VARCHAR" property="state" />
+  <result column="lincense_plate_id" jdbcType="VARCHAR" property="lincensePlateId" />
+  <result column="expiration_time" jdbcType="TIMESTAMP" property="expirationTime" />
+  <result column="phoneNumber" jdbcType="VARCHAR" property="phoneNumber" />
+  <result column="companyName" jdbcType="VARCHAR" property="companyName" />
+  <result column="departmentName" jdbcType="VARCHAR" property="departmentName" />
+  <result column="memberAddress" jdbcType="VARCHAR" property="memberAddress" />
+  <result column="companyAddress" jdbcType="VARCHAR" property="companyAddress" />
+  <result column="carName" jdbcType="VARCHAR" property="carName" />
+  <result column="carColor" jdbcType="VARCHAR" property="carColor" />
+  <result column="carType" jdbcType="VARCHAR" property="carType" />
+  <result column="area_name" jdbcType="VARCHAR" property="areaName" />
+  <result column="park_id" jdbcType="INTEGER" property="parkId" />
+  <result column="agent_id" jdbcType="INTEGER" property="agentId" />
+  <result column="enter_user" jdbcType="VARCHAR" property="enterUser" />
+  <result column="lg_id" jdbcType="INTEGER" property="lgId" />
+  <result column="stored_money" jdbcType="INTEGER" property="storedMoney" />
+</resultMap>
+  <sql id="Base_Column_List">
+    id, member_id, service_type, join_time, state, lincense_plate_id, expiration_time,
+    phoneNumber,companyName,departmentName,memberAddress,companyAddress,carName,carColor,
+    carType,area_name,park_id,agent_id,enter_user,lg_id,stored_money
+  </sql>
+  <select id="searchMember" resultMap="BaseResultMap">
+    SELECT * FROM `member`
+    WHERE 1=1
+    <if test="areaName != '' and areaName != null">
+      AND area_name= #{areaName,jdbcType=VARCHAR}
+    </if>
+    <if test="phoneNumber != '' and phoneNumber != null">
+      AND phoneNumber LIKE CONCAT('%',CONCAT(#{phoneNumber},'%'))
+    </if>
+    <if test="lincensePlateId != '' and lincensePlateId != null">
+      AND lincense_plate_id LIKE CONCAT('%',CONCAT(#{lincensePlateId},'%'))
+    </if>
+    <if test="companyName != '' and companyName != null">
+      AND companyName LIKE CONCAT('%',CONCAT(#{companyName},'%'))
+    </if>
+    and park_id = #{parkId,jdbcType=INTEGER}
+    order by join_time desc LIMIT #{pageNum},#{pageSize}
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from `member`
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="checkMemberByLincese" parameterType="com.jinshi.entity.Member" resultMap="BaseResultMap">
+    select * from `member` where lincense_plate_id = #{lincensePlateId,jdbcType=VARCHAR} and area_name = #{areaName,jdbcType=VARCHAR}
+  </select>
+
+  <select id="checkMemberByLinceseForUtil" parameterType="com.jinshi.entity.Member" resultMap="BaseResultMap">
+	select  mem.*
+    from `member` mem
+    left join jinshi_area ja on mem.park_id = ja.park_id
+    where mem.lincense_plate_id = #{lincensePlateId,jdbcType=VARCHAR}
+        and LENGTH(#{areaNumber}) >= 2 and mem.park_id = #{parkId,jdbcType=INTEGER}
+    order by state desc
+  </select>
+
+  <select id="checkISMember" parameterType="com.jinshi.entity.Member" resultMap="BaseResultMap">
+	select * from `member`
+    where lincense_plate_id = #{lincensePlateId,jdbcType=VARCHAR}
+        and area_name = #{areaName,jdbcType=VARCHAR}
+        and park_id = #{parkId,jdbcType=INTEGER}
+    order by state desc
+  </select>
+  <select id="checkISAllAreaMember" parameterType="com.jinshi.entity.Member" resultMap="BaseResultMap">
+	select * from `member`
+    where lincense_plate_id = #{lincensePlateId,jdbcType=VARCHAR}
+        and area_name like '%全区域%'
+        and park_id = #{parkId,jdbcType=INTEGER}
+    order by state desc
+  </select>
+  <select id="selectMemberAll" resultMap="BaseResultMap">
+    select * from `member` where 1=1 order by state desc LIMIT #{pageNum,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+  </select>
+  <select id="getAllCount" resultType="java.lang.Integer">
+    select count(*) from `member` where 1=1
+  </select>
+  <select id="selectMember" resultMap="BaseResultMap">
+    select * from `member` where 1=1 order by state desc
+  </select>
+  <select id="selectMemberAllByParkId" resultMap="BaseResultMap">
+    select * from `member` where park_id = #{parkId,jdbcType=INTEGER} order by state desc
+  </select>
+  <select id="selectMemberForPage" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select * from `member` where park_id = #{parkId,jdbcType=INTEGER} order by state desc LIMIT #{pageNum,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+  </select>
+  
+  <select id="getMemberTotalRecordsSearch" resultType="java.lang.Integer" >
+    select count(*) from `member`
+    where CONCAT(IFNULL(`id`,''),IFNULL(`member_id`,''),IFNULL(`service_type`,''),IFNULL(`join_time`,''),IFNULL(`state`,''),IFNULL(`lincense_plate_id`,''),IFNULL(`expiration_time`,''),
+    IFNULL(`phoneNumber`,''),IFNULL(`companyName`,''),IFNULL(`departmentName`,''),IFNULL(`memberAddress`,''),IFNULL(`companyAddress`,''),IFNULL(`carName`,''),IFNULL(`carColor`,''),
+    IFNULL(`carType`,''),IFNULL(`area_name`,''),IFNULL(`enter_user`,''),IFNULL(`lg_id`,''),IFNULL(`stored_money`,''))
+    LIKE "%"#{keyWord}"%" and park_id = #{parkId,jdbcType=INTEGER}
+  </select>
+  <select id="getMemberTotalRecords" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+    select count(*) from `member` where park_id = #{parkId,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from `member`
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jinshi.entity.Member" useGeneratedKeys="true" keyProperty="id">
+    insert into `member` (id, member_id, service_type,
+      join_time, state, lincense_plate_id,
+      expiration_time,phoneNumber,companyName,departmentName,memberAddress,companyAddress,
+      carName,carColor,carType,area_name,park_id,agent_id,enter_user,lg_id,stored_money)
+    values (#{id,jdbcType=INTEGER}, #{memberId,jdbcType=VARCHAR}, #{serviceType,jdbcType=VARCHAR},
+      #{joinTime,jdbcType=TIMESTAMP}, #{state,jdbcType=VARCHAR}, #{lincensePlateId,jdbcType=VARCHAR},
+      #{expirationTime,jdbcType=TIMESTAMP},#{phoneNumber,jdbcType=VARCHAR},#{companyName,jdbcType=VARCHAR},#{departmentName,jdbcType=VARCHAR}
+      ,#{memberAddress,jdbcType=VARCHAR},#{companyAddress,jdbcType=VARCHAR},#{carName,jdbcType=VARCHAR},#{carColor,jdbcType=VARCHAR}
+      ,#{carType,jdbcType=VARCHAR},#{areaName,jdbcType=VARCHAR},#{parkId,jdbcType=INTEGER},
+      #{agentId,jdbcType=INTEGER},#{enterUser,jdbcType=VARCHAR},#{lgId,jdbcType=INTEGER},#{storedMoney,jdbcType=INTEGER})
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.jinshi.entity.Member">
+    insert into `member`
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="memberId != null">
+        member_id,
+      </if>
+      <if test="serviceType != null">
+        service_type,
+      </if>
+      <if test="joinTime != null">
+        join_time,
+      </if>
+      <if test="state != null">
+        state,
+      </if>
+      <if test="lincensePlateId != null">
+        lincense_plate_id,
+      </if>
+      <if test="expirationTime != null">
+        expiration_time,
+      </if>
+      <if test="phoneNumber != null">
+        phoneNumber,
+      </if>
+      <if test="companyName != null">
+        companyName,
+      </if>
+      <if test="departmentName != null">
+        departmentName,
+      </if>
+      <if test="memberAddress != null">
+        memberAddress,
+      </if>
+      <if test="companyAddress != null">
+        companyAddress,
+      </if>
+      <if test="carName != null">
+        carName,
+      </if>
+      <if test="carColor != null">
+        carColor,
+      </if>
+      <if test="carType != null">
+        carType,
+      </if>
+      <if test="areaName != null">
+        area_name,
+      </if>
+      <if test="parkId != null">
+        park_id,
+      </if>
+      <if test="agentId != null">
+        agent_id,
+      </if>
+      <if test="enterUser != null">
+        enter_user,
+      </if>
+      <if test="lgId != null">
+        lg_id,
+      </if>
+      <if test="storedMoney != null">
+        stored_money,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="memberId != null">
+        #{memberId,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceType != null">
+        #{serviceType,jdbcType=VARCHAR},
+      </if>
+      <if test="joinTime != null">
+        #{joinTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="lincensePlateId != null">
+        #{lincensePlateId,jdbcType=VARCHAR},
+      </if>
+      <if test="expirationTime != null">
+        #{expirationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="phoneNumber != null">
+        #{phoneNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="companyName != null">
+        #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="departmentName != null">
+        #{departmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="memberAddress != null">
+        #{memberAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="companyAddress != null">
+        #{companyAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="carName != null">
+        #{carName,jdbcType=VARCHAR},
+      </if>
+      <if test="carColor != null">
+        #{carColor,jdbcType=VARCHAR},
+      </if>
+      <if test="carType != null">
+        #{carType,jdbcType=VARCHAR},
+      </if>
+      <if test="areaName != null">
+        #{areaName,jdbcType=VARCHAR},
+      </if>
+      <if test="parkId != null">
+        #{parkId,jdbcType=INTEGER},
+      </if>
+      <if test="agentId != null">
+        #{agentId,jdbcType=INTEGER},
+      </if>
+      <if test="enterUser != null">
+        #{enterUser,jdbcType=VARCHAR},
+      </if>
+      <if test="lgId != null">
+        #{lgId,jdbcType=INTEGER},
+      </if>
+      <if test="storedMoney != null">
+        #{storedMoney,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jinshi.entity.Member">
+    update `member`
+    <set>
+      <if test="memberId != null">
+        member_id = #{memberId,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceType != null">
+        service_type = #{serviceType,jdbcType=VARCHAR},
+      </if>
+      <if test="joinTime != null">
+        join_time = #{joinTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null">
+        state = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="lincensePlateId != null">
+        lincense_plate_id = #{lincensePlateId,jdbcType=VARCHAR},
+      </if>
+      <if test="expirationTime != null">
+        expiration_time = #{expirationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="phoneNumber != null">
+        phoneNumber = #{phoneNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="companyName != null">
+        companyName = #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="departmentName != null">
+        departmentName = #{departmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="memberAddress != null">
+        memberAddress = #{memberAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="companyAddress != null">
+        companyAddress = #{companyAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="carName != null">
+        carName = #{carName,jdbcType=VARCHAR},
+      </if>
+      <if test="carColor != null">
+        carColor = #{carColor,jdbcType=VARCHAR},
+      </if>
+      <if test="carType != null">
+        carType = #{carType,jdbcType=VARCHAR},
+      </if>
+      <if test="areaName != null">
+        area_name = #{areaName,jdbcType=VARCHAR},
+      </if>
+      <if test="parkId != null">
+        park_id = #{parkId,jdbcType=INTEGER},
+      </if>
+      <if test="agentId != null">
+        agent_id = #{agentId,jdbcType=INTEGER},
+      </if>
+      <if test="enterUser != null">
+        enter_user = #{enterUser,jdbcType=VARCHAR},
+      </if>
+      <if test="lgId != null">
+        lg_id = #{lgId,jdbcType=INTEGER},
+      </if>
+      <if test="storedMoney != null">
+        stored_money = #{storedMoney,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jinshi.entity.Member">
+    update `member`
+    set member_id = #{memberId,jdbcType=VARCHAR},
+      service_type = #{serviceType,jdbcType=VARCHAR},
+      join_time = #{joinTime,jdbcType=TIMESTAMP},
+      state = #{state,jdbcType=VARCHAR},
+      lincense_plate_id = #{lincensePlateId,jdbcType=VARCHAR},
+      phoneNumber = #{phoneNumber,jdbcType=VARCHAR},
+      companyName = #{companyName,jdbcType=VARCHAR},
+      expiration_time = #{expirationTime,jdbcType=TIMESTAMP},
+      departmentName = #{departmentName,jdbcType=VARCHAR},
+      memberAddress = #{memberAddress,jdbcType=VARCHAR},
+      companyAddress = #{companyAddress,jdbcType=VARCHAR},
+      carName = #{carName,jdbcType=VARCHAR},
+      carColor = #{carColor,jdbcType=VARCHAR},
+      carType = #{carType,jdbcType=VARCHAR},
+      area_name = #{areaName,jdbcType=VARCHAR},
+      park_id = #{parkId,jdbcType=INTEGER},
+      agent_id = #{agentId,jdbcType=INTEGER},
+      enter_user = #{enterUser,jdbcType=VARCHAR},
+      lg_id = #{lgId,jdbcType=INTEGER},
+      stored_money = #{storedMoney,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <update id="updateRenew" parameterType="com.jinshi.entity.Member">
+    update `member`
+    <set>
+      <if test="joinTime != null">
+        join_time = #{joinTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="expirationTime != null">
+        expiration_time = #{expirationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="number != null and number != ''">
+        carName = carName + #{number,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateRenewMoney" parameterType="com.jinshi.entity.Member">
+    update `member`
+    <set>
+      <if test="joinTime != null">
+        join_time = #{joinTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="expirationTime != null">
+        expiration_time = #{expirationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="storedMoney != null and storedMoney != ''">
+        stored_money = stored_money + #{storedMoney,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateCarNameForTimes" parameterType="com.jinshi.entity.Member">
+    update `member`
+    set carName = carName - 1
+    where id = #{id,jdbcType=INTEGER} and lincense_plate_id = #{lincensePlateId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateCarNameForMoney" parameterType="com.jinshi.entity.Member">
+    update `member`
+    set stored_money = stored_money - #{money,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER} and lincense_plate_id = #{lincensePlateId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateCarNameToZero" parameterType="com.jinshi.entity.Member">
+    update `member`
+    set carName = 0
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateStoreMoneyToZero" parameterType="com.jinshi.entity.Member">
+    update `member`
+    set stored_money = 0
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectMemberByDay" parameterType="com.jinshi.entity.Member" resultMap="BaseResultMap">
+    select * from `member`
+    where join_time BETWEEN #{dayBegin,jdbcType=TIMESTAMP} and #{dayEnd,jdbcType=TIMESTAMP} and park_id = #{parkId,jdbcType=INTEGER}
+    LIMIT #{pageNum,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+  </select>
+  <select id="selectByID" parameterType="com.jinshi.entity.Member" resultMap="BaseResultMap">
+    select * from `member`
+    where lincense_plate_id = #{lpLincensePlateIdCar,jdbcType=VARCHAR} order by state desc
+  </select>
+  <select id="selectMemberByWeek" parameterType="com.jinshi.entity.Member" resultMap="BaseResultMap">
+    select * from `member`
+    where join_time BETWEEN #{beginDayOfWeek,jdbcType=TIMESTAMP} and #{endDayOfWeek,jdbcType=TIMESTAMP} and park_id = #{parkId,jdbcType=INTEGER}
+    LIMIT #{pageNum,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+  </select>
+  <select id="selectMemberByMonth" parameterType="com.jinshi.entity.Member" resultMap="BaseResultMap">
+    select * from `member`
+    where join_time BETWEEN #{beginDayOfMonth,jdbcType=TIMESTAMP} and #{endDayOfMonth,jdbcType=TIMESTAMP} and park_id = #{parkId,jdbcType=INTEGER}
+    LIMIT #{pageNum,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+  </select>
+  <select id="selectMemberByYear" parameterType="com.jinshi.entity.Member" resultMap="BaseResultMap">
+    select * from `member`
+    where join_time BETWEEN #{beginDayOfYear,jdbcType=TIMESTAMP} and #{endDayOfYear,jdbcType=TIMESTAMP} and park_id = #{parkId,jdbcType=INTEGER}
+    LIMIT #{pageNum,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectCountMemberByDay" parameterType="com.jinshi.entity.Member" resultType="java.lang.Integer">
+    select count(lincense_plate_id) as plate from `member`
+    where join_time BETWEEN #{dayBegin,jdbcType=TIMESTAMP} and #{dayEnd,jdbcType=TIMESTAMP} and park_id = #{parkId,jdbcType=INTEGER}
+  </select>
+  <select id="selectCountMemberByWeek" parameterType="com.jinshi.entity.Member" resultType="java.lang.Integer">
+    select count(lincense_plate_id) as plate from `member`
+    where join_time BETWEEN #{beginDayOfWeek,jdbcType=TIMESTAMP} and #{endDayOfWeek,jdbcType=TIMESTAMP} and park_id = #{parkId,jdbcType=INTEGER}
+  </select>
+  <select id="selectCountMemberByMonth" parameterType="com.jinshi.entity.Member" resultType="java.lang.Integer">
+    select count(lincense_plate_id) as plate from `member`
+    where join_time BETWEEN #{beginDayOfMonth,jdbcType=TIMESTAMP} and #{endDayOfMonth,jdbcType=TIMESTAMP} and park_id = #{parkId,jdbcType=INTEGER}
+  </select>
+  <select id="selectCountMemberByYear" parameterType="com.jinshi.entity.Member" resultType="java.lang.Integer">
+    select count(lincense_plate_id) as plate from `member`
+    where join_time BETWEEN #{beginDayOfYear,jdbcType=TIMESTAMP} and #{endDayOfYear,jdbcType=TIMESTAMP}
+  </select>
+  
+  <select id="selectMemberByPlateAndArea" resultMap="BaseResultMap">
+    select * from `member` where lincense_plate_id = #{lincensePlateId,jdbcType=VARCHAR} and area_name = #{areaName,jdbcType=VARCHAR} and park_id = #{parkId,jdbcType=INTEGER}
+  </select>
+</mapper>

@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jinshi.mapper.WxPayInfoMapper">
+  <resultMap id="BaseResultMap" type="com.jinshi.entity.WxPayInfo">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="appId" jdbcType="VARCHAR" property="appid" />
+    <result column="mchId" jdbcType="VARCHAR" property="mchid" />
+    <result column="device_info" jdbcType="VARCHAR" property="deviceInfo" />
+    <result column="nonce_str" jdbcType="VARCHAR" property="nonceStr" />
+    <result column="sign" jdbcType="VARCHAR" property="sign" />
+    <result column="body" jdbcType="VARCHAR" property="body" />
+    <result column="out_trade_no" jdbcType="VARCHAR" property="outTradeNo" />
+    <result column="fee_type" jdbcType="VARCHAR" property="feeType" />
+    <result column="spbill_create_ip" jdbcType="VARCHAR" property="spbillCreateIp" />
+    <result column="time_start" jdbcType="VARCHAR" property="timeStart" />
+    <result column="time_expire" jdbcType="VARCHAR" property="timeExpire" />
+    <result column="total_fee" jdbcType="VARCHAR" property="totalFee" />
+    <result column="notify_url" jdbcType="VARCHAR" property="notifyUrl" />
+    <result column="trade_type" jdbcType="VARCHAR" property="tradeType" />
+    <result column="limit_pay" jdbcType="VARCHAR" property="limitPay" />
+    <result column="openid" jdbcType="VARCHAR" property="openid" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, appId, mchId, device_info, nonce_str, sign, body, out_trade_no, fee_type, spbill_create_ip, 
+    time_start, time_expire, total_fee, notify_url, trade_type, limit_pay, openid
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from wx_pay_order
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from wx_pay_order
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jinshi.entity.WxPayInfo">
+    insert into wx_pay_order (id, appId, mchId, 
+      device_info, nonce_str, sign, 
+      body, out_trade_no, fee_type, 
+      spbill_create_ip, time_start, time_expire, 
+      total_fee, notify_url, trade_type, 
+      limit_pay, openid)
+    values (#{id,jdbcType=INTEGER}, #{appid,jdbcType=VARCHAR}, #{mchid,jdbcType=VARCHAR}, 
+      #{deviceInfo,jdbcType=VARCHAR}, #{nonceStr,jdbcType=VARCHAR}, #{sign,jdbcType=VARCHAR}, 
+      #{body,jdbcType=VARCHAR}, #{outTradeNo,jdbcType=VARCHAR}, #{feeType,jdbcType=VARCHAR}, 
+      #{spbillCreateIp,jdbcType=VARCHAR}, #{timeStart,jdbcType=VARCHAR}, #{timeExpire,jdbcType=VARCHAR}, 
+      #{totalFee,jdbcType=VARCHAR}, #{notifyUrl,jdbcType=VARCHAR}, #{tradeType,jdbcType=VARCHAR}, 
+      #{limitPay,jdbcType=VARCHAR}, #{openid,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jinshi.entity.WxPayInfo">
+    insert into wx_pay_order
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="appid != null">
+        appId,
+      </if>
+      <if test="mchid != null">
+        mchId,
+      </if>
+      <if test="deviceInfo != null">
+        device_info,
+      </if>
+      <if test="nonceStr != null">
+        nonce_str,
+      </if>
+      <if test="sign != null">
+        sign,
+      </if>
+      <if test="body != null">
+        body,
+      </if>
+      <if test="outTradeNo != null">
+        out_trade_no,
+      </if>
+      <if test="feeType != null">
+        fee_type,
+      </if>
+      <if test="spbillCreateIp != null">
+        spbill_create_ip,
+      </if>
+      <if test="timeStart != null">
+        time_start,
+      </if>
+      <if test="timeExpire != null">
+        time_expire,
+      </if>
+      <if test="totalFee != null">
+        total_fee,
+      </if>
+      <if test="notifyUrl != null">
+        notify_url,
+      </if>
+      <if test="tradeType != null">
+        trade_type,
+      </if>
+      <if test="limitPay != null">
+        limit_pay,
+      </if>
+      <if test="openid != null">
+        openid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="appid != null">
+        #{appid,jdbcType=VARCHAR},
+      </if>
+      <if test="mchid != null">
+        #{mchid,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceInfo != null">
+        #{deviceInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="nonceStr != null">
+        #{nonceStr,jdbcType=VARCHAR},
+      </if>
+      <if test="sign != null">
+        #{sign,jdbcType=VARCHAR},
+      </if>
+      <if test="body != null">
+        #{body,jdbcType=VARCHAR},
+      </if>
+      <if test="outTradeNo != null">
+        #{outTradeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="feeType != null">
+        #{feeType,jdbcType=VARCHAR},
+      </if>
+      <if test="spbillCreateIp != null">
+        #{spbillCreateIp,jdbcType=VARCHAR},
+      </if>
+      <if test="timeStart != null">
+        #{timeStart,jdbcType=VARCHAR},
+      </if>
+      <if test="timeExpire != null">
+        #{timeExpire,jdbcType=VARCHAR},
+      </if>
+      <if test="totalFee != null">
+        #{totalFee,jdbcType=VARCHAR},
+      </if>
+      <if test="notifyUrl != null">
+        #{notifyUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="tradeType != null">
+        #{tradeType,jdbcType=VARCHAR},
+      </if>
+      <if test="limitPay != null">
+        #{limitPay,jdbcType=VARCHAR},
+      </if>
+      <if test="openid != null">
+        #{openid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jinshi.entity.WxPayInfo">
+    update wx_pay_order
+    <set>
+      <if test="appid != null">
+        appId = #{appid,jdbcType=VARCHAR},
+      </if>
+      <if test="mchid != null">
+        mchId = #{mchid,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceInfo != null">
+        device_info = #{deviceInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="nonceStr != null">
+        nonce_str = #{nonceStr,jdbcType=VARCHAR},
+      </if>
+      <if test="sign != null">
+        sign = #{sign,jdbcType=VARCHAR},
+      </if>
+      <if test="body != null">
+        body = #{body,jdbcType=VARCHAR},
+      </if>
+      <if test="outTradeNo != null">
+        out_trade_no = #{outTradeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="feeType != null">
+        fee_type = #{feeType,jdbcType=VARCHAR},
+      </if>
+      <if test="spbillCreateIp != null">
+        spbill_create_ip = #{spbillCreateIp,jdbcType=VARCHAR},
+      </if>
+      <if test="timeStart != null">
+        time_start = #{timeStart,jdbcType=VARCHAR},
+      </if>
+      <if test="timeExpire != null">
+        time_expire = #{timeExpire,jdbcType=VARCHAR},
+      </if>
+      <if test="totalFee != null">
+        total_fee = #{totalFee,jdbcType=VARCHAR},
+      </if>
+      <if test="notifyUrl != null">
+        notify_url = #{notifyUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="tradeType != null">
+        trade_type = #{tradeType,jdbcType=VARCHAR},
+      </if>
+      <if test="limitPay != null">
+        limit_pay = #{limitPay,jdbcType=VARCHAR},
+      </if>
+      <if test="openid != null">
+        openid = #{openid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jinshi.entity.WxPayInfo">
+    update wx_pay_order
+    set appId = #{appid,jdbcType=VARCHAR},
+      mchId = #{mchid,jdbcType=VARCHAR},
+      device_info = #{deviceInfo,jdbcType=VARCHAR},
+      nonce_str = #{nonceStr,jdbcType=VARCHAR},
+      sign = #{sign,jdbcType=VARCHAR},
+      body = #{body,jdbcType=VARCHAR},
+      out_trade_no = #{outTradeNo,jdbcType=VARCHAR},
+      fee_type = #{feeType,jdbcType=VARCHAR},
+      spbill_create_ip = #{spbillCreateIp,jdbcType=VARCHAR},
+      time_start = #{timeStart,jdbcType=VARCHAR},
+      time_expire = #{timeExpire,jdbcType=VARCHAR},
+      total_fee = #{totalFee,jdbcType=VARCHAR},
+      notify_url = #{notifyUrl,jdbcType=VARCHAR},
+      trade_type = #{tradeType,jdbcType=VARCHAR},
+      limit_pay = #{limitPay,jdbcType=VARCHAR},
+      openid = #{openid,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

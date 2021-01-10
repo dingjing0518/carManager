@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jinshi.mapper.WhiteListMapper">
+  <resultMap id="BaseResultMap" type="com.jinshi.entity.WhiteList">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="lincense_plate_number" jdbcType="VARCHAR" property="lincensePlateNumber" />
+    <result column="describtion" jdbcType="VARCHAR" property="describtion" />
+    <result column="list_type" jdbcType="VARCHAR" property="listType" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="is_flag" jdbcType="VARCHAR" property="isFlag" />
+    <result column="park_id" jdbcType="VARCHAR" property="parkId" />
+    <result column="agent_id" jdbcType="VARCHAR" property="agentId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name, lincense_plate_number, describtion,list_type,create_time,is_flag,park_id,agent_id
+  </sql>
+  <select id="searchWhiteList" resultMap="BaseResultMap">
+    SELECT * FROM white_list
+    WHERE CONCAT(IFNULL(`id`,''),IFNULL(`name`,''),IFNULL(`lincense_plate_number`,''),
+    IFNULL(`describtion`,''),IFNULL(`list_type`,''),IFNULL(`create_time`,''),IFNULL(`is_flag`,''))
+    LIKE "%"#{keyWord}"%" and park_id = #{parkId,jdbcType=INTEGER}
+    LIMIT #{pageNum},#{pageSize}
+  </select>
+  <select id="checkWhiteListByLincese" parameterType="com.jinshi.entity.WhiteList" resultMap="BaseResultMap">
+    select * from white_list where lincense_plate_number = #{Lincese,jdbcType=VARCHAR} and park_id = #{parkId,jdbcType=INTEGER}
+  </select>
+  <select id="selectWhiteListForPage" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select * from white_list where park_id = #{parkId,jdbcType=INTEGER} LIMIT #{pageNum,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+  </select>
+
+  <select id="getWhiteListTotalRecords" resultType="java.lang.Integer">
+    select count(*) from white_list where park_id = #{parkId,jdbcType=INTEGER}
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from white_list
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from white_list
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insert" parameterType="com.jinshi.entity.WhiteList">
+    insert into white_list (id, name, lincense_plate_number, 
+      describtion,list_type,create_time,is_flag,park_id,agent_id)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{lincensePlateNumber,jdbcType=VARCHAR}, 
+      #{describtion,jdbcType=VARCHAR},#{listType,jdbcType=VARCHAR},#{createTime,jdbcType=TIMESTAMP},
+      #{isFlag,jdbcType=VARCHAR},#{parkId,jdbcType=INTEGER},#{agentId,jdbcType=INTEGER})
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.jinshi.entity.WhiteList">
+    insert into white_list
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="lincensePlateNumber != null">
+        lincense_plate_number,
+
+      </if>
+      <if test="describtion != null">
+        describtion,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="lincensePlateNumber != null">
+        #{lincensePlateNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="describtion != null">
+        #{describtion,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jinshi.entity.WhiteList">
+    update white_list
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="lincensePlateNumber != null">
+        lincense_plate_number = #{lincensePlateNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="describtion != null">
+        describtion = #{describtion,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jinshi.entity.WhiteList">
+    update white_list
+    set name = #{name,jdbcType=VARCHAR},
+      lincense_plate_number = #{lincensePlateNumber,jdbcType=VARCHAR},
+      describtion = #{describtion,jdbcType=VARCHAR},
+      list_type = #{listType,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      is_flag = #{isFlag,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <update id="updateByIsFlag" parameterType="com.jinshi.entity.WhiteList">
+    update white_list set is_flag = '已关注' where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByIsFlagNo" parameterType="com.jinshi.entity.WhiteList">
+    update white_list set is_flag = '未关注' where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

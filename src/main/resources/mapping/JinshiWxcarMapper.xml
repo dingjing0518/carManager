@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jinshi.mapper.JinshiWxcarMapper">
+  <resultMap id="BaseResultMap" type="com.jinshi.entity.JinshiWxcar">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="jw_openid" jdbcType="VARCHAR" property="jwOpenid" />
+    <result column="jw_name" jdbcType="VARCHAR" property="jwName" />
+    <result column="jw_car_type" jdbcType="VARCHAR" property="jwCarType" />
+    <result column="jw_car_number" jdbcType="VARCHAR" property="jwCarNumber" />
+    <result column="jw_phone" jdbcType="VARCHAR" property="jwPhone" />
+    <result column="jw_service_name" jdbcType="VARCHAR" property="jwServiceName" />
+    <result column="jw_create_time" jdbcType="TIMESTAMP" property="jwCreateTime" />
+    <result column="jw_expiration_time" jdbcType="TIMESTAMP" property="jwExpirationTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, jw_openid, jw_name, jw_car_type, jw_car_number, jw_phone, jw_service_name, jw_create_time, 
+    jw_expiration_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from jinshi_wxcar
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectByCarNumber" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from jinshi_wxcar
+    where jw_car_number = #{carNumber,jdbcType=VARCHAR}
+  </select>
+  <select id="selectWxUser" parameterType="com.jinshi.entity.JinshiWxcar" resultMap="BaseResultMap">
+    select *  from jinshi_wxcar where jw_openid = #{openid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from jinshi_wxcar
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.jinshi.entity.JinshiWxcar">
+    insert into jinshi_wxcar (id, jw_openid, jw_name, 
+      jw_car_type, jw_car_number, jw_phone, 
+      jw_service_name, jw_create_time, jw_expiration_time
+      )
+    values (#{id,jdbcType=BIGINT}, #{jwOpenid,jdbcType=VARCHAR}, #{jwName,jdbcType=VARCHAR}, 
+      #{jwCarType,jdbcType=VARCHAR}, #{jwCarNumber,jdbcType=VARCHAR}, #{jwPhone,jdbcType=VARCHAR}, 
+      #{jwServiceName,jdbcType=VARCHAR}, #{jwCreateTime,jdbcType=TIMESTAMP}, #{jwExpirationTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.jinshi.entity.JinshiWxcar">
+    insert into jinshi_wxcar
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="jwOpenid != null">
+        jw_openid,
+      </if>
+      <if test="jwName != null">
+        jw_name,
+      </if>
+      <if test="jwCarType != null">
+        jw_car_type,
+      </if>
+      <if test="jwCarNumber != null">
+        jw_car_number,
+      </if>
+      <if test="jwPhone != null">
+        jw_phone,
+      </if>
+      <if test="jwServiceName != null">
+        jw_service_name,
+      </if>
+      <if test="jwCreateTime != null">
+        jw_create_time,
+      </if>
+      <if test="jwExpirationTime != null">
+        jw_expiration_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="jwOpenid != null">
+        #{jwOpenid,jdbcType=VARCHAR},
+      </if>
+      <if test="jwName != null">
+        #{jwName,jdbcType=VARCHAR},
+      </if>
+      <if test="jwCarType != null">
+        #{jwCarType,jdbcType=VARCHAR},
+      </if>
+      <if test="jwCarNumber != null">
+        #{jwCarNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="jwPhone != null">
+        #{jwPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="jwServiceName != null">
+        #{jwServiceName,jdbcType=VARCHAR},
+      </if>
+      <if test="jwCreateTime != null">
+        #{jwCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jwExpirationTime != null">
+        #{jwExpirationTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jinshi.entity.JinshiWxcar">
+    update jinshi_wxcar
+    <set>
+      <if test="jwOpenid != null">
+        jw_openid = #{jwOpenid,jdbcType=VARCHAR},
+      </if>
+      <if test="jwName != null">
+        jw_name = #{jwName,jdbcType=VARCHAR},
+      </if>
+      <if test="jwCarType != null">
+        jw_car_type = #{jwCarType,jdbcType=VARCHAR},
+      </if>
+      <if test="jwCarNumber != null">
+        jw_car_number = #{jwCarNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="jwPhone != null">
+        jw_phone = #{jwPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="jwServiceName != null">
+        jw_service_name = #{jwServiceName,jdbcType=VARCHAR},
+      </if>
+      <if test="jwCreateTime != null">
+        jw_create_time = #{jwCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jwExpirationTime != null">
+        jw_expiration_time = #{jwExpirationTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jinshi.entity.JinshiWxcar">
+    update jinshi_wxcar
+    set jw_openid = #{jwOpenid,jdbcType=VARCHAR},
+      jw_name = #{jwName,jdbcType=VARCHAR},
+      jw_car_type = #{jwCarType,jdbcType=VARCHAR},
+      jw_car_number = #{jwCarNumber,jdbcType=VARCHAR},
+      jw_phone = #{jwPhone,jdbcType=VARCHAR},
+      jw_service_name = #{jwServiceName,jdbcType=VARCHAR},
+      jw_create_time = #{jwCreateTime,jdbcType=TIMESTAMP},
+      jw_expiration_time = #{jwExpirationTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByOpenid" parameterType="com.jinshi.entity.JinshiWxcar">
+    update jinshi_wxcar
+    set jw_openid = #{jwOpenid,jdbcType=VARCHAR},
+      jw_name = #{jwName,jdbcType=VARCHAR},
+      jw_car_type = #{jwCarType,jdbcType=VARCHAR},
+      jw_car_number = #{jwCarNumber,jdbcType=VARCHAR},
+      jw_phone = #{jwPhone,jdbcType=VARCHAR},
+      jw_service_name = #{jwServiceName,jdbcType=VARCHAR},
+      jw_create_time = #{jwCreateTime,jdbcType=TIMESTAMP},
+      jw_expiration_time = #{jwExpirationTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

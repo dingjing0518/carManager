@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jinshi.mapper.FinancialMapper">
+  <resultMap id="BaseResultMap" type="com.jinshi.entity.Financial">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="member_ids" jdbcType="VARCHAR" property="memberIds" />
+    <result column="pay_method" jdbcType="INTEGER" property="payMethod" />
+    <result column="pay_time" jdbcType="TIMESTAMP" property="payTime" />
+    <result column="pay_money" jdbcType="VARCHAR" property="payMoney" />
+    <result column="service_types" jdbcType="INTEGER" property="serviceTypes" />
+    <result column="lincense_plate_ids" jdbcType="INTEGER" property="lincensePlateIds" />
+    <result column="expiration_time" jdbcType="TIMESTAMP" property="expirationTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, member_ids, pay_method, pay_time, pay_money, service_types, lincense_plate_ids, 
+    expiration_time
+  </sql>
+
+  <select id="selectFinancialForPage" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select * from financial LIMIT #{pageNum,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+  </select>
+
+  <select id="getFinancialRecords" resultType="java.lang.Integer">
+    select count(*) from financial
+  </select>
+
+  <select id="searchFinancial" resultMap="BaseResultMap">
+    SELECT * FROM financial
+    WHERE CONCAT(IFNULL(`id`,''),IFNULL(`member_ids`,''),IFNULL(`pay_method`,''),IFNULL(`pay_time`,''),
+    IFNULL(`pay_money`,''),IFNULL(`service_types`,''),IFNULL(`lincense_plate_ids`,''),
+    IFNULL(`expiration_time`,''))
+     LIKE "%"#{keyWork}"%" LIMIT #{pageNum},#{pageSize}
+  </select>
+
+  <select id="getFinancialRecordsSearch" resultType="java.lang.Integer">
+    SELECT count(*) FROM financial
+    WHERE CONCAT(IFNULL(`id`,''),IFNULL(`member_ids`,''),IFNULL(`pay_method`,''),IFNULL(`pay_time`,''),
+    IFNULL(`pay_money`,''),IFNULL(`service_types`,''),IFNULL(`lincense_plate_ids`,''),
+    IFNULL(`expiration_time`,''))
+     LIKE "%"#{keyWord}"%"
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from financial
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from financial
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jinshi.entity.Financial">
+    insert into financial (id, member_ids, pay_method, 
+      pay_time, pay_money, service_types, 
+      lincense_plate_ids, expiration_time)
+    values (#{id,jdbcType=INTEGER}, #{memberIds,jdbcType=VARCHAR}, #{payMethod,jdbcType=INTEGER}, 
+      #{payTime,jdbcType=TIMESTAMP}, #{payMoney,jdbcType=VARCHAR}, #{serviceTypes,jdbcType=INTEGER}, 
+      #{lincensePlateIds,jdbcType=INTEGER}, #{expirationTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jinshi.entity.Financial">
+    insert into financial
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="memberIds != null">
+        member_ids,
+      </if>
+      <if test="payMethod != null">
+        pay_method,
+      </if>
+      <if test="payTime != null">
+        pay_time,
+      </if>
+      <if test="payMoney != null">
+        pay_money,
+      </if>
+      <if test="serviceTypes != null">
+        service_types,
+      </if>
+      <if test="lincensePlateIds != null">
+        lincense_plate_ids,
+      </if>
+      <if test="expirationTime != null">
+        expiration_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="memberIds != null">
+        #{memberIds,jdbcType=VARCHAR},
+      </if>
+      <if test="payMethod != null">
+        #{payMethod,jdbcType=INTEGER},
+      </if>
+      <if test="payTime != null">
+        #{payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payMoney != null">
+        #{payMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceTypes != null">
+        #{serviceTypes,jdbcType=INTEGER},
+      </if>
+      <if test="lincensePlateIds != null">
+        #{lincensePlateIds,jdbcType=INTEGER},
+      </if>
+      <if test="expirationTime != null">
+        #{expirationTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jinshi.entity.Financial">
+    update financial
+    <set>
+      <if test="memberIds != null">
+        member_ids = #{memberIds,jdbcType=VARCHAR},
+      </if>
+      <if test="payMethod != null">
+        pay_method = #{payMethod,jdbcType=INTEGER},
+      </if>
+      <if test="payTime != null">
+        pay_time = #{payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payMoney != null">
+        pay_money = #{payMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceTypes != null">
+        service_types = #{serviceTypes,jdbcType=INTEGER},
+      </if>
+      <if test="lincensePlateIds != null">
+        lincense_plate_ids = #{lincensePlateIds,jdbcType=INTEGER},
+      </if>
+      <if test="expirationTime != null">
+        expiration_time = #{expirationTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jinshi.entity.Financial">
+    update financial
+    set member_ids = #{memberIds,jdbcType=VARCHAR},
+      pay_method = #{payMethod,jdbcType=INTEGER},
+      pay_time = #{payTime,jdbcType=TIMESTAMP},
+      pay_money = #{payMoney,jdbcType=VARCHAR},
+      service_types = #{serviceTypes,jdbcType=INTEGER},
+      lincense_plate_ids = #{lincensePlateIds,jdbcType=INTEGER},
+      expiration_time = #{expirationTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

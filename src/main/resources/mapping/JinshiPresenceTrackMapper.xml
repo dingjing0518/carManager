@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jinshi.mapper.JinshiPresenceTrackMapper">
+  <resultMap id="BaseResultMap" type="com.jinshi.entity.JinshiPresenceTrack">
+    <id column="pt_id" jdbcType="INTEGER" property="ptId" />
+    <result column="pt_lp_id" jdbcType="INTEGER" property="ptLpId" />
+    <result column="pt_creat_time" jdbcType="TIMESTAMP" property="ptCreatTime" />
+    <result column="pt_lincense_plate_id" jdbcType="VARCHAR" property="ptLincensePlateId" />
+    <result column="pt_tHandle" jdbcType="VARCHAR" property="ptThandle" />
+    <result column="pt_status" jdbcType="VARCHAR" property="ptStatus" />
+    <result column="pt_parkid" jdbcType="VARCHAR" property="ptParkid" />
+    <result column="pt_data_C" jdbcType="VARCHAR" property="ptDataC" />
+    <result column="pt_data_D" jdbcType="VARCHAR" property="ptDataD" />
+    <result column="pt_data_E" jdbcType="VARCHAR" property="ptDataE" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    pt_id, pt_lp_id, pt_creat_time, pt_lincense_plate_id, pt_tHandle, pt_status, pt_parkid,
+    pt_data_C, pt_data_D, pt_data_E
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from jinshi_presence_track
+    where pt_id = #{ptId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from jinshi_presence_track
+    where pt_id = #{ptId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jinshi.entity.JinshiPresenceTrack">
+    insert into jinshi_presence_track (pt_id, pt_lp_id, pt_creat_time, 
+      pt_lincense_plate_id, pt_tHandle, pt_status,
+      pt_parkid, pt_data_C, pt_data_D,
+      pt_data_E)
+    values (#{ptId,jdbcType=INTEGER}, #{ptLpId,jdbcType=INTEGER}, #{ptCreatTime,jdbcType=TIMESTAMP}, 
+      #{ptLincensePlateId,jdbcType=VARCHAR}, #{ptThandle,jdbcType=VARCHAR}, #{ptStatus,jdbcType=VARCHAR},
+      #{ptParkid,jdbcType=VARCHAR}, #{ptDataC,jdbcType=VARCHAR}, #{ptDataD,jdbcType=VARCHAR},
+      #{ptDataE,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jinshi.entity.JinshiPresenceTrack">
+    insert into jinshi_presence_track
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="ptId != null">
+        pt_id,
+      </if>
+      <if test="ptLpId != null">
+        pt_lp_id,
+      </if>
+      <if test="ptCreatTime != null">
+        pt_creat_time,
+      </if>
+      <if test="ptLincensePlateId != null">
+        pt_lincense_plate_id,
+      </if>
+      <if test="ptThandle != null">
+        pt_tHandle,
+      </if>
+      <if test="ptStatus != null">
+        pt_status,
+      </if>
+      <if test="ptParkid != null">
+        pt_parkid,
+      </if>
+      <if test="ptDataC != null">
+        pt_data_C,
+      </if>
+      <if test="ptDataD != null">
+        pt_data_D,
+      </if>
+      <if test="ptDataE != null">
+        pt_data_E,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="ptId != null">
+        #{ptId,jdbcType=INTEGER},
+      </if>
+      <if test="ptLpId != null">
+        #{ptLpId,jdbcType=INTEGER},
+      </if>
+      <if test="ptCreatTime != null">
+        #{ptCreatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ptLincensePlateId != null">
+        #{ptLincensePlateId,jdbcType=VARCHAR},
+      </if>
+      <if test="ptThandle != null">
+        #{ptThandle,jdbcType=VARCHAR},
+      </if>
+      <if test="ptStatus != null">
+        #{ptStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="ptParkid != null">
+        #{ptParkid,jdbcType=VARCHAR},
+      </if>
+      <if test="ptDataC != null">
+        #{ptDataC,jdbcType=VARCHAR},
+      </if>
+      <if test="ptDataD != null">
+        #{ptDataD,jdbcType=VARCHAR},
+      </if>
+      <if test="ptDataE != null">
+        #{ptDataE,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jinshi.entity.JinshiPresenceTrack">
+    update jinshi_presence_track
+    <set>
+      <if test="ptLpId != null">
+        pt_lp_id = #{ptLpId,jdbcType=INTEGER},
+      </if>
+      <if test="ptCreatTime != null">
+        pt_creat_time = #{ptCreatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ptLincensePlateId != null">
+        pt_lincense_plate_id = #{ptLincensePlateId,jdbcType=VARCHAR},
+      </if>
+      <if test="ptThandle != null">
+        pt_tHandle = #{ptThandle,jdbcType=VARCHAR},
+      </if>
+      <if test="ptStatus != null">
+        pt_status = #{ptStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="ptParkid != null">
+        pt_parkid = #{ptParkid,jdbcType=VARCHAR},
+      </if>
+      <if test="ptDataC != null">
+        pt_data_C = #{ptDataC,jdbcType=VARCHAR},
+      </if>
+      <if test="ptDataD != null">
+        pt_data_D = #{ptDataD,jdbcType=VARCHAR},
+      </if>
+      <if test="ptDataE != null">
+        pt_data_E = #{ptDataE,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where pt_id = #{ptId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jinshi.entity.JinshiPresenceTrack">
+    update jinshi_presence_track
+    set pt_lp_id = #{ptLpId,jdbcType=INTEGER},
+      pt_creat_time = #{ptCreatTime,jdbcType=TIMESTAMP},
+      pt_lincense_plate_id = #{ptLincensePlateId,jdbcType=VARCHAR},
+      pt_tHandle = #{ptThandle,jdbcType=VARCHAR},
+      pt_status = #{ptStatus,jdbcType=VARCHAR},
+      pt_parkid = #{ptParkid,jdbcType=VARCHAR},
+      pt_data_C = #{ptDataC,jdbcType=VARCHAR},
+      pt_data_D = #{ptDataD,jdbcType=VARCHAR},
+      pt_data_E = #{ptDataE,jdbcType=VARCHAR}
+    where pt_id = #{ptId,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectPresenceTrackPage" resultMap="BaseResultMap">
+    select * from jinshi_presence_track
+    where pt_parkid = #{parkId,jdbcType=VARCHAR}
+    LIMIT #{pageNum,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+  </select>
+  <select id="getPresenceTrackRecords" resultType="java.lang.Integer">
+    select count(*) from jinshi_presence_track where pt_parkid = #{parkId,jdbcType=VARCHAR}
+  </select>
+  <select id="searchPresenceTrack" resultMap="BaseResultMap">
+    SELECT * FROM jinshi_presence_track
+    WHERE CONCAT(IFNULL(`pt_id`,''),IFNULL(`pt_lp_id`,''),IFNULL(`pt_creat_time`,''),IFNULL(`pt_lincense_plate_id`,''),
+    IFNULL(`pt_tHandle`,''),IFNULL(`pt_status`,''),IFNULL(`pt_parkid`,''))
+    LIKE "%"#{keyWord}"%" and pt_parkid = #{parkId,jdbcType=VARCHAR} LIMIT #{pageNum,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+  </select>
+  <select id="getPresenceTrackRecordsSearch" resultType="java.lang.Integer">
+    SELECT count(*) FROM jinshi_presence_track
+    WHERE CONCAT(IFNULL(`pt_id`,''),IFNULL(`pt_lp_id`,''),IFNULL(`pt_creat_time`,''),IFNULL(`pt_lincense_plate_id`,''),
+    IFNULL(`pt_tHandle`,''),IFNULL(`pt_status`,''),IFNULL(`pt_parkid`,''))
+    LIKE "%"#{keyWord}"%" and pt_parkid = #{parkId,jdbcType=VARCHAR}
+  </select>
+  <select id="selectPresenceTrackByTime" resultMap="BaseResultMap">
+    select * from jinshi_presence_track
+    where CONCAT(IFNULL(`pt_lincense_plate_id`,'')) LIKE "%"#{keyWord}"%"
+    <if test="startTime != null and endTime != null">
+      and pt_creat_time BETWEEN #{startTime,jdbcType=TIMESTAMP} and #{endTime,jdbcType=TIMESTAMP}
+    </if>
+    and pt_parkid = #{parkId,jdbcType=VARCHAR}
+    order by pt_creat_time desc LIMIT #{pageNum,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+  </select>
+  <select id="getPresenceTrackByTime" resultType="java.lang.Integer">
+    select count(*) from jinshi_presence_track
+    where CONCAT(IFNULL(`pt_lincense_plate_id`,'')) LIKE "%"#{keyWord}"%"
+    <if test="startTime != null and endTime != null">
+      and pt_creat_time BETWEEN #{startTime,jdbcType=TIMESTAMP} and #{endTime,jdbcType=TIMESTAMP}
+    </if>
+    and pt_parkid = #{parkId,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectAllInfo" resultMap="BaseResultMap">
+    select * from jinshi_presence_track where pt_lincense_plate_id = #{lincense,jdbcType=VARCHAR}
+    and pt_parkid = #{ptParkid,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectByPtLpId" resultMap="BaseResultMap">
+    select * from jinshi_presence_track where pt_lp_id = #{ptLpId,jdbcType=INTEGER}
+  </select>
+  <delete id="deletePresenceTrack" parameterType="java.lang.Integer">
+    delete from jinshi_presence_track
+    where pt_lp_id = #{ptLpId,jdbcType=INTEGER}
+  </delete>
+
+</mapper>

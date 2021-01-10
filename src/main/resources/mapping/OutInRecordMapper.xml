@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jinshi.mapper.OutInRecordMapper">
+  <resultMap id="BaseResultMap" type="com.jinshi.entity.OutInRecord">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="lincense_plate_id" jdbcType="VARCHAR" property="lincensePlateId" />
+    <result column="entry_time" jdbcType="TIMESTAMP" property="entryTime" />
+    <result column="exit_time" jdbcType="TIMESTAMP" property="exitTime" />
+    <result column="user_type" jdbcType="INTEGER" property="userType" />
+    <result column="abnormal" jdbcType="INTEGER" property="abnormal" />
+    <result column="money" jdbcType="VARCHAR" property="money" />
+    <result column="site" jdbcType="VARCHAR" property="site" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, lincense_plate_id, entry_time, exit_time, user_type, abnormal, money,site
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from out_in_record
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from out_in_record
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jinshi.entity.OutInRecord">
+    insert into out_in_record (id, lincense_plate_id, entry_time, 
+      exit_time, user_type, abnormal, 
+      money,site)
+    values (#{id,jdbcType=INTEGER}, #{lincensePlateId,jdbcType=VARCHAR}, #{entryTime,jdbcType=TIMESTAMP}, 
+      #{exitTime,jdbcType=TIMESTAMP}, #{userType,jdbcType=INTEGER}, #{abnormal,jdbcType=INTEGER}, 
+      #{money,jdbcType=VARCHAR}), #{site,jdbcType=VARCHAR}
+  </insert>
+  <insert id="insertSelective" parameterType="com.jinshi.entity.OutInRecord">
+    insert into out_in_record
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="lincensePlateId != null">
+        lincense_plate_id,
+      </if>
+      <if test="entryTime != null">
+        entry_time,
+      </if>
+      <if test="exitTime != null">
+        exit_time,
+      </if>
+      <if test="userType != null">
+        user_type,
+      </if>
+      <if test="abnormal != null">
+        abnormal,
+      </if>
+      <if test="money != null">
+        money,
+      </if>
+      <if test="site != null">
+        site,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="lincensePlateId != null">
+        #{lincensePlateId,jdbcType=VARCHAR},
+      </if>
+      <if test="entryTime != null">
+        #{entryTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="exitTime != null">
+        #{exitTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userType != null">
+        #{userType,jdbcType=INTEGER},
+      </if>
+      <if test="abnormal != null">
+        #{abnormal,jdbcType=INTEGER},
+      </if>
+      <if test="money != null">
+        #{money,jdbcType=VARCHAR},
+      </if>
+      <if test="site != null">
+        #{site,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jinshi.entity.OutInRecord">
+    update out_in_record
+    <set>
+      <if test="lincensePlateId != null">
+        lincense_plate_id = #{lincensePlateId,jdbcType=VARCHAR},
+      </if>
+      <if test="entryTime != null">
+        entry_time = #{entryTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="exitTime != null">
+        exit_time = #{exitTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userType != null">
+        user_type = #{userType,jdbcType=INTEGER},
+      </if>
+      <if test="abnormal != null">
+        abnormal = #{abnormal,jdbcType=INTEGER},
+      </if>
+      <if test="money != null">
+        money = #{money,jdbcType=VARCHAR},
+      </if>
+      <if test="site != null">
+        site = #{site,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jinshi.entity.OutInRecord">
+    update out_in_record
+    set lincense_plate_id = #{lincensePlateId,jdbcType=VARCHAR},
+      entry_time = #{entryTime,jdbcType=TIMESTAMP},
+      exit_time = #{exitTime,jdbcType=TIMESTAMP},
+      user_type = #{userType,jdbcType=INTEGER},
+      abnormal = #{abnormal,jdbcType=INTEGER},
+      money = #{money,jdbcType=VARCHAR},
+      site = #{site,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectParkRecord" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select
+    ou.lincense_plate_id,ou.money,ou.entry_time,ou.exit_time,ou.site
+    from out_in_record ou
+        left join lincense_plate lp
+        on ou.lincense_plate_id=lp.lincense_plate_id_car
+    where lp.member_id_car = #{memberId,jdbcType=VARCHAR}
+  </select>
+
+</mapper>

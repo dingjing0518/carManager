@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jinshi.mapper.JinshiAreaMapper">
+  <resultMap id="BaseResultMap" type="com.jinshi.entity.JinshiArea">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="area_name" jdbcType="VARCHAR" property="areaName" />
+    <result column="agent_id" jdbcType="INTEGER" property="agentId" />
+    <result column="park_id" jdbcType="INTEGER" property="parkId" />
+    <result column="area_number" jdbcType="VARCHAR" property="areaNumber" />
+    <result column="parking_count" jdbcType="INTEGER" property="parkingCount" />
+    <result column="temporary_parking_count" jdbcType="INTEGER" property="temporaryParkingCount" />
+    <result column="pay_month" jdbcType="INTEGER" property="payMonth" />
+    <result column="pay_quarter" jdbcType="INTEGER" property="payQuarter" />
+    <result column="pay_year" jdbcType="INTEGER" property="payYear" />
+    <result column="allow_negative_car" jdbcType="INTEGER" property="allowNegativeCar" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, area_name, agent_id, park_id,area_number,parking_count,temporary_parking_count,
+    pay_month,pay_quarter,pay_year,allow_negative_car
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from jinshi_area
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from jinshi_area
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jinshi.entity.JinshiArea">
+    insert into jinshi_area (id, area_name, agent_id, 
+      park_id,area_number,parking_count,temporary_parking_count,pay_month,pay_quarter,pay_year,allow_negative_car)
+    values (#{id,jdbcType=INTEGER}, #{areaName,jdbcType=VARCHAR}, #{agentId,jdbcType=INTEGER}, 
+      #{parkId,jdbcType=INTEGER},#{areaNumber,jdbcType=VARCHAR},#{parkingCount,jdbcType=INTEGER},
+      #{temporaryParkingCount,jdbcType=INTEGER},#{payMonth,jdbcType=INTEGER},
+      #{payQuarter,jdbcType=INTEGER},#{payYear,jdbcType=INTEGER},#{allowNegativeCar,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jinshi.entity.JinshiArea">
+    insert into jinshi_area
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="areaName != null">
+        area_name,
+      </if>
+      <if test="agentId != null">
+        agent_id,
+      </if>
+      <if test="parkId != null">
+        park_id,
+      </if>
+      <if test="areaNumber != null">
+        area_number,
+      </if>
+      <if test="parkingCount != null">
+        parking_count,
+      </if>
+      <if test="temporaryParkingCount != null">
+        temporary_parking_count,
+      </if>
+      <if test="payMonth != null">
+        pay_month,
+      </if>
+      <if test="payQuarter != null">
+        pay_quarter,
+      </if>
+      <if test="payYear != null">
+        pay_year,
+      </if>
+      <if test="allowNegativeCar != null">
+        allow_negative_car,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="areaName != null">
+        #{areaName,jdbcType=VARCHAR},
+      </if>
+      <if test="agentId != null">
+        #{agentId,jdbcType=INTEGER},
+      </if>
+      <if test="parkId != null">
+        #{parkId,jdbcType=INTEGER},
+      </if>
+      <if test="areaNumber != null">
+        #{areaNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="parkingCount != null">
+        #{parkingCount,jdbcType=INTEGER},
+      </if>
+      <if test="temporaryParkingCount != null">
+        #{temporaryParkingCount,jdbcType=INTEGER},
+      </if>
+      <if test="payMonth != null">
+        #{payMonth,jdbcType=INTEGER},
+      </if>
+      <if test="payQuarter != null">
+        #{payQuarter,jdbcType=INTEGER},
+      </if>
+       <if test="payYear != null">
+        #{payYear,jdbcType=INTEGER},
+      </if>
+      <if test="allowNegativeCar != null">
+        #{allowNegativeCar,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jinshi.entity.JinshiArea">
+    update jinshi_area
+    <set>
+      <if test="areaName != null">
+        area_name = #{areaName,jdbcType=VARCHAR},
+      </if>
+      <if test="agentId != null">
+        agent_id = #{agentId,jdbcType=INTEGER},
+      </if>
+      <if test="parkId != null">
+        park_id = #{parkId,jdbcType=INTEGER},
+      </if>
+      <if test="areaNumber != null">
+        area_number = #{areaNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="parkingCount != null">
+        parking_count = #{parkingCount,jdbcType=INTEGER},
+      </if>
+      <if test="temporaryParkingCount != null">
+        temporary_parking_count = #{temporaryParkingCount,jdbcType=INTEGER},
+      </if>
+      <if test="payMonth != null">
+        pay_month = #{payMonth,jdbcType=INTEGER},
+      </if>
+      <if test="payQuarter != null">
+        pay_quarter = #{payQuarter,jdbcType=INTEGER},
+      </if>
+      <if test="payYear != null">
+        pay_year = #{payYear,jdbcType=INTEGER},
+      </if>
+      <if test="allowNegativeCar != null">
+        allow_negative_car = #{allowNegativeCar,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jinshi.entity.JinshiArea">
+    update jinshi_area
+    set area_name = #{areaName,jdbcType=VARCHAR},
+      agent_id = #{agentId,jdbcType=INTEGER},
+      park_id = #{parkId,jdbcType=INTEGER},
+      area_number = #{areaNumber,jdbcType=VARCHAR},
+      parking_count = #{parkingCount,jdbcType=INTEGER},
+      temporary_parking_count = #{temporaryParkingCount,jdbcType=INTEGER},
+      pay_month = #{payMonth,jdbcType=INTEGER},
+      pay_quarter = #{payQuarter,jdbcType=INTEGER},
+      pay_year = #{payYear,jdbcType=INTEGER},
+      allow_negative_car = #{allowNegativeCar,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectAreaForPage" resultMap="BaseResultMap">
+    select * from jinshi_area where park_id = #{parkId,jdbcType=INTEGER} LIMIT #{pageNum,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+  </select>
+  <select id="getAreaTotalRecords" resultType="java.lang.Integer">
+    select count(*) from jinshi_area where park_id = #{parkId,jdbcType=INTEGER}
+  </select>
+  <select id="searchArea" resultMap="BaseResultMap">
+    SELECT * FROM jinshi_area
+    WHERE CONCAT(IFNULL(`id`,''),IFNULL(`area_name`,''),IFNULL(`agent_id`,''),IFNULL(`park_id`,''),
+    IFNULL(`area_number`,''),IFNULL(`parking_count`,''),IFNULL(`temporary_parking_count`,''))
+     LIKE "%"#{keyWord}"%" and park_id = #{parkId,jdbcType=INTEGER} LIMIT #{pageNum,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+  </select>
+  <select id="selectAreaNameAll" resultMap="BaseResultMap">
+    SELECT * FROM jinshi_area where park_id = #{parkId,jdbcType=INTEGER}
+  </select>
+  <select id="selectByAreaName" resultMap="BaseResultMap">
+    SELECT * FROM jinshi_area where area_name = #{bcAreaName,jdbcType=VARCHAR}
+  </select>
+  <select id="findByAreaName"  resultMap="BaseResultMap">
+    SELECT * FROM jinshi_area where area_name = #{bcAreaName,jdbcType=VARCHAR} and park_id = #{parkId,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectByJcArea" resultMap="BaseResultMap">
+    SELECT * FROM jinshi_area where area_name = #{jcArea,jdbcType=VARCHAR} and park_id = #{parkId,jdbcType=INTEGER}
+  </select>
+  <select id="selectAllArea" resultMap="BaseResultMap">
+    SELECT * FROM jinshi_area where 1=1 and park_id = #{parkId,jdbcType=INTEGER}
+  </select>
+</mapper>

@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jinshi.mapper.JinshiBusinessAccountMapper">
+  <resultMap id="BaseResultMap" type="com.jinshi.entity.JinshiBusinessAccount">
+    <id column="bc_id" jdbcType="INTEGER" property="bcId" />
+    <result column="bc_name" jdbcType="VARCHAR" property="bcName" />
+    <result column="bc_code" jdbcType="VARCHAR" property="bcCode" />
+    <result column="bc_phone" jdbcType="VARCHAR" property="bcPhone" />
+    <result column="bc_tel" jdbcType="VARCHAR" property="bcTel" />
+    <result column="bc_wechat" jdbcType="VARCHAR" property="bcWechat" />
+    <result column="bc_qq" jdbcType="VARCHAR" property="bcQq" />
+    <result column="bc_openid" jdbcType="VARCHAR" property="bcOpenid" />
+    <result column="bc_contacts_name" jdbcType="VARCHAR" property="bcContactsName" />
+    <result column="bc_username" jdbcType="VARCHAR" property="bcUsername" />
+    <result column="bc_password" jdbcType="VARCHAR" property="bcPassword" />
+    <result column="bc_createtime" jdbcType="TIMESTAMP" property="bcCreatetime" />
+    <result column="bc_remarks" jdbcType="VARCHAR" property="bcRemarks" />
+    <result column="bc_agent_id" jdbcType="INTEGER" property="bcAgentId" />
+    <result column="bc_parking_id" jdbcType="INTEGER" property="bcParkingId" />
+    <result column="bc_area_id" jdbcType="INTEGER" property="bcAreaId" />
+    <result column="bc_data_a" jdbcType="VARCHAR" property="bcDataA" />
+    <result column="bc_data_b" jdbcType="VARCHAR" property="bcDataB" />
+    <result column="bc_data_c" jdbcType="VARCHAR" property="bcDataC" />
+    <result column="bc_data_d" jdbcType="VARCHAR" property="bcDataD" />
+    <result column="bc_data_e" jdbcType="VARCHAR" property="bcDataE" />
+    <result column="bc_data_f" jdbcType="VARCHAR" property="bcDataF" />
+    <result column="bc_data_g" jdbcType="VARCHAR" property="bcDataG" />
+    <result column="bc_data_h" jdbcType="VARCHAR" property="bcDataH" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    bc_id, bc_name, bc_code, bc_phone, bc_tel, bc_wechat, bc_qq, bc_openid, bc_contacts_name, 
+    bc_username, bc_password, bc_createtime, bc_remarks, bc_agent_id, bc_parking_id, 
+    bc_area_id, bc_data_a, bc_data_b, bc_data_c, bc_data_d, bc_data_e, bc_data_f, bc_data_g, 
+    bc_data_h
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from jinshi_business_account
+    where bc_id = #{bcId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from jinshi_business_account
+    where bc_id = #{bcId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jinshi.entity.JinshiBusinessAccount">
+    insert into jinshi_business_account (bc_id, bc_name, bc_code, 
+      bc_phone, bc_tel, bc_wechat, 
+      bc_qq, bc_openid, bc_contacts_name, 
+      bc_username, bc_password, bc_createtime, 
+      bc_remarks, bc_agent_id, bc_parking_id, 
+      bc_area_id, bc_data_a, bc_data_b, 
+      bc_data_c, bc_data_d, bc_data_e, 
+      bc_data_f, bc_data_g, bc_data_h
+      )
+    values (#{bcId,jdbcType=INTEGER}, #{bcName,jdbcType=VARCHAR}, #{bcCode,jdbcType=VARCHAR}, 
+      #{bcPhone,jdbcType=VARCHAR}, #{bcTel,jdbcType=VARCHAR}, #{bcWechat,jdbcType=VARCHAR}, 
+      #{bcQq,jdbcType=VARCHAR}, #{bcOpenid,jdbcType=VARCHAR}, #{bcContactsName,jdbcType=VARCHAR}, 
+      #{bcUsername,jdbcType=VARCHAR}, #{bcPassword,jdbcType=VARCHAR}, #{bcCreatetime,jdbcType=TIMESTAMP}, 
+      #{bcRemarks,jdbcType=VARCHAR}, #{bcAgentId,jdbcType=INTEGER}, #{bcParkingId,jdbcType=INTEGER}, 
+      #{bcAreaId,jdbcType=INTEGER}, #{bcDataA,jdbcType=VARCHAR}, #{bcDataB,jdbcType=VARCHAR}, 
+      #{bcDataC,jdbcType=VARCHAR}, #{bcDataD,jdbcType=VARCHAR}, #{bcDataE,jdbcType=VARCHAR}, 
+      #{bcDataF,jdbcType=VARCHAR}, #{bcDataG,jdbcType=VARCHAR}, #{bcDataH,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.jinshi.entity.JinshiBusinessAccount">
+    insert into jinshi_business_account
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="bcId != null">
+        bc_id,
+      </if>
+      <if test="bcName != null">
+        bc_name,
+      </if>
+      <if test="bcCode != null">
+        bc_code,
+      </if>
+      <if test="bcPhone != null">
+        bc_phone,
+      </if>
+      <if test="bcTel != null">
+        bc_tel,
+      </if>
+      <if test="bcWechat != null">
+        bc_wechat,
+      </if>
+      <if test="bcQq != null">
+        bc_qq,
+      </if>
+      <if test="bcOpenid != null">
+        bc_openid,
+      </if>
+      <if test="bcContactsName != null">
+        bc_contacts_name,
+      </if>
+      <if test="bcUsername != null">
+        bc_username,
+      </if>
+      <if test="bcPassword != null">
+        bc_password,
+      </if>
+      <if test="bcCreatetime != null">
+        bc_createtime,
+      </if>
+      <if test="bcRemarks != null">
+        bc_remarks,
+      </if>
+      <if test="bcAgentId != null">
+        bc_agent_id,
+      </if>
+      <if test="bcParkingId != null">
+        bc_parking_id,
+      </if>
+      <if test="bcAreaId != null">
+        bc_area_id,
+      </if>
+      <if test="bcDataA != null">
+        bc_data_a,
+      </if>
+      <if test="bcDataB != null">
+        bc_data_b,
+      </if>
+      <if test="bcDataC != null">
+        bc_data_c,
+      </if>
+      <if test="bcDataD != null">
+        bc_data_d,
+      </if>
+      <if test="bcDataE != null">
+        bc_data_e,
+      </if>
+      <if test="bcDataF != null">
+        bc_data_f,
+      </if>
+      <if test="bcDataG != null">
+        bc_data_g,
+      </if>
+      <if test="bcDataH != null">
+        bc_data_h,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="bcId != null">
+        #{bcId,jdbcType=INTEGER},
+      </if>
+      <if test="bcName != null">
+        #{bcName,jdbcType=VARCHAR},
+      </if>
+      <if test="bcCode != null">
+        #{bcCode,jdbcType=VARCHAR},
+      </if>
+      <if test="bcPhone != null">
+        #{bcPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="bcTel != null">
+        #{bcTel,jdbcType=VARCHAR},
+      </if>
+      <if test="bcWechat != null">
+        #{bcWechat,jdbcType=VARCHAR},
+      </if>
+      <if test="bcQq != null">
+        #{bcQq,jdbcType=VARCHAR},
+      </if>
+      <if test="bcOpenid != null">
+        #{bcOpenid,jdbcType=VARCHAR},
+      </if>
+      <if test="bcContactsName != null">
+        #{bcContactsName,jdbcType=VARCHAR},
+      </if>
+      <if test="bcUsername != null">
+        #{bcUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="bcPassword != null">
+        #{bcPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="bcCreatetime != null">
+        #{bcCreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bcRemarks != null">
+        #{bcRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="bcAgentId != null">
+        #{bcAgentId,jdbcType=INTEGER},
+      </if>
+      <if test="bcParkingId != null">
+        #{bcParkingId,jdbcType=INTEGER},
+      </if>
+      <if test="bcAreaId != null">
+        #{bcAreaId,jdbcType=INTEGER},
+      </if>
+      <if test="bcDataA != null">
+        #{bcDataA,jdbcType=VARCHAR},
+      </if>
+      <if test="bcDataB != null">
+        #{bcDataB,jdbcType=VARCHAR},
+      </if>
+      <if test="bcDataC != null">
+        #{bcDataC,jdbcType=VARCHAR},
+      </if>
+      <if test="bcDataD != null">
+        #{bcDataD,jdbcType=VARCHAR},
+      </if>
+      <if test="bcDataE != null">
+        #{bcDataE,jdbcType=VARCHAR},
+      </if>
+      <if test="bcDataF != null">
+        #{bcDataF,jdbcType=VARCHAR},
+      </if>
+      <if test="bcDataG != null">
+        #{bcDataG,jdbcType=VARCHAR},
+      </if>
+      <if test="bcDataH != null">
+        #{bcDataH,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jinshi.entity.JinshiBusinessAccount">
+    update jinshi_business_account
+    <set>
+      <if test="bcName != null">
+        bc_name = #{bcName,jdbcType=VARCHAR},
+      </if>
+      <if test="bcCode != null">
+        bc_code = #{bcCode,jdbcType=VARCHAR},
+      </if>
+      <if test="bcPhone != null">
+        bc_phone = #{bcPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="bcTel != null">
+        bc_tel = #{bcTel,jdbcType=VARCHAR},
+      </if>
+      <if test="bcWechat != null">
+        bc_wechat = #{bcWechat,jdbcType=VARCHAR},
+      </if>
+      <if test="bcQq != null">
+        bc_qq = #{bcQq,jdbcType=VARCHAR},
+      </if>
+      <if test="bcOpenid != null">
+        bc_openid = #{bcOpenid,jdbcType=VARCHAR},
+      </if>
+      <if test="bcContactsName != null">
+        bc_contacts_name = #{bcContactsName,jdbcType=VARCHAR},
+      </if>
+      <if test="bcUsername != null">
+        bc_username = #{bcUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="bcPassword != null">
+        bc_password = #{bcPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="bcCreatetime != null">
+        bc_createtime = #{bcCreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bcRemarks != null">
+        bc_remarks = #{bcRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="bcAgentId != null">
+        bc_agent_id = #{bcAgentId,jdbcType=INTEGER},
+      </if>
+      <if test="bcParkingId != null">
+        bc_parking_id = #{bcParkingId,jdbcType=INTEGER},
+      </if>
+      <if test="bcAreaId != null">
+        bc_area_id = #{bcAreaId,jdbcType=INTEGER},
+      </if>
+      <if test="bcDataA != null">
+        bc_data_a = #{bcDataA,jdbcType=VARCHAR},
+      </if>
+      <if test="bcDataB != null">
+        bc_data_b = #{bcDataB,jdbcType=VARCHAR},
+      </if>
+      <if test="bcDataC != null">
+        bc_data_c = #{bcDataC,jdbcType=VARCHAR},
+      </if>
+      <if test="bcDataD != null">
+        bc_data_d = #{bcDataD,jdbcType=VARCHAR},
+      </if>
+      <if test="bcDataE != null">
+        bc_data_e = #{bcDataE,jdbcType=VARCHAR},
+      </if>
+      <if test="bcDataF != null">
+        bc_data_f = #{bcDataF,jdbcType=VARCHAR},
+      </if>
+      <if test="bcDataG != null">
+        bc_data_g = #{bcDataG,jdbcType=VARCHAR},
+      </if>
+      <if test="bcDataH != null">
+        bc_data_h = #{bcDataH,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where bc_id = #{bcId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jinshi.entity.JinshiBusinessAccount">
+    update jinshi_business_account
+    set bc_name = #{bcName,jdbcType=VARCHAR},
+      bc_code = #{bcCode,jdbcType=VARCHAR},
+      bc_phone = #{bcPhone,jdbcType=VARCHAR},
+      bc_tel = #{bcTel,jdbcType=VARCHAR},
+      bc_wechat = #{bcWechat,jdbcType=VARCHAR},
+      bc_qq = #{bcQq,jdbcType=VARCHAR},
+      bc_openid = #{bcOpenid,jdbcType=VARCHAR},
+      bc_contacts_name = #{bcContactsName,jdbcType=VARCHAR},
+      bc_username = #{bcUsername,jdbcType=VARCHAR},
+      bc_password = #{bcPassword,jdbcType=VARCHAR},
+      bc_createtime = #{bcCreatetime,jdbcType=TIMESTAMP},
+      bc_remarks = #{bcRemarks,jdbcType=VARCHAR},
+      bc_agent_id = #{bcAgentId,jdbcType=INTEGER},
+      bc_parking_id = #{bcParkingId,jdbcType=INTEGER},
+      bc_area_id = #{bcAreaId,jdbcType=INTEGER},
+      bc_data_a = #{bcDataA,jdbcType=VARCHAR},
+      bc_data_b = #{bcDataB,jdbcType=VARCHAR},
+      bc_data_c = #{bcDataC,jdbcType=VARCHAR},
+      bc_data_d = #{bcDataD,jdbcType=VARCHAR},
+      bc_data_e = #{bcDataE,jdbcType=VARCHAR},
+      bc_data_f = #{bcDataF,jdbcType=VARCHAR},
+      bc_data_g = #{bcDataG,jdbcType=VARCHAR},
+      bc_data_h = #{bcDataH,jdbcType=VARCHAR}
+    where bc_id = #{bcId,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectBusinessAccountPage" resultMap="BaseResultMap">
+    select * from jinshi_business_account where bc_parking_id = #{bcParkingId,jdbcType=INTEGER}  LIMIT #{pageNum,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+  </select>
+  <select id="getBusinessAccountRecords" resultType="java.lang.Integer">
+    select count(*) from jinshi_business_account where bc_parking_id = #{bcParkingId,jdbcType=INTEGER}
+  </select>
+  <select id="searchBusinessAccount" resultMap="BaseResultMap">
+    SELECT * FROM jinshi_business_account
+    WHERE CONCAT(IFNULL(`bc_id`,''),IFNULL(`bc_name`,''),IFNULL(`bc_code`,''),IFNULL(`bc_phone`,''),
+    IFNULL(`bc_tel`,''),IFNULL(`bc_wechat`,''),IFNULL(`bc_qq`,''),
+    IFNULL(`bc_openid`,''),IFNULL(`bc_contacts_name`,''),IFNULL(`bc_username`,''),IFNULL(`bc_password`,''),IFNULL(`bc_createtime`,''),
+    IFNULL(`bc_remarks`,''),IFNULL(`bc_agent_id`,''),IFNULL(`bc_parking_id`,''),IFNULL(`bc_area_id`,''))
+     LIKE "%"#{keyWord}"%" LIMIT #{pageNum},#{pageSize}
+  </select>
+
+  <select id="selectByBcName" resultMap="BaseResultMap">
+    select * from jinshi_business_account where bc_name = #{couponBcName,jdbcType=VARCHAR}
+    and bc_parking_id = #{parkId,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectAllBusinessName" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select bc_name from jinshi_business_account
+    where bc_parking_id = #{bpId,jdbcType=INTEGER}
+        and bc_area_id = #{areaId,jdbcType=INTEGER}
+  </select>
+
+  <select id="findbc" resultType="com.jinshi.entity.JinshiBusinessAccount" parameterType="com.jinshi.entity.JinshiBusinessAccountBo">
+    SELECT
+	*
+FROM
+	jinshi_business_account
+WHERE
+	bc_agent_id = #{agentId,jdbcType=INTEGER}
+	AND bc_parking_id = #{parkId,jdbcType=INTEGER}
+	AND bc_name = #{bcName,jdbcType = VARCHAR}
+  </select>
+</mapper>

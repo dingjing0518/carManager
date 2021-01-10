@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jinshi.mapper.JinshiAttentionMapper">
+  <resultMap id="BaseResultMap" type="com.jinshi.entity.JinshiAttention">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="jc_lincense_plate_id" jdbcType="VARCHAR" property="jcLincensePlateId" />
+    <result column="jc_phone" jdbcType="VARCHAR" property="jcPhone" />
+    <result column="jc_wechat" jdbcType="VARCHAR" property="jcWechat" />
+    <result column="jc_agent" jdbcType="VARCHAR" property="jcAgent" />
+    <result column="jc_parkid" jdbcType="VARCHAR" property="jcParkid" />
+    <result column="jc_title" jdbcType="VARCHAR" property="jcTitle" />
+    <result column="jc_remark" jdbcType="VARCHAR" property="jcRemark" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, jc_lincense_plate_id, jc_phone, jc_wechat, jc_agent, jc_parkid,jc_title,jc_remark
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from jinshi_attention
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from jinshi_attention
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jinshi.entity.JinshiAttention">
+    insert into jinshi_attention (id, jc_lincense_plate_id, jc_phone, 
+      jc_wechat, jc_agent, jc_parkid,jc_title,jc_remark
+      )
+    values (#{id,jdbcType=INTEGER}, #{jcLincensePlateId,jdbcType=VARCHAR}, #{jcPhone,jdbcType=VARCHAR}, 
+      #{jcWechat,jdbcType=VARCHAR}, #{jcAgent,jdbcType=VARCHAR}, #{jcParkid,jdbcType=VARCHAR},
+      #{jcTitle,jdbcType=VARCHAR},#{jcRemark,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.jinshi.entity.JinshiAttention">
+    insert into jinshi_attention
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="jcLincensePlateId != null">
+        jc_lincense_plate_id,
+      </if>
+      <if test="jcPhone != null">
+        jc_phone,
+      </if>
+      <if test="jcWechat != null">
+        jc_wechat,
+      </if>
+      <if test="jcAgent != null">
+        jc_agent,
+      </if>
+      <if test="jcParkid != null">
+        jc_parkid,
+      </if>
+      <if test="jcTitle != null">
+        jc_title,
+      </if>
+      <if test="jcRemark != null">
+        jc_remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="jcLincensePlateId != null">
+        #{jcLincensePlateId,jdbcType=VARCHAR},
+      </if>
+      <if test="jcPhone != null">
+        #{jcPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="jcWechat != null">
+        #{jcWechat,jdbcType=VARCHAR},
+      </if>
+      <if test="jcAgent != null">
+        #{jcAgent,jdbcType=VARCHAR},
+      </if>
+      <if test="jcParkid != null">
+        #{jcParkid,jdbcType=VARCHAR},
+      </if>
+      <if test="jcTitle != null">
+        #{jcTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="jcRemark != null">
+        #{jcRemark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jinshi.entity.JinshiAttention">
+    update jinshi_attention
+    <set>
+      <if test="jcLincensePlateId != null">
+        jc_lincense_plate_id = #{jcLincensePlateId,jdbcType=VARCHAR},
+      </if>
+      <if test="jcPhone != null">
+        jc_phone = #{jcPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="jcWechat != null">
+        jc_wechat = #{jcWechat,jdbcType=VARCHAR},
+      </if>
+      <if test="jcAgent != null">
+        jc_agent = #{jcAgent,jdbcType=VARCHAR},
+      </if>
+      <if test="jcParkid != null">
+        jc_parkid = #{jcParkid,jdbcType=VARCHAR},
+      </if>
+      <if test="jcTitle != null">
+        jc_title = #{jcTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="jcRemark != null">
+        jc_remark =  #{jcRemark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jinshi.entity.JinshiAttention">
+    update jinshi_attention
+    set jc_lincense_plate_id = #{jcLincensePlateId,jdbcType=VARCHAR},
+      jc_phone = #{jcPhone,jdbcType=VARCHAR},
+      jc_wechat = #{jcWechat,jdbcType=VARCHAR},
+      jc_agent = #{jcAgent,jdbcType=VARCHAR},
+      jc_parkid = #{jcParkid,jdbcType=VARCHAR},
+      jc_title = #{jcTitle,jdbcType=VARCHAR},
+      jc_remark =  #{jcRemark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectAttentionForPage" resultMap="BaseResultMap">
+    select * from jinshi_attention where jc_parkid = #{jcParkid,jdbcType=VARCHAR} order by id desc LIMIT #{pageNum,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+  </select>
+  <select id="getAttentionTotalRecords" resultType="java.lang.Integer">
+    select count(*) from jinshi_attention where jc_parkid = #{jcParkid,jdbcType=VARCHAR}
+  </select>
+  <select id="searchAttentionUtil" resultMap="BaseResultMap">
+    select * from jinshi_attention where jc_lincense_plate_id = #{jcLincensePlateId,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByParkId" resultMap="BaseResultMap">
+    select * from jinshi_attention where jc_parkid = #{parkId,jdbcType=VARCHAR}
+  </select>
+  <select id="searchAttention" resultMap="BaseResultMap">
+    SELECT * FROM jinshi_attention
+    WHERE CONCAT(IFNULL(`id`,''),IFNULL(`jc_lincense_plate_id`,''),IFNULL(`jc_phone`,''),IFNULL(`jc_wechat`,''),
+    IFNULL(`jc_agent`,''),IFNULL(`jc_parkid`,''),IFNULL(`jc_title`,''),IFNULL(`jc_remark`,'')) LIKE "%"#{keyWord}"%"
+    and jc_parkid = #{parkId,jdbcType=VARCHAR}
+    LIMIT #{pageNum},#{pageSize}
+  </select>
+</mapper>

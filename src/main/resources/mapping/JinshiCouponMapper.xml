@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jinshi.mapper.JinshiCouponMapper">
+  <resultMap id="BaseResultMap" type="com.jinshi.entity.JinshiCoupon">
+    <id column="coupon_id" jdbcType="INTEGER" property="couponId" />
+    <result column="coupon_name" jdbcType="VARCHAR" property="couponName" />
+    <result column="coupon_type" jdbcType="VARCHAR" property="couponType" />
+    <result column="coupon_count" jdbcType="INTEGER" property="couponCount" />
+    <result column="coupon_starttime" jdbcType="TIMESTAMP" property="couponStarttime" />
+    <result column="coupon_endtime" jdbcType="TIMESTAMP" property="couponEndtime" />
+    <result column="coupon_createtime" jdbcType="TIMESTAMP" property="couponCreatetime" />
+    <result column="coupon_bc_id" jdbcType="INTEGER" property="couponBcId" />
+    <result column="coupon_agent_id" jdbcType="INTEGER" property="couponAgentId" />
+    <result column="coupon_parking_id" jdbcType="INTEGER" property="couponParkingId" />
+    <result column="coupon_area_id" jdbcType="INTEGER" property="couponAreaId" />
+    <result column="coupon_data_a" jdbcType="VARCHAR" property="couponDataA" />
+    <result column="jcg_relief_alltime" jdbcType="VARCHAR" property="jcgReliefAlltime" />
+    <result column="jcg_relief_remaintime" jdbcType="VARCHAR" property="jcgReliefRemaintime" />
+    <result column="jcg_relief_allmoney" jdbcType="VARCHAR" property="jcgReliefAllmoney" />
+    <result column="jcg_relief_remainmoney" jdbcType="VARCHAR" property="jcgReliefRemainmoney" />
+    <result column="coupon_data_f" jdbcType="VARCHAR" property="couponDataF" />
+    <result column="coupon_data_g" jdbcType="VARCHAR" property="couponDataG" />
+    <result column="coupon_data_h" jdbcType="VARCHAR" property="couponDataH" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    coupon_id, coupon_name, coupon_type, coupon_count, coupon_starttime, coupon_endtime, 
+    coupon_createtime, coupon_bc_id, coupon_agent_id, coupon_parking_id, coupon_area_id, 
+    coupon_data_a, jcg_relief_alltime, jcg_relief_remaintime,
+    jcg_relief_allmoney, jcg_relief_remainmoney, coupon_data_f,
+    coupon_data_g, coupon_data_h
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from jinshi_coupon
+    where coupon_id = #{couponId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from jinshi_coupon
+    where coupon_id = #{couponId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jinshi.entity.JinshiCoupon">
+    insert into jinshi_coupon (coupon_id, coupon_name, coupon_type, 
+      coupon_count, coupon_starttime, coupon_endtime, 
+      coupon_createtime, coupon_bc_id, coupon_agent_id, 
+      coupon_parking_id, coupon_area_id, coupon_data_a, 
+      jcg_relief_alltime, jcg_relief_remaintime,
+    jcg_relief_allmoney, jcg_relief_remainmoney, coupon_data_f, coupon_data_g,
+      coupon_data_h)
+    values (#{couponId,jdbcType=INTEGER}, #{couponName,jdbcType=VARCHAR}, #{couponType,jdbcType=VARCHAR}, 
+      #{couponCount,jdbcType=INTEGER}, #{couponStarttime,jdbcType=TIMESTAMP}, #{couponEndtime,jdbcType=TIMESTAMP}, 
+      #{couponCreatetime,jdbcType=TIMESTAMP}, #{couponBcId,jdbcType=INTEGER}, #{couponAgentId,jdbcType=INTEGER}, 
+      #{couponParkingId,jdbcType=INTEGER}, #{couponAreaId,jdbcType=INTEGER}, #{couponDataA,jdbcType=VARCHAR}, 
+     #{jcgReliefAlltime,jdbcType=VARCHAR}, #{jcgReliefRemaintime,jdbcType=VARCHAR}, #{jcgReliefAllmoney,jdbcType=VARCHAR},
+      #{jcgReliefRemainmoney,jdbcType=VARCHAR}, #{couponDataF,jdbcType=VARCHAR}, #{couponDataG,jdbcType=VARCHAR},
+      #{couponDataH,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jinshi.entity.JinshiCoupon">
+    insert into jinshi_coupon
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="couponId != null">
+        coupon_id,
+      </if>
+      <if test="couponName != null">
+        coupon_name,
+      </if>
+      <if test="couponType != null">
+        coupon_type,
+      </if>
+      <if test="couponCount != null">
+        coupon_count,
+      </if>
+      <if test="couponStarttime != null">
+        coupon_starttime,
+      </if>
+      <if test="couponEndtime != null">
+        coupon_endtime,
+      </if>
+      <if test="couponCreatetime != null">
+        coupon_createtime,
+      </if>
+      <if test="couponBcId != null">
+        coupon_bc_id,
+      </if>
+      <if test="couponAgentId != null">
+        coupon_agent_id,
+      </if>
+      <if test="couponParkingId != null">
+        coupon_parking_id,
+      </if>
+      <if test="couponAreaId != null">
+        coupon_area_id,
+      </if>
+      <if test="couponDataA != null">
+        coupon_data_a,
+      </if>
+      <if test="jcgReliefAlltime != null">
+        jcg_relief_alltime,
+      </if>
+      <if test="jcgReliefRemaintime != null">
+        jcg_relief_remaintime,
+      </if>
+      <if test="jcgReliefAllmoney != null">
+        jcg_relief_allmoney,
+      </if>
+      <if test="jcgReliefRemainmoney != null">
+        jcg_relief_remainmoney,
+      </if>
+      <if test="couponDataF != null">
+        coupon_data_f,
+      </if>
+      <if test="couponDataG != null">
+        coupon_data_g,
+      </if>
+      <if test="couponDataH != null">
+        coupon_data_h,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="couponId != null">
+        #{couponId,jdbcType=INTEGER},
+      </if>
+      <if test="couponName != null">
+        #{couponName,jdbcType=VARCHAR},
+      </if>
+      <if test="couponType != null">
+        #{couponType,jdbcType=VARCHAR},
+      </if>
+      <if test="couponCount != null">
+        #{couponCount,jdbcType=INTEGER},
+      </if>
+      <if test="couponStarttime != null">
+        #{couponStarttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="couponEndtime != null">
+        #{couponEndtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="couponCreatetime != null">
+        #{couponCreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="couponBcId != null">
+        #{couponBcId,jdbcType=INTEGER},
+      </if>
+      <if test="couponAgentId != null">
+        #{couponAgentId,jdbcType=INTEGER},
+      </if>
+      <if test="couponParkingId != null">
+        #{couponParkingId,jdbcType=INTEGER},
+      </if>
+      <if test="couponAreaId != null">
+        #{couponAreaId,jdbcType=INTEGER},
+      </if>
+      <if test="couponDataA != null">
+        #{couponDataA,jdbcType=VARCHAR},
+      </if>
+      <if test="jcgReliefAlltime != null">
+        #{jcgReliefAlltime,jdbcType=VARCHAR},
+      </if>
+      <if test="jcgReliefRemaintime != null">
+        #{jcgReliefRemaintime,jdbcType=VARCHAR},
+      </if>
+      <if test="jcgReliefAllmoney != null">
+       #{jcgReliefAllmoney,jdbcType=VARCHAR},
+      </if>
+      <if test="jcgReliefRemainmoney != null">
+         #{jcgReliefRemainmoney,jdbcType=VARCHAR},
+      </if>
+      <if test="couponDataF != null">
+        #{couponDataF,jdbcType=VARCHAR},
+      </if>
+      <if test="couponDataG != null">
+        #{couponDataG,jdbcType=VARCHAR},
+      </if>
+      <if test="couponDataH != null">
+        #{couponDataH,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jinshi.entity.JinshiCoupon">
+    update jinshi_coupon
+    <set>
+      <if test="couponName != null">
+        coupon_name = #{couponName,jdbcType=VARCHAR},
+      </if>
+      <if test="couponType != null">
+        coupon_type = #{couponType,jdbcType=VARCHAR},
+      </if>
+      <if test="couponCount != null">
+        coupon_count = #{couponCount,jdbcType=INTEGER},
+      </if>
+      <if test="couponStarttime != null">
+        coupon_starttime = #{couponStarttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="couponEndtime != null">
+        coupon_endtime = #{couponEndtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="couponCreatetime != null">
+        coupon_createtime = #{couponCreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="couponBcId != null">
+        coupon_bc_id = #{couponBcId,jdbcType=INTEGER},
+      </if>
+      <if test="couponAgentId != null">
+        coupon_agent_id = #{couponAgentId,jdbcType=INTEGER},
+      </if>
+      <if test="couponParkingId != null">
+        coupon_parking_id = #{couponParkingId,jdbcType=INTEGER},
+      </if>
+      <if test="couponAreaId != null">
+        coupon_area_id = #{couponAreaId,jdbcType=INTEGER},
+      </if>
+      <if test="couponDataA != null">
+        coupon_data_a = #{couponDataA,jdbcType=VARCHAR},
+      </if>
+      <if test="jcgReliefAlltime != null">
+        jcg_relief_alltime = #{jcgReliefAlltime,jdbcType=VARCHAR},
+      </if>
+      <if test="jcgReliefRemaintime != null">
+        jcg_relief_remaintime = #{jcgReliefRemaintime,jdbcType=VARCHAR},
+      </if>
+      <if test="jcgReliefAllmoney != null">
+        jcg_relief_allmoney = #{jcgReliefAllmoney,jdbcType=VARCHAR},
+      </if>
+      <if test="jcgReliefRemainmoney != null">
+        jcg_relief_remainmoney = #{jcgReliefRemainmoney,jdbcType=VARCHAR},
+      </if>
+      <if test="couponDataF != null">
+        coupon_data_f = #{couponDataF,jdbcType=VARCHAR},
+      </if>
+      <if test="couponDataG != null">
+        coupon_data_g = #{couponDataG,jdbcType=VARCHAR},
+      </if>
+      <if test="couponDataH != null">
+        coupon_data_h = #{couponDataH,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where coupon_id = #{couponId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jinshi.entity.JinshiCoupon">
+    update jinshi_coupon
+    set coupon_name = #{couponName,jdbcType=VARCHAR},
+      coupon_type = #{couponType,jdbcType=VARCHAR},
+      coupon_count = #{couponCount,jdbcType=INTEGER},
+      coupon_starttime = #{couponStarttime,jdbcType=TIMESTAMP},
+      coupon_endtime = #{couponEndtime,jdbcType=TIMESTAMP},
+      coupon_createtime = #{couponCreatetime,jdbcType=TIMESTAMP},
+      coupon_bc_id = #{couponBcId,jdbcType=INTEGER},
+      coupon_agent_id = #{couponAgentId,jdbcType=INTEGER},
+      coupon_parking_id = #{couponParkingId,jdbcType=INTEGER},
+      coupon_area_id = #{couponAreaId,jdbcType=INTEGER},
+      coupon_data_a = #{couponDataA,jdbcType=VARCHAR},
+     jcg_relief_alltime = #{jcgReliefAlltime,jdbcType=VARCHAR},
+      jcg_relief_remaintime = #{jcgReliefRemaintime,jdbcType=VARCHAR},
+      jcg_relief_allmoney = #{jcgReliefAllmoney,jdbcType=VARCHAR},
+      jcg_relief_remainmoney = #{jcgReliefRemainmoney,jdbcType=VARCHAR},
+      coupon_data_f = #{couponDataF,jdbcType=VARCHAR},
+      coupon_data_g = #{couponDataG,jdbcType=VARCHAR},
+      coupon_data_h = #{couponDataH,jdbcType=VARCHAR}
+    where coupon_id = #{couponId,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectCouponPage" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select * from jinshi_coupon where coupon_parking_id = #{couponParkingId,jdbcType=INTEGER} order by coupon_createtime desc
+    LIMIT #{pageNum,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+  </select>
+  <select id="getCouponRecords" resultType="java.lang.Integer">
+    select count(*) from jinshi_coupon
+  </select>
+  <select id="searchCoupon" resultMap="BaseResultMap">
+    SELECT * FROM jinshi_coupon
+    WHERE CONCAT(IFNULL(`coupon_id`,''),IFNULL(`coupon_name`,''),IFNULL(`coupon_type`,''),IFNULL(`coupon_count`,''),
+    IFNULL(`coupon_starttime`,''),IFNULL(`coupon_endtime`,''),IFNULL(`coupon_createtime`,''),
+    IFNULL(`coupon_bc_id`,''),IFNULL(`coupon_agent_id`,''),IFNULL(`coupon_parking_id`,''),IFNULL(`coupon_area_id`,''))
+     LIKE "%"#{keyWord}"%" order by coupon_createtime desc LIMIT #{pageNum},#{pageSize}
+  </select>
+
+  <update id="updateCouponCount" parameterType="com.jinshi.entity.JinshiCoupon">
+    update jinshi_coupon
+    set coupon_count = #{couponCount,jdbcType=INTEGER},coupon_data_a = #{couponDataA,jdbcType=VARCHAR}
+    where coupon_id = #{couponId,jdbcType=INTEGER}
+  </update>
+
+  <select id="findJC" parameterType="com.jinshi.entity.JinshiCoupon" resultType="com.jinshi.entity.JinshiCoupon">
+    SELECT
+	*
+FROM
+	jinshi_coupon
+WHERE
+	coupon_parking_id = #{couponParkingId,jdbcType=INTEGER}
+	AND coupon_bc_id = #{couponBcId,jdbcType=INTEGER}
+	AND coupon_type= #{couponType,jdbcType=VARCHAR}
+	AND coupon_agent_id = #{couponAgentId,jdbcType=INTEGER}
+  </select>
+  <select id="findByname" resultType="com.jinshi.entity.JinshiCoupon" parameterType="com.jinshi.entity.JinshiCoupon">
+      SELECT
+	*
+FROM
+	jinshi_coupon
+WHERE
+	coupon_parking_id = #{couponParkingId,jdbcType=INTEGER}
+	AND coupon_bc_id = #{couponBcId,jdbcType=INTEGER}
+	AND coupon_name = #{couponName,jdbcType=VARCHAR}
+  </select>
+</mapper>

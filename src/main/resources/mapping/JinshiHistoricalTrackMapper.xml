@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jinshi.mapper.JinshiHistoricalTrackMapper">
+  <resultMap id="BaseResultMap" type="com.jinshi.entity.JinshiHistoricalTrack">
+    <id column="ht_id" jdbcType="INTEGER" property="htId" />
+    <result column="ht_lp_id" jdbcType="INTEGER" property="htLpId" />
+    <result column="ht_creat_time" jdbcType="TIMESTAMP" property="htCreatTime" />
+    <result column="ht_lincense_plate_id" jdbcType="VARCHAR" property="htLincensePlateId" />
+    <result column="ht_tHandle" jdbcType="VARCHAR" property="htThandle" />
+    <result column="ht_status" jdbcType="VARCHAR" property="htStatus" />
+    <result column="ht_parkid" jdbcType="VARCHAR" property="htParkid" />
+    <result column="ht_data_C" jdbcType="VARCHAR" property="htDataC" />
+    <result column="ht_data_D" jdbcType="VARCHAR" property="htDataD" />
+    <result column="ht_data_E" jdbcType="VARCHAR" property="htDataE" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ht_id, ht_lp_id, ht_creat_time, ht_lincense_plate_id, ht_tHandle, ht_status, ht_parkid,
+    ht_data_C, ht_data_D, ht_data_E
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from jinshi_historical_track
+    where ht_id = #{htId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from jinshi_historical_track
+    where ht_id = #{htId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jinshi.entity.JinshiHistoricalTrack">
+    insert into jinshi_historical_track (ht_id, ht_lp_id, ht_creat_time, 
+      ht_lincense_plate_id, ht_tHandle, ht_status,
+      ht_parkid, ht_data_C, ht_data_D,
+      ht_data_E)
+    values (#{htId,jdbcType=INTEGER}, #{htLpId,jdbcType=INTEGER}, #{htCreatTime,jdbcType=TIMESTAMP}, 
+      #{htLincensePlateId,jdbcType=VARCHAR}, #{htThandle,jdbcType=VARCHAR}, #{htStatus,jdbcType=VARCHAR},
+      #{htParkid,jdbcType=VARCHAR}, #{htDataC,jdbcType=VARCHAR}, #{htDataD,jdbcType=VARCHAR},
+      #{htDataE,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jinshi.entity.JinshiHistoricalTrack">
+    insert into jinshi_historical_track
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="htId != null">
+        ht_id,
+      </if>
+      <if test="htLpId != null">
+        ht_lp_id,
+      </if>
+      <if test="htCreatTime != null">
+        ht_creat_time,
+      </if>
+      <if test="htLincensePlateId != null">
+        ht_lincense_plate_id,
+      </if>
+      <if test="htThandle != null">
+        ht_tHandle,
+      </if>
+      <if test="htStatus != null">
+        ht_status,
+      </if>
+      <if test="htParkid != null">
+        ht_parkid,
+      </if>
+      <if test="htDataC != null">
+        ht_data_C,
+      </if>
+      <if test="htDataD != null">
+        ht_data_D,
+      </if>
+      <if test="htDataE != null">
+        ht_data_E,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="htId != null">
+        #{htId,jdbcType=INTEGER},
+      </if>
+      <if test="htLpId != null">
+        #{htLpId,jdbcType=INTEGER},
+      </if>
+      <if test="htCreatTime != null">
+        #{htCreatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="htLincensePlateId != null">
+        #{htLincensePlateId,jdbcType=VARCHAR},
+      </if>
+      <if test="htThandle != null">
+        #{htThandle,jdbcType=VARCHAR},
+      </if>
+      <if test="htStatus != null">
+        #{htStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="htParkid != null">
+        #{htParkid,jdbcType=VARCHAR},
+      </if>
+      <if test="htDataC != null">
+        #{htDataC,jdbcType=VARCHAR},
+      </if>
+      <if test="htDataD != null">
+        #{htDataD,jdbcType=VARCHAR},
+      </if>
+      <if test="htDataE != null">
+        #{htDataE,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jinshi.entity.JinshiHistoricalTrack">
+    update jinshi_historical_track
+    <set>
+      <if test="htLpId != null">
+        ht_lp_id = #{htLpId,jdbcType=INTEGER},
+      </if>
+      <if test="htCreatTime != null">
+        ht_creat_time = #{htCreatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="htLincensePlateId != null">
+        ht_lincense_plate_id = #{htLincensePlateId,jdbcType=VARCHAR},
+      </if>
+      <if test="htThandle != null">
+        ht_tHandle = #{htThandle,jdbcType=VARCHAR},
+      </if>
+      <if test="htStatus != null">
+        ht_status = #{htStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="htParkid != null">
+        ht_parkid = #{htParkid,jdbcType=VARCHAR},
+      </if>
+      <if test="htDataC != null">
+        ht_data_C = #{htDataC,jdbcType=VARCHAR},
+      </if>
+      <if test="htDataD != null">
+        ht_data_D = #{htDataD,jdbcType=VARCHAR},
+      </if>
+      <if test="htDataE != null">
+        ht_data_E = #{htDataE,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ht_id = #{htId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jinshi.entity.JinshiHistoricalTrack">
+    update jinshi_historical_track
+    set ht_lp_id = #{htLpId,jdbcType=INTEGER},
+      ht_creat_time = #{htCreatTime,jdbcType=TIMESTAMP},
+      ht_lincense_plate_id = #{htLincensePlateId,jdbcType=VARCHAR},
+      ht_tHandle = #{htThandle,jdbcType=VARCHAR},
+      ht_status = #{htStatus,jdbcType=VARCHAR},
+      ht_parkid = #{htParkid,jdbcType=VARCHAR},
+      ht_data_C = #{htDataC,jdbcType=VARCHAR},
+      ht_data_D = #{htDataD,jdbcType=VARCHAR},
+      ht_data_E = #{htDataE,jdbcType=VARCHAR}
+    where ht_id = #{htId,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectHistoricalTrackPage" resultMap="BaseResultMap">
+    select * from jinshi_historical_track
+    where ht_parkid = #{parkId,jdbcType=VARCHAR}
+    LIMIT #{pageNum,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+  </select>
+  <select id="getHistoricalTrackRecords" resultType="java.lang.Integer">
+    select count(*) from jinshi_historical_track where ht_parkid = #{parkId,jdbcType=VARCHAR}
+  </select>
+  <select id="searchHistoricalTrack" resultMap="BaseResultMap">
+    SELECT * FROM jinshi_historical_track
+    WHERE CONCAT(IFNULL(`ht_id`,''),IFNULL(`ht_lp_id`,''),IFNULL(`ht_creat_time`,''),IFNULL(`ht_lincense_plate_id`,''),
+    IFNULL(`ht_tHandle`,''),IFNULL(`ht_status`,''),IFNULL(`ht_parkid`,''))
+    LIKE "%"#{keyWord}"%" and ht_parkid = #{parkId,jdbcType=VARCHAR} LIMIT #{pageNum,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+  </select>
+  <select id="getHistoricalTrackRecordsSearch" resultType="java.lang.Integer">
+    SELECT count(*) FROM jinshi_historical_track
+    WHERE CONCAT(IFNULL(`ht_id`,''),IFNULL(`ht_lp_id`,''),IFNULL(`ht_creat_time`,''),IFNULL(`ht_lincense_plate_id`,''),
+    IFNULL(`ht_tHandle`,''),IFNULL(`ht_status`,''),IFNULL(`ht_parkid`,''))
+    LIKE "%"#{keyWord}"%" and ht_parkid = #{parkId,jdbcType=VARCHAR}
+  </select>
+  <select id="selectHistoricalTrackByTime" resultMap="BaseResultMap">
+    select * from jinshi_historical_track
+    where CONCAT(IFNULL(`ht_lincense_plate_id`,'')) LIKE "%"#{keyWord}"%"
+    <if test="startTime != null and endTime != null">
+      and ht_creat_time BETWEEN #{startTime,jdbcType=TIMESTAMP} and #{endTime,jdbcType=TIMESTAMP}
+    </if>
+    and ht_parkid = #{parkId,jdbcType=VARCHAR}
+    order by ht_creat_time desc LIMIT #{pageNum,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+  </select>
+  <select id="getHistoricalTrackByTime" resultType="java.lang.Integer">
+    select count(*) from jinshi_historical_track
+    where CONCAT(IFNULL(`ht_lincense_plate_id`,'')) LIKE "%"#{keyWord}"%"
+    <if test="startTime != null and endTime != null">
+      and ht_creat_time BETWEEN #{startTime,jdbcType=TIMESTAMP} and #{endTime,jdbcType=TIMESTAMP}
+    </if>
+    and ht_parkid = #{parkId,jdbcType=VARCHAR}
+  </select>
+</mapper>

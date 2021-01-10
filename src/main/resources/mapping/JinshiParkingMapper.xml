@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jinshi.mapper.JinshiParkingMapper">
+  <resultMap id="BaseResultMap" type="com.jinshi.entity.JinshiParking">
+    <id column="jp_id" jdbcType="INTEGER" property="jpId" />
+    <result column="jp_name" jdbcType="VARCHAR" property="jpName" />
+    <result column="jp_site" jdbcType="VARCHAR" property="jpSite" />
+    <result column="jp_members" jdbcType="VARCHAR" property="jpMembers" />
+    <result column="jp_total_turnover" jdbcType="VARCHAR" property="jpTotalTurnover" />
+    <result column="jp_number" jdbcType="VARCHAR" property="jpNumber" />
+    <result column="jp_phone_number" jdbcType="VARCHAR" property="jpPhoneNumber" />
+    <result column="jp_phone_number_backup" jdbcType="VARCHAR" property="jpPhoneNumberBackup" />
+    <result column="jp_phone_number_backup_two" jdbcType="VARCHAR" property="jpPhoneNumberBackupTwo" />
+    <result column="jp_place_number" jdbcType="VARCHAR" property="jpPlaceNumber" />
+    <result column="jp_camera_brand" jdbcType="VARCHAR" property="jpCameraBrand" />
+    <result column="jp_picture_path" jdbcType="VARCHAR" property="jpPicturePath" />
+    <result column="jp_agent_id" jdbcType="INTEGER" property="jpAgentId" />
+    <result column="jp_remark" jdbcType="VARCHAR" property="jpRemark" />
+    <result column="jp_createtime" jdbcType="TIMESTAMP" property="jpCreatetime" />
+    <result column="jp_isdelete" jdbcType="INTEGER" property="jpIsdelete" />
+    <result column="jp_wx_number" jdbcType="INTEGER" property="jpWxNumber" />
+    <result column="jp_agent_name" jdbcType="VARCHAR" property="jpAgentName" />
+    <result column="jp_username" jdbcType="VARCHAR" property="jpUsername" />
+    <result column="jp_loginname" jdbcType="VARCHAR" property="jpLoginname" />
+    <result column="jp_province" jdbcType="VARCHAR" property="jpProvince" />
+    <result column="jp_city" jdbcType="VARCHAR" property="jpCity" />
+    <result column="jp_district" jdbcType="VARCHAR" property="jpDistrict" />
+    <result column="jp_role_name" jdbcType="VARCHAR" property="jpRoleName" />
+    <result column="jp_park_number" jdbcType="VARCHAR" property="jpParkNumber" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    jp_id, jp_name, jp_site, jp_members, jp_total_turnover, jp_number, jp_phone_number, jp_phone_number_backup,jp_phone_number_backup_two,
+    jp_place_number, jp_camera_brand, jp_picture_path, jp_agent_id, jp_remark, jp_createtime, 
+    jp_isdelete,jp_wx_number,jp_agent_name,jp_username,jp_loginname,jp_province,jp_city,jp_district,jp_role_name,jp_park_number
+  </sql>
+  <select id="selectByJpId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select * from jinshi_parking where jp_id =  #{jpId,jdbcType=INTEGER}
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from jinshi_parking
+    where jp_id = #{jpId,jdbcType=INTEGER}
+  </select>
+  <select id="selectByNumber" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select * from jinshi_parking where jp_number =  #{jpNumber,jdbcType=INTEGER}
+  </select>
+  <select id="selectParkingForPage" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select * from jinshi_parking where jp_agent_id = #{jpAgentId,jdbcType=INTEGER} LIMIT #{pageNum,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+  </select>
+  <select id="getParkingTotalRecords" resultType="java.lang.Integer">
+    select count(*) from jinshi_parking where jp_agent_id = #{jpAgentId,jdbcType=INTEGER}
+  </select>
+  <select id="selectAllParkingName" resultMap="BaseResultMap">
+    select jp_name from jinshi_parking where jp_id = #{jpId,jdbcType=INTEGER}
+  </select>
+  <select id="selectByJpName" resultMap="BaseResultMap">
+    select * from jinshi_parking where jp_name = #{bcParkingName,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAllPark" resultMap="BaseResultMap">
+    select * from jinshi_parking
+  </select>
+  <select id="selectParkByParkId" resultMap="BaseResultMap">
+    select * from jinshi_parking where jp_id = #{parkId,jdbcType=INTEGER}
+  </select>
+  <select id="selectByAgentId" resultMap="BaseResultMap">
+    select * from jinshi_parking where jp_agent_id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="searchParking" resultMap="BaseResultMap">
+    SELECT * FROM jinshi_parking
+    WHERE CONCAT(IFNULL(`jp_id`,''),IFNULL(`jp_name`,''),IFNULL(`jp_site`,''),IFNULL(`jp_members`,''),
+    IFNULL(`jp_total_turnover`,''),IFNULL(`jp_number`,''),IFNULL(`jp_phone_number`,''),IFNULL(`jp_phone_number_backup`,''),IFNULL(`jp_phone_number_backup_two`,''),
+    IFNULL(`jp_place_number`,''),IFNULL(`jp_camera_brand`,''),IFNULL(`jp_picture_path`,''),IFNULL(`jp_agent_id`,''),IFNULL(`jp_remark`,''),
+    IFNULL(`jp_createtime`,''),IFNULL(`jp_isdelete`,''),IFNULL(`jp_wx_number`,''),IFNULL(`jp_agent_name`,''),
+    IFNULL(`jp_username`,''),IFNULL(`jp_loginname`,''))
+     LIKE "%"#{keyWord}"%" and jp_agent_id = #{agentId,jdbcType=INTEGER} LIMIT #{pageNum},#{pageSize}
+  </select>
+ <!-- <select id="selectByParking" parameterType="com.jinshi.entity.JinshiParking" resultMap="BaseResultMap">
+    select * from jinshi_parking where jp_createtime in (
+    select MAX(jp_createtime) from jinshi_parking where jp_number=#{jpNumber,jdbcType=VARCHAR}  )
+  </select>-->
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from jinshi_parking
+    where jp_id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByJpNumber" parameterType="java.lang.Integer">
+    delete from jinshi_parking
+    where jp_number = #{jpNumber,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jinshi.entity.JinshiParking" keyProperty="jpId" useGeneratedKeys="true">
+    insert into jinshi_parking (jp_id, jp_name, jp_site,
+      jp_members, jp_total_turnover, jp_number, 
+      jp_phone_number, jp_phone_number_backup,jp_phone_number_backup_two,jp_place_number, jp_camera_brand,
+      jp_picture_path, jp_agent_id, jp_remark, 
+      jp_createtime, jp_isdelete,jp_wx_number,jp_agent_name,jp_username,jp_loginname,jp_province,jp_city,jp_district,jp_role_name,jp_park_number)
+    values (#{jpId,jdbcType=INTEGER}, #{jpName,jdbcType=VARCHAR}, #{jpSite,jdbcType=VARCHAR},
+      #{jpMembers,jdbcType=VARCHAR}, #{jpTotalTurnover,jdbcType=VARCHAR}, #{jpNumber,jdbcType=VARCHAR}, 
+      #{jpPhoneNumber,jdbcType=VARCHAR},#{jpPhoneNumberBackup,jdbcType=VARCHAR},#{jpPhoneNumberBackupTwo,jdbcType=VARCHAR}, #{jpPlaceNumber,jdbcType=VARCHAR}, #{jpCameraBrand,jdbcType=VARCHAR},
+      #{jpPicturePath,jdbcType=VARCHAR}, #{jpAgentId,jdbcType=INTEGER}, #{jpRemark,jdbcType=VARCHAR},
+      #{jpCreatetime,jdbcType=TIMESTAMP}, #{jpIsdelete,jdbcType=INTEGER}, #{jpWxNumber,jdbcType=VARCHAR},
+      #{jpAgentName,jdbcType=VARCHAR},#{jpUsername,jdbcType=VARCHAR},#{jpLoginname,jdbcType=VARCHAR},
+      #{jpProvince,jdbcType=VARCHAR},#{jpCity,jdbcType=VARCHAR},#{jpDistrict,jdbcType=VARCHAR},#{jpRoleName,jdbcType=VARCHAR},#{jpParkNumber,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jinshi.entity.JinshiParking">
+    insert into jinshi_parking
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="jpId != null">
+        jp_id,
+      </if>
+      <if test="jpName != null">
+        jp_name,
+      </if>
+      <if test="jpSite != null">
+        jp_site,
+      </if>
+      <if test="jpMembers != null">
+        jp_members,
+      </if>
+      <if test="jpTotalTurnover != null">
+        jp_total_turnover,
+      </if>
+      <if test="jpNumber != null">
+        jp_number,
+      </if>
+      <if test="jpPhoneNumber != null">
+        jp_phone_number,
+      </if>
+      <if test="jpPhoneNumberBackup != null">
+        jp_phone_number_backup,
+      </if>
+      <if test="jpPhoneNumberBackupTwo != null">
+        jp_phone_number_backup_two,
+      </if>
+      <if test="jpPlaceNumber != null">
+        jp_place_number,
+      </if>
+      <if test="jpCameraBrand != null">
+        jp_camera_brand,
+      </if>
+      <if test="jpPicturePath != null">
+        jp_picture_path,
+      </if>
+      <if test="jpAgentId != null">
+        jp_agent_id,
+      </if>
+      <if test="jpRemark != null">
+        jp_remark,
+      </if>
+      <if test="jpCreatetime != null">
+        jp_createtime,
+      </if>
+      <if test="jpIsdelete != null">
+        jp_isdelete,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="jpId != null">
+        #{jpId,jdbcType=INTEGER},
+      </if>
+      <if test="jpName != null">
+        #{jpName,jdbcType=VARCHAR},
+      </if>
+      <if test="jpSite != null">
+        #{jpSite,jdbcType=VARCHAR},
+      </if>
+      <if test="jpMembers != null">
+        #{jpMembers,jdbcType=VARCHAR},
+      </if>
+      <if test="jpTotalTurnover != null">
+        #{jpTotalTurnover,jdbcType=VARCHAR},
+      </if>
+      <if test="jpNumber != null">
+        #{jpNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="jpPhoneNumber != null">
+        #{jpPhoneNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="jpPhoneNumberBackup != null">
+        #{jpPhoneNumberBackup,jdbcType=VARCHAR},
+      </if>
+      <if test="jpPhoneNumberBackupTwo != null">
+        #{jpPhoneNumberBackupTwo,jdbcType=VARCHAR},
+      </if>
+      <if test="jpPlaceNumber != null">
+        #{jpPlaceNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="jpCameraBrand != null">
+        #{jpCameraBrand,jdbcType=VARCHAR},
+      </if>
+      <if test="jpPicturePath != null">
+        #{jpPicturePath,jdbcType=VARCHAR},
+      </if>
+      <if test="jpAgentId != null">
+        #{jpAgentId,jdbcType=INTEGER},
+      </if>
+      <if test="jpRemark != null">
+        #{jpRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="jpCreatetime != null">
+        #{jpCreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jpIsdelete != null">
+        #{jpIsdelete,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jinshi.entity.JinshiParking">
+    update jinshi_parking
+    <set>
+      <if test="jpName != null">
+        jp_name = #{jpName,jdbcType=VARCHAR},
+      </if>
+      <if test="jpSite != null">
+        jp_site = #{jpSite,jdbcType=VARCHAR},
+      </if>
+      <if test="jpMembers != null">
+        jp_members = #{jpMembers,jdbcType=VARCHAR},
+      </if>
+      <if test="jpTotalTurnover != null">
+        jp_total_turnover = #{jpTotalTurnover,jdbcType=VARCHAR},
+      </if>
+      <if test="jpNumber != null">
+        jp_number = #{jpNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="jpPhoneNumber != null">
+        jp_phone_number = #{jpPhoneNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="jpPhoneNumberBackup != null">
+        jp_phone_number_backup = #{jpPhoneNumberBackup,jdbcType=VARCHAR},
+      </if>
+      <if test="jpPhoneNumberBackupTwo != null">
+        jp_phone_number_backup_two = #{jpPhoneNumberBackupTwo,jdbcType=VARCHAR},
+      </if>
+      <if test="jpPlaceNumber != null">
+        jp_place_number = #{jpPlaceNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="jpCameraBrand != null">
+        jp_camera_brand = #{jpCameraBrand,jdbcType=VARCHAR},
+      </if>
+      <if test="jpPicturePath != null">
+        jp_picture_path = #{jpPicturePath,jdbcType=VARCHAR},
+      </if>
+      <if test="jpAgentId != null">
+        jp_agent_id = #{jpAgentId,jdbcType=INTEGER},
+      </if>
+      <if test="jpRemark != null">
+        jp_remark = #{jpRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="jpCreatetime != null">
+        jp_createtime = #{jpCreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jpIsdelete != null">
+        jp_isdelete = #{jpIsdelete,jdbcType=INTEGER},
+      </if>
+    </set>
+    where jp_id = #{jpId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jinshi.entity.JinshiParking">
+    update jinshi_parking
+    set jp_name = #{jpName,jdbcType=VARCHAR},
+      jp_site = #{jpSite,jdbcType=VARCHAR},
+      jp_members = #{jpMembers,jdbcType=VARCHAR},
+      jp_total_turnover = #{jpTotalTurnover,jdbcType=VARCHAR},
+      jp_phone_number = #{jpPhoneNumber,jdbcType=VARCHAR},
+      jp_phone_number_backup = #{jpPhoneNumberBackup,jdbcType=VARCHAR},
+      jp_phone_number_backup_two = #{jpPhoneNumberBackupTwo,jdbcType=VARCHAR},
+      jp_place_number = #{jpPlaceNumber,jdbcType=VARCHAR},
+      jp_camera_brand = #{jpCameraBrand,jdbcType=VARCHAR},
+      jp_picture_path = #{jpPicturePath,jdbcType=VARCHAR},
+      jp_agent_id = #{jpAgentId,jdbcType=INTEGER},
+      jp_remark = #{jpRemark,jdbcType=VARCHAR},
+      jp_createtime = #{jpCreatetime,jdbcType=TIMESTAMP},
+      jp_isdelete = #{jpIsdelete,jdbcType=INTEGER},
+      jp_wx_number = #{jpWxNumber,jdbcType=VARCHAR},
+      jp_agent_name = #{jpAgentName,jdbcType=VARCHAR},
+      jp_username = #{jpUsername,jdbcType=VARCHAR},
+      jp_loginname = #{jpLoginname,jdbcType=VARCHAR},
+      jp_province = #{jpProvince,jdbcType=VARCHAR},
+      jp_city = #{jpCity,jdbcType=VARCHAR},
+      jp_district = #{jpDistrict,jdbcType=VARCHAR},
+      jp_role_name = #{jpRoleName,jdbcType=VARCHAR},
+      jp_park_number = #{jpParkNumber,jdbcType=VARCHAR}
+    where jp_number = #{jpNumber,jdbcType=INTEGER}
+  </update>
+
+  <update id="updateParkNumber" parameterType="com.jinshi.entity.JinshiParking">
+    update jinshi_parking
+    set jp_park_number = #{jpParkNumber,jdbcType=VARCHAR}
+    where jp_id = #{jpId,jdbcType=INTEGER}
+  </update>
+</mapper>

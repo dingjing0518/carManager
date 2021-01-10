@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jinshi.mapper.JinshiCompanyMapper">
+  <resultMap id="BaseResultMap" type="com.jinshi.entity.JinshiCompany">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="js_name" jdbcType="VARCHAR" property="jsName" />
+    <result column="js_site" jdbcType="VARCHAR" property="jsSite" />
+    <result column="js_type" jdbcType="VARCHAR" property="jsType" />
+    <result column="js_department" jdbcType="VARCHAR" property="jsDepartment" />
+    <result column="js_username" jdbcType="VARCHAR" property="jsUsername" />
+    <result column="js_phone" jdbcType="VARCHAR" property="jsPhone" />
+    <result column="parkId" jdbcType="INTEGER" property="parkId" />
+    <result column="agentId" jdbcType="INTEGER" property="agentId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, js_name, js_site, js_type, js_department, js_username, js_phone,parkId,agentId
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from jinshi_company
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from jinshi_company
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jinshi.entity.JinshiCompany" keyProperty="id" useGeneratedKeys="true">
+    insert into jinshi_company (id, js_name, js_site, 
+      js_type, js_department, js_username, 
+      js_phone,parkId,agentId)
+    values (#{id,jdbcType=INTEGER}, #{jsName,jdbcType=VARCHAR}, #{jsSite,jdbcType=VARCHAR}, 
+      #{jsType,jdbcType=VARCHAR}, #{jsDepartment,jdbcType=VARCHAR}, #{jsUsername,jdbcType=VARCHAR}, 
+      #{jsPhone,jdbcType=VARCHAR},#{parkId,jdbcType=INTEGER},#{agentId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jinshi.entity.JinshiCompany">
+    insert into jinshi_company
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="jsName != null">
+        js_name,
+      </if>
+      <if test="jsSite != null">
+        js_site,
+      </if>
+      <if test="jsType != null">
+        js_type,
+      </if>
+      <if test="jsDepartment != null">
+        js_department,
+      </if>
+      <if test="jsUsername != null">
+        js_username,
+      </if>
+      <if test="jsPhone != null">
+        js_phone,
+      </if>
+      <if test="parkId != null">
+        parkId,
+      </if>
+      <if test="agentId != null">
+        agentId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="jsName != null">
+        #{jsName,jdbcType=VARCHAR},
+      </if>
+      <if test="jsSite != null">
+        #{jsSite,jdbcType=VARCHAR},
+      </if>
+      <if test="jsType != null">
+        #{jsType,jdbcType=VARCHAR},
+      </if>
+      <if test="jsDepartment != null">
+        #{jsDepartment,jdbcType=VARCHAR},
+      </if>
+      <if test="jsUsername != null">
+        #{jsUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="jsPhone != null">
+        #{jsPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="parkId != null">
+        #{parkId,jdbcType=INTEGER},
+      </if>
+      <if test="agentId != null">
+        #{agentId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jinshi.entity.JinshiCompany">
+    update jinshi_company
+    <set>
+      <if test="jsName != null">
+        js_name = #{jsName,jdbcType=VARCHAR},
+      </if>
+      <if test="jsSite != null">
+        js_site = #{jsSite,jdbcType=VARCHAR},
+      </if>
+      <if test="jsType != null">
+        js_type = #{jsType,jdbcType=VARCHAR},
+      </if>
+      <if test="jsDepartment != null">
+        js_department = #{jsDepartment,jdbcType=VARCHAR},
+      </if>
+      <if test="jsUsername != null">
+        js_username = #{jsUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="jsPhone != null">
+        js_phone = #{jsPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="parkId != null">
+        parkId = #{parkId,jdbcType=INTEGER},
+      </if>
+      <if test="agentId != null">
+        agentId = #{agentId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jinshi.entity.JinshiCompany">
+    update jinshi_company
+    set js_name = #{jsName,jdbcType=VARCHAR},
+      js_site = #{jsSite,jdbcType=VARCHAR},
+      js_type = #{jsType,jdbcType=VARCHAR},
+      js_department = #{jsDepartment,jdbcType=VARCHAR},
+      js_username = #{jsUsername,jdbcType=VARCHAR},
+      js_phone = #{jsPhone,jdbcType=VARCHAR},
+      parkId = #{parkId,jdbcType=INTEGER},
+      agentId = #{agentId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectCompanyForPage" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select * from jinshi_company
+    where parkId = #{parkId,jdbcType=INTEGER} order by id desc
+    LIMIT #{pageNum,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+  </select>
+  <select id="getCompanyTotalRecords" resultType="java.lang.Integer">
+    select count(*) from jinshi_company where parkId = #{parkId,jdbcType=INTEGER}
+  </select>
+  <select id="searchCompany" resultMap="BaseResultMap">
+     SELECT * FROM jinshi_company
+    WHERE CONCAT(IFNULL(`id`,''),IFNULL(`js_name`,''),IFNULL(`js_site`,''),IFNULL(`js_type`,''),
+    IFNULL(`js_department`,''),IFNULL(`js_username`,''),IFNULL(`js_phone`,''),IFNULL(`parkId`,''),IFNULL(`agentId`,''))
+    LIKE "%"#{keyWord}"%" and parkId = #{parkId,jdbcType=INTEGER} LIMIT #{pageNum},#{pageSize}
+  </select>
+
+  <select id="selectname" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    SELECT * FROM jinshi_company where parkId = #{parkId,jdbcType=INTEGER}
+  </select>
+</mapper>

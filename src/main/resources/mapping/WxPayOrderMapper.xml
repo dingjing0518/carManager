@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jinshi.mapper.WxPayOrderMapper">
+  <resultMap id="BaseResultMap" type="com.jinshi.entity.WxPayOrder">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="out_trade_no" jdbcType="VARCHAR" property="outTradeNo" />
+    <result column="total_fee" jdbcType="VARCHAR" property="totalFee" />
+    <result column="openid" jdbcType="VARCHAR" property="openId" />
+    <result column="creat_time" jdbcType="TIMESTAMP" property="creatTime" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, out_trade_no, total_fee, open_id, creat_time , type
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from wx_pay_order
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from wx_pay_order
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.jinshi.entity.WxPayOrder">
+    insert into wx_pay_order (id, out_trade_no, total_fee,
+      openid, creat_time,type)
+    values (#{id,jdbcType=BIGINT}, #{outTradeNo,jdbcType=VARCHAR}, #{totalFee,jdbcType=VARCHAR},
+      #{openId,jdbcType=VARCHAR}, #{creatTime,jdbcType=TIMESTAMP}, #{type,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jinshi.entity.WxPayOrder">
+    insert into wx_pay_order
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="outTradeNo != null">
+        out_trade_no,
+      </if>
+      <if test="totalFee != null">
+        total_fee,
+      </if>
+      <if test="openId != null">
+        openid,
+      </if>
+      <if test="creatTime != null">
+        creat_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="outTradeNo != null">
+        #{outTradeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="totalFee != null">
+        #{totalFee,jdbcType=VARCHAR},
+      </if>
+      <if test="openId != null">
+        #{openId,jdbcType=VARCHAR},
+      </if>
+      <if test="creatTime != null">
+        #{creatTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jinshi.entity.WxPayOrder">
+    update wx_pay_order
+    <set>
+      <if test="outTradeNo != null">
+        out_trade_no = #{outTradeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="totalFee != null">
+        total_fee = #{totalFee,jdbcType=VARCHAR},
+      </if>
+      <if test="openId != null">
+        openid = #{openId,jdbcType=VARCHAR},
+      </if>
+      <if test="creatTime != null">
+        creatTime = #{creatTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jinshi.entity.WxPayOrder">
+    update wx_pay_order
+    set out_trade_no = #{outTradeNo,jdbcType=VARCHAR},
+      total_fee = #{totalFee,jdbcType=VARCHAR},
+      openid = #{openId,jdbcType=VARCHAR},
+      creat_time = #{creatTime,jdbcType=TIMESTAMP},
+      type = #{type,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

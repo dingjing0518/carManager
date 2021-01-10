@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jinshi.mapper.JinshiRoleMapper">
+    <resultMap id="BaseResultMap" type="com.jinshi.entity.JinshiRole">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="js_rolename" jdbcType="VARCHAR" property="jsRolename"/>
+        <result column="js_rolearray" jdbcType="VARCHAR" property="jsRolearray"/>
+        <result column="js_userid" jdbcType="INTEGER" property="jsUserid"/>
+        <result column="parkid" jdbcType="INTEGER" property="parkid"/>
+        <result column="agentid" jdbcType="INTEGER" property="agentid"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, js_rolename, js_rolearray,js_userid,parkid,agentid
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from jinshi_role
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from jinshi_role
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.jinshi.entity.JinshiRole">
+    insert into jinshi_role (id, js_rolename, js_rolearray,js_userid,parkid,agentid)
+    values (#{id,jdbcType=INTEGER}, #{jsRolename,jdbcType=VARCHAR}, #{jsRolearray,jdbcType=VARCHAR}, #{jsUserid,jdbcType=INTEGER},
+            #{parkid,jdbcType=INTEGER}, #{agentid,jdbcType=INTEGER})
+  </insert>
+    <insert id="insertSelective" parameterType="com.jinshi.entity.JinshiRole">
+        insert into jinshi_role
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="jsRolename != null">
+                js_rolename,
+            </if>
+            <if test="jsRolearray != null">
+              js_rolearray,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="jsRolename != null">
+                #{jsRolename,jdbcType=VARCHAR},
+            </if>
+            <if test="jsRolearray != null">
+                #{jsRolearray,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.jinshi.entity.JinshiRole">
+        update jinshi_role
+        <set>
+            <if test="jsRolename != null">
+                js_rolename = #{jsRolename,jdbcType=VARCHAR},
+            </if>
+            <if test="jsRolearray != null">
+              js_rolearray = #{jsRolearray,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.jinshi.entity.JinshiRole">
+    update jinshi_role
+    set js_rolename = #{jsRolename,jdbcType=VARCHAR},
+      js_rolearray = #{jsRolearray,jdbcType=VARCHAR},
+      js_userid = #{jsUserid,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+    <select id="selectRolename" resultMap="BaseResultMap">
+    select js_rolename from jinshi_role
+  </select>
+
+    <select id="selectByUsername" resultMap="BaseResultMap">
+    select * from jinshi_role WHERE js_rolename  = (select role_name from `user` where userName = #{username,jdbcType=VARCHAR})
+  </select>
+
+    <select id="selectByUsernameList" resultMap="BaseResultMap">
+    select
+      u.userName,
+      jr.*
+    from jinshi_role as jr
+    join `user` as u
+    on (u.role_name = jr.js_rolename )
+  </select>
+
+  <select id="selectRoleForPage" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select * from jinshi_role where js_userid in (select js_userid from jinshi_role) and parkid = #{parkid,jdbcType=INTEGER} LIMIT #{pageNum,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+  </select>
+
+  <select id="getRoleTotalRecords" resultType="java.lang.Integer">
+    select count(*) from jinshi_role
+  </select>
+    <select id="selectByRolename" parameterType="java.lang.String" resultType="java.lang.String">
+    select js_rolearray from jinshi_role where js_rolename = #{roleName,jdbcType=VARCHAR}
+  </select>
+    <select id="selectArrayByRolename" parameterType="java.lang.String" resultType="java.lang.String">
+    select js_rolearray from jinshi_role where js_rolename = #{roleName,jdbcType=VARCHAR}
+  </select>
+    <select id="selectRoleForAdmin" resultMap="BaseResultMap">
+    select * from jinshi_role where 1=1 LIMIT #{pageNum,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+  </select>
+    <select id="selectRoleForAgent" resultMap="BaseResultMap">
+    select * from jinshi_role
+    where js_rolename regexp '车场管理员'
+    LIMIT #{pageNum,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+  </select>
+    <select id="getRoleTotalForAgent" resultType="java.lang.Integer">
+    select count(*) from jinshi_role
+    where js_rolename regexp '车场管理员'
+  </select>
+    <select id="selectRoleForPark" resultMap="BaseResultMap">
+    select * from jinshi_role
+    where js_rolename regexp '车场云管理员|车场财务员|车场收费员|车场云操作员'
+    LIMIT #{pageNum,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+  </select>
+    <select id="getRoleTotalForPark" resultType="java.lang.Integer">
+    select count(*) from jinshi_role
+    where js_rolename regexp '车场云管理员|车场财务员|车场收费员|车场云操作员'
+  </select>
+    <update id="updateRoleByRolename" parameterType="com.jinshi.entity.JinshiRole">
+    update jinshi_role
+    set js_rolename = #{rolename,jdbcType=VARCHAR},
+        js_rolearray = #{rolearray,jdbcType=VARCHAR},
+        parkid = #{parkid,jdbcType=INTEGER},
+        agentid = #{agentid,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+    <select id="selectUserRolename" parameterType="java.lang.String" resultType="java.lang.String">
+    select js_rolename from jinshi_role where js_rolename = #{rolename,jdbcType=VARCHAR}
+  </select>
+
+    <select id="selectRoles" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select * from jinshi_role where js_rolename = #{roleName,jdbcType=VARCHAR}
+  </select>
+</mapper>

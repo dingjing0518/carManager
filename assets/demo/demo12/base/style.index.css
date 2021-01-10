@@ -1,0 +1,19 @@
+.daohanglan {
+    position: fixed!important;
+    overflow: hidden!important;
+    width: 255px!important;
+    height: 597px!important;
+    /* background-color: pink; */
+}
+.baizi {
+    color: #fff!important;
+}
+
+.guding {
+    position: fixed;
+    overflow: hidden;
+    width: 255px;
+    padding-top: 0px !important;
+    /* background-color: pink; */
+    /* color: #fff; */
+}

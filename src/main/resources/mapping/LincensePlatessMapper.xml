@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jinshi.mapper.LincensePlatessMapper">
+
+
+  <resultMap id="BaseResultMaps" type="com.jinshi.entity.LincensePlatess">
+    <result column="lp_lincense_plate_id_car" jdbcType="VARCHAR" property="lpLincensePlateIdCar" />
+    <result column="lp_car_type" jdbcType="VARCHAR" property="lpCarType" />
+    <result column="lp_parking_cost" jdbcType="VARCHAR" property="lpParkingCost" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    lp_lincense_plate_id_car, lp_car_type, lp_parking_cost
+  </sql>
+  <select id="selectLincenseForPage" parameterType="java.lang.Integer" resultMap="BaseResultMaps">
+    select * from lincense_plate LIMIT #{pageNum,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+  </select>
+  <select id="getLincenseTotalRecords" resultType="java.lang.Integer">
+    select count(*) from lincense_plate
+  </select>
+  <select id="searchLincense" resultMap="BaseResultMaps">
+    SELECT * FROM lincense_plate
+    WHERE CONCAT(IFNULL(`lp_lincense_plate_id_car`,''),IFNULL(`lp_car_type`,''),
+    IFNULL(`lp_parking_cost`,''))
+     LIKE "%"#{keyWork}"%" LIMIT #{pageNum},#{pageSize}
+  </select>
+
+
+
+  <select id="selectLincensePlateAll" resultMap="BaseResultMaps">
+    select * from lincense_plate
+  </select>
+
+
+  <select id="selectss" parameterType="com.jinshi.entity.LincensePlatess" resultMap="BaseResultMaps">
+   <!--<include refid="Base_Column_List"></include>
+   <where>
+     <if test="lpParkingCost != null"> and lp_parking_cost &lt;&gt;0.0</if>
+   </where>-->
+    select lp_lincense_plate_id_car, lp_car_type,lp_parking_cost
+    from lincense_plate where lp_parking_cost &lt;&gt; 0.0 AND IFNULL(`lp_parking_cost`,'') and  LIMIT #{pageNum,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER};
+  </select>
+</mapper>
